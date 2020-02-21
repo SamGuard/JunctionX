@@ -7,6 +7,8 @@ const bodyparse = require("body-parser");
 
 //Defining the local directory of the routes
 const index = require('./routes/index');
+const dbTest = require('./routes/testingSQLite');
+
 
 
 app.use(bodyparse());
@@ -14,6 +16,7 @@ app.use(express.static("public"));
 
 //Assigning directories to redirect the incoming request to
 app.use("/",index);
+app.use("/dbTest",dbTest);
 
 
 //This deals with when a directory has not been found
