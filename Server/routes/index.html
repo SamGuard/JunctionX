@@ -3,22 +3,31 @@
 <head>
 	<title>Tetris Tension</title>
 
-	<script type="text/javascript">
-		function getInputs(){
-			console.log("hello");
-			console.log(document.getElementById("username").value);
-			console.log(document.getElementById("password").value);
-		}
-	</script>
-
 </head>
 <body>
-	<form onsubmit="getInputs()">
+	<form id="signIn" onsubmit="getInputs()">
 		Name <b>
-		<input type="text" name="username">
+		<input type="text" id="username">
 		Password <b>
-		<input type="password" name="password">
-		<input type="submit" name="submit">
+		<input type="password" id="password">
+		<input type="submit" id="submit">
 	</form>
+
+
+	<script type="text/javascript">
+		var form = document.getElementById("signIn");
+		function handleForm(event) { event.preventDefault(); } 
+		form.addEventListener('submit', handleForm);
+
+
+		function getInputs(){
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+
+			
+
+			
+		}
+	</script>
 	</body>
 </html>
