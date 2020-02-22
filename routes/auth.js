@@ -9,7 +9,7 @@ function decodeBase64(string){
 }
 
 function checkAuth(str){
-	var decB64 = decode(str.split(" ")[1]);
+	var decB64 = decodeBase64(str.split(" ")[1]);
 
 	return dbHandler.userInDB(decB64.split(":")[0],decB64.split(":")[1]);
 }

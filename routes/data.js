@@ -4,13 +4,15 @@ const dbHandler = require("./dbHandler");
 const auth = require("./auth");
 
 
-router.get("/", function(req,res,next){
+router.post("/", function(req,res,next){
 	var body = req.body;
 
 	if(auth.checkAuth(req.headers["authorization"]) == false){
 		res.send("false");
 		return;
 	}
+
+	console.log(body);
 
 	//var body = JSON.parse('{"type":"trackNames","id": 1}');
 	if(body.type == "load"){
