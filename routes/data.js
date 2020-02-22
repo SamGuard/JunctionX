@@ -8,7 +8,7 @@ router.get("/", function(req,res,next){
 	var body = req.body;
 
 	if(auth.checkAuth(req.headers["authorization"]) == false){
-		res.send("GTFO");
+		res.send("false");
 		return;
 	}
 
