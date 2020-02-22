@@ -155,7 +155,8 @@ function getGoal(goalID) {
 function getGoalsForTrack(trackID) {
 	db.connect(dir);
 
-	let sql = `SELECT goal_id, name FROM goals WHERE track_id = ?`;
+	let sql = `SELECT goal_id, name FROM goals WHERE track_id = ?
+				ORDER BY name`;
 
 	var output;
 
