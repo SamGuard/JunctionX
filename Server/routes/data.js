@@ -14,9 +14,15 @@ router.get("/", function(req,res,next){
 	}else if(body.type == "goal"){
 		var dbData = dbHandler.getGoal(body.id)[0];
 		res.json(dbData);
+	}else if(body.type == "getGoalsForTrack"){
+		var dbData = dbHandler.getGoalsForTrack(trackID);
+
+		res.json(dbData);
 	}else{
 		res.json("{error: 'invalid body type'}");
 	}
+
+
 });
 
 
