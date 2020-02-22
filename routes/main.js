@@ -2,8 +2,7 @@ $(document).ready(function() {
 
     var auth;
     var firstTime = true;
-
-
+    
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
@@ -202,10 +201,14 @@ $(document).ready(function() {
 
 });
 
+/*
 function loadTracks(){
 	$.ajax({
     url: "data",
     body: JSON.stringify({type: "load"}),
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+    },
     type: 'GET',
     success: function(res) {
         console.log(res);
@@ -213,9 +216,8 @@ function loadTracks(){
     }
 });
 }
-
-function showDiv(goToRegister)
-{
+*/
+function showDiv(goToRegister) {
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
@@ -259,15 +261,15 @@ function setupAccordion() {
 
 function change(current, history){
 	if (current > history) {
-		document.getElementById("top").style = "width:"+(current - history)+"%";
-		document.getElementById("top").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom").style = "width:"+history+"%";
-		document.getElementById("bottom").className = "progress-bar progress-bar-striped progress-bar-animated";
+		document.getElementById("top1").style = "width:"+(current - history)+"%";
+		document.getElementById("top1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom1").style = "width:"+history+"%";
+		document.getElementById("bottom1").className = "progress-bar progress-bar-striped progress-bar-animated";
 	} else if (current < history) {
-		document.getElementById("top").style = "width:"+(history - current)+"%";
-		document.getElementById("top").className = "progress-bar progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom").style = "width:"+current+"%";
-		document.getElementById("bottom").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+		document.getElementById("top1").style = "width:"+(history - current)+"%";
+		document.getElementById("top1").className = "progress-bar progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom1").style = "width:"+current+"%";
+		document.getElementById("bottom1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
 	} else {
 		//switch, honky honk
 	}
