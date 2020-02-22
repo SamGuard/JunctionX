@@ -5,19 +5,15 @@ router = express.Router();
 router.get("/", function(req,res,next){
 	//var body = req.body;
 
-	var body = JSON.parse('{"type":"goal", "id": 1}');
+	var body = JSON.parse('{"type":"trackNames","id": 1}');
 
-	if(body.type == "track"){
+	if(body.type == "tracksNames"){
 		var trackNames = dbHandler.getTrackNames();
 
-		jsonOut = JSON.stringify(trackNames);
-
-		res.json(jsonOut);
+		res.json(trackNames);
 	}else if(body.type == "goal"){
-		var dbData = dbHandler.getGoal(body.id);
-		var out = JSON.parse('{}');
-		out.goalID
-
+		var dbData = dbHandler.getGoal(body.id)[0];
+		res.json(dbData);
 	}else{
 		res.json("{error: 'invalid body type'}");
 	}
