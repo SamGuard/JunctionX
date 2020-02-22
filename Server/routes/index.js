@@ -13,12 +13,6 @@ router.get("/", function (req, res, next){//When a get request is made on this d
 	fs.readFile(process.cwd() + "/routes/index.html", "utf8", function(err, data){
 		res.send(data);//Send data back to user
 	});
-
-	router.post("/", function(req, res, next){
-		console.log(req);
-		res.send("f you jospa");
-	});
-	
 });
 
 
