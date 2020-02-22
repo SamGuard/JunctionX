@@ -245,7 +245,7 @@ function setWeeklyScore(username, date) {
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
-module.exports.getTrack = getTrack;
+module.exports.getTracks = getTracks;
 module.exports.getTrackNames = getTrackNames;
 module.exports.getGoal = getGoal;
 module.exports.getGoalsForTrack = getGoalsForTrack;
