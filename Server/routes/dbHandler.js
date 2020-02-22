@@ -130,7 +130,7 @@ function getTrackNames() {
 	});
 
 	db.close();
-	
+
 	return output;
 }
 
@@ -152,8 +152,7 @@ function getGoal(goalID) {
 	return output;
 }
 
-
-getTrackNames();
-
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
+module.exports.getTrackNames = getTrackNames;
+module.exports.getGoal = getGoal;
