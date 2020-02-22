@@ -1,5 +1,6 @@
 $(document).ready(function() {
-
+    var auth;
+    var firstTime = true;
 
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
@@ -7,11 +8,24 @@ $(document).ready(function() {
     $("#registerInfo").hide();
     $("#loginSectionID").css("height", "400px");
 
+    $('#password').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#loginSubmit").trigger("click");
+        }
+    });
+    
+    $('#registerRepeatPassword').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#registerSubmit").trigger("click");
+        }
+    });
+    
     $("#loginSubmit").click(function(){
 
         var username = $("#username").val();
         var password = $("#password").val();
-
         $.ajax({
             url: "auth",
             method: "POST",
@@ -28,9 +42,10 @@ $(document).ready(function() {
                     $("#leftMenuIcon").show();
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
+                    auth = "Basic " + btoa(username + ":" + password);
                 }
                 else {
-                    // incorrect password
+                    $("#loginIncorrect").show();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -66,6 +81,10 @@ $(document).ready(function() {
                         $("#loginSectionID").addClass("loginSectionHidden");
                     }
                     else {
+                        $("#registerIncorrect").text("That username is already taken.");
+
+                        $("#registerIncorrect").show();
+                        
                         // username used already
                     }
                 },
@@ -76,6 +95,9 @@ $(document).ready(function() {
         }
         else {
             // two password boxes not the same
+            $("#registerIncorrect").text("Passwords do not match.");
+
+            $("#registerIncorrect").show();
         }
 
 
@@ -85,12 +107,18 @@ $(document).ready(function() {
         if (mainScreenOn) {
             $("#leftMenuID").removeClass("leftMenu");
             $("#leftMenuID").addClass("leftMenuHidden");
+            $(".accordion").hide();
         }
         else {
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
-            $("#leftMenuID").show();
-            setupAccordion();
+            $(".accordion").show();
+            
+            if (firstTime) {
+                $("#leftMenuID").show();
+                setupAccordion();
+                firstTime = false;
+            }
         }
         mainScreenOn = !mainScreenOn;
 
@@ -157,6 +185,17 @@ function setupAccordion() {
           panel.style.display = "none";
         } else {
           panel.style.display = "block";
+        }
+        var j;
+        var acc = document.getElementsByClassName("accordion");
+        for (j = 0; j < acc.length; j++) {
+            if (acc[j] != this) {
+                var panel = acc[j].nextElementSibling;
+                if (panel.style.display == "block") {
+                    panel.style.display = "none";
+                    acc[j].classList.toggle("active");
+                }
+            }
         }
       });
     }
