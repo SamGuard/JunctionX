@@ -206,11 +206,11 @@ $(document).ready(function() {
         console.log("sending");
         $.ajax({
             url: "data",
-            body: JSON.stringify({type: "load"}),
+            data: JSON.stringify({type: "load"}),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", coolAuth);
             },
-            type: 'POST',
+            type: 'GET',
             success: function(res) {
                 console.log(res);
                 alert(res);
