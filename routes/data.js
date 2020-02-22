@@ -7,8 +7,6 @@ const auth = require("./auth");
 router.get("/", function(req,res,next){
 	var body = req.body;
 
-	console.log(body);
-
 	if(auth.checkAuth(req.headers["authorization"]) == false){
 		res.send("false");
 		return;
@@ -27,9 +25,8 @@ router.get("/", function(req,res,next){
 
 		res.json(out);
 
-
-	}else if(body.type == "stats-weekly"){
-
+	}else{
+		res.send("FAIL");
 	}
 
 
