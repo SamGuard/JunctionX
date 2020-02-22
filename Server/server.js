@@ -13,8 +13,6 @@ console.log("listening on port " + port);
 
 
 
-const statsCalc = require("./calcStats");
 setTimeout(function(){
-	statsCalc.update();
 	console.log("update");
 },100000);
