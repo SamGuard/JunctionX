@@ -210,7 +210,7 @@ $(document).ready(function() {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", coolAuth);
             },
-            type: 'GET',
+            type: 'POST',
             success: function(res) {
                 console.log(res);
                 alert(res);
