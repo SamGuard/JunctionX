@@ -152,7 +152,31 @@ function getGoal(goalID) {
 	return output;
 }
 
+function getGoalsForTrack(trackID) {
+	db.connect(dir);
+
+	let sql = `SELECT goal_id, name FROM goals WHERE track_id = ?
+				ORDER BY name`;
+
+	var output;
+
+	db.run(sql, [trackID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		console.log(res);
+	});
+
+	db.close();
+	return output;
+}
+
+
+getTrackNames();
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
+module.exports.getTrack = getTrack;
 module.exports.getTrackNames = getTrackNames;
 module.exports.getGoal = getGoal;
+module.exports.getGoalsForTrack = getGoalsForTrack;
