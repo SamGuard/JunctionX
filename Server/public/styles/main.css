@@ -60,7 +60,7 @@ body{
 }
 
 
-.loginSection{
+.loginSection {
     border: 3px solid black;
     height: 50%;
     white-space: nowrap;
@@ -76,6 +76,7 @@ body{
     animation-name: loginAppear;
     animation-duration: 2s;
     animation-iteration-count: 1;
+	overflow: auto;
 }
 
 .loginSectionHidden{
