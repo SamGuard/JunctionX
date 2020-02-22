@@ -4,6 +4,8 @@ var async = require("async");
 
 const db = require("sqlite-sync");
 
+var dir = "./routes/db/userdata.db";
+
 
 var genRandomString = function(length){
     return crypto.randomBytes(Math.ceil(length/2))
@@ -29,7 +31,7 @@ function verify(attemptPassword, actual){
 }
 
 function addUser(username, password){
-	db.connect('./routes/db/userdata.db');
+	db.connect(dir);
 
 	let user = [username, password];
 
@@ -69,7 +71,7 @@ function addUser(username, password){
 }
 
 function userInDB(username, password){
-	db.connect('./routes/db/userdata.db');
+	db.connect(dir);
 
 	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
 
@@ -85,6 +87,26 @@ function userInDB(username, password){
 			}else{
 				output = false;
 			}
+		});
+	
+
+	db.close();
+	return output;
+}
+
+
+function getTrack(trackNum){
+	db.connect(dir);
+
+	let sql = 'SELECT * FROM tracks WHERE track_id = ?';
+
+	var output;
+
+	db.run(sql, [trackNum], (res) => {
+			if (res.error) {
+				throw res.error;
+			}
+			console.log(res);
 		});
 	
 
