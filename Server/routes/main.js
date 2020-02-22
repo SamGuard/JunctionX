@@ -5,6 +5,7 @@ $(document).ready(function() {
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
     $("#registerInfo").hide();
+    $("#loginSectionID").css("height", "400px");
 
     $("#loginSubmit").click(function(){
 
@@ -89,6 +90,7 @@ $(document).ready(function() {
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
             $("#leftMenuID").show();
+            setupAccordion();
         }
         mainScreenOn = !mainScreenOn;
 
@@ -133,9 +135,29 @@ function showDiv(goToRegister)
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
+        $("#loginSectionID").css("height", "450px");
+
     }
     else {
         $("#loginInfo").show();
         $("#registerInfo").hide();
+        $("#loginSectionID").css("height", "400px");
+
+    }
+}
+function setupAccordion() {
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
     }
 }
