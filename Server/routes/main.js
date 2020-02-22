@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    
-    
+
+
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
     $("#registerInfo").hide();
 
     $("#loginSubmit").click(function(){
-        
+
         var username = $("#username").val();
         var password = $("#password").val();
 
@@ -39,13 +39,13 @@ $(document).ready(function() {
 
 
     });
-    
+
     $("#registerSubmit").click(function(){
-        
+
         var username = $("#registerUsername").val();
         var password = $("#registerPassword").val();
         var repeatPassword = $("#registerRepeatPassword").val();
-        
+
         if (password == repeatPassword) {
             $.ajax({
                 url: "register",
@@ -93,6 +93,39 @@ $(document).ready(function() {
         mainScreenOn = !mainScreenOn;
 
     });
+
+    var fishAssets = ["Asset/87848148_617952652362559_8000237377555529728_n.png", "Asset/87280708_202912071075942_8515485405552836608_n.png"];
+    var fishDivs = [];
+
+    for (var i = 0; i < fishAssets.length; i++) {
+        fishDivs.push(document.createElement('img'));
+        fishDivs[i].src = fishAssets[i];
+        fishDivs[i].id = 'fish' + i;
+        fishDivs[i].className = 'fish';
+        fishDivs[i].style.height = 10 + Math.floor(Math.random() * 5) + '%';
+        fishDivs[i].style.width = 'auto';
+        fishDivs[i].style.right = '-300px';
+        fishDivs[i].style.right = '-300px';
+        fishDivs[i].style.top = Math.floor(Math.random() * 20) + 40 + '%';
+        fishDivs[i].style.position = 'absolute';
+        console.log("fish " + i + " done");
+        document.getElementById('fish-container').appendChild(fishDivs[i]);
+    };
+
+
+    function runBackground() {
+        for (var i = 0; i < fishDivs.length; i++) {
+            fishDivs[i].style.right = parseInt(fishDivs[i].style.right) + 5 + 'px';
+            if(parseInt(fishDivs[i].style.right) > $(document).width() + 200) {
+                console.log("fish " + i + " left");
+                fishDivs[i].style.top = Math.floor(Math.random() * 20) + 40 + '%';
+                fishDivs[i].style.right = '-300px'
+            }
+        };
+
+        setTimeout(runBackground, 10);
+    }
+    runBackground();
 });
 
 function showDiv(goToRegister)
