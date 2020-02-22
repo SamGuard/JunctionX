@@ -9,7 +9,7 @@ $(document).ready(function() {
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-            data: {username: "fuck you sam"},
+            data: JSON.stringify({aa: "fuck you sam"}),
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -25,4 +25,13 @@ $(document).ready(function() {
         
 
     });
+    
+    $("#leftMenuIcon").click(function(){
+        $("#leftMenuID").removeClass("leftMenu");
+        $("#leftMenuID").addClass("leftMenuHidden");
+        $("#loginSectionID").removeClass("loginSection");
+        $("#loginSectionID").addClass("loginSectionHidden");
+    });
+    
+    
 });

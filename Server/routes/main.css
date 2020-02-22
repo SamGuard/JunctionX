@@ -1,27 +1,107 @@
 @keyframes appear{
-    0%{height: 40px; width: 0px}
-    50%{height: 40px; width: 200px}
-    100%{height: 300px}
+    0%{height: 50px; width: 0px}
+    50%{height: 50px; width: calc(100% - 124px);}
+    100%{height: 60%}
 }
 
-#test{
-    position: absolute;
-    width: 200px;
-    height: 300px;
-    left: -100;
-    border: 1px solid black;
+@keyframes disappear{
+    0%{height: 60%; visibility: visible}
+    50%{height: 50px; width: calc(100% - 124px);}
+    100%{height: 50px; width: 0px; visibility: visible}
+}
+
+@keyframes loginAppear{
+    0%{padding: 0px; height: 0%; width: 0%}
+    50%{padding: 0px; height: 0%; width: 40%}
+    100%{padding: 20px; height: 30%; width: 40%}
+}
+
+@keyframes loginDisappear{
+    0%{padding: 20px; height: 30%; width: 40%; visibility: visible}
+    50%{padding: 0px; height: 0%; width: 40%}
+    100%{padding: 0px; height: 0%; width: 0%; visibility: visible}
+}
+
+.leftMenu{
+    padding: 3px;
+    border: 3px solid black;
+    position:fixed;
+    left: 62px;
+    top: 10%;
+    width: calc(100% - 124px);
+    margin-right: 1px;
+    height: 60%;
+    overflow: hidden;
+    background-color: white;
     animation-name: appear;
     animation-duration: 2s;
     animation-iteration-count: 1;
-    overflow: hidden;
+}
 
+.leftMenuHidden{
+    visibility: hidden;
+    padding: 3px;
+    border: 3px solid black;
+    position:fixed;
+    left: 62px;
+    top: 10%;
+    width: calc(100% - 124px);
+    margin-right: 1px;
+    height: 60%;
+    overflow: hidden;
+    background-color: white;
+    animation-name: disappear;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+
+
+.loginSection{
+    border: 3px solid black;
+    height: 30%;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    overflow: hidden;
+    background-color: white;
+    animation-name: loginAppear;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+}
+
+.loginSectionHidden{
+    visibility: hidden;
+    border: 3px solid black;
+    height: 30%;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    overflow: hidden;
+    background-color: white;
+    animation-name: loginDisappear;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
 }
 
 #leftMenuIcon{
     padding: 3px;
-    border:2px solid black;
-}
-
-.test2{
+    border:3px solid black;
+    width: 50px;
+    height: 50px;
+    font-size:45px;
+    text-align: center;
     display: inline-block;
+    vertical-align: middle;
+    position: fixed;
+    left: 0px;
+    top: 10%;
+    border-radius: 5px;
 }
