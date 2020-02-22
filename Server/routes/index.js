@@ -15,5 +15,11 @@ router.get("/", function (req, res, next){//When a get request is made on this d
 	});
 });
 
+router.get("/", function (req, res, next){//When a get request is made on this directory on this server this function is called
+	
+	fs.readFile(process.cwd() + "/routes/main.js", "utf8", function(err, data){
+		res.send(data);//Send data back to user
+	});
+});
 
 module.exports = router;
