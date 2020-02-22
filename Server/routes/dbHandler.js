@@ -78,7 +78,7 @@ function userInDB(username, password){
 }
 
 
-function getTracks(){
+function getTracks(trackID){
 	db.connect(dir);
 
 	let sql = 'SELECT * FROM tracks';
