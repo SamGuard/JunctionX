@@ -177,7 +177,7 @@ input[type=text], input[type=password], button, select {
 .accordion {
 
   background-color: #eee;
-  border-radius: 50px;
+  border-radius: 25px;
   color: #444;
   cursor: pointer;
   padding: 18px;
