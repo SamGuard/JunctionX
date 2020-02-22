@@ -21,7 +21,7 @@ var sha512 = function(password, salt){
 };
 
 function verify(attemptPassword, salt){
-	var password = "put db password here";
+	var password = "put db password here patricia";
 
 	if(sha512(attemptPassword, salt) == password){
 		return true;
