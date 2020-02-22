@@ -16,17 +16,12 @@ router.post("/", function(req, res, next){
 
 	console.log(req.headers["authorization"]);
 
-	var decB64 =  decodeBase64(req.headers["authorization"].split(" ")[1]);
+	var decB64 = decodeBase64(req.headers["authorization"].split(" ")[1]);
 
-	var username = decB64.split(":")[0];
-	var password = decB64.split(":")[1];
-
+	
 
 
-	dbHandler.userInDB(username, password);
-
-
-	res.send("thank you jospa register");
+	res.send(dbHandler.addUser(decB64.split(":")[0], decB64.split(":")[1]));
 });
 
 

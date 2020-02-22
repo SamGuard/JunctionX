@@ -4,7 +4,7 @@ $(document).ready(function() {
         var password = $("#password").val();
         
         $.ajax({
-            url: "register",
+            url: "auth",
             method: "POST",
             dataType: "json",
             crossDomain: true,
