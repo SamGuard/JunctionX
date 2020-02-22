@@ -106,7 +106,7 @@ function getTrack(trackID){
 			if (res.error) {
 				throw res.error;
 			}
-			console.log(res);
+			output = res;
 		});
 	
 
