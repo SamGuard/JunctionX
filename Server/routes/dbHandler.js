@@ -221,6 +221,28 @@ function getGoalScore(username, dateStart, trackID, goalID) {
 	return output;
 }
 
+function getNextID(table) {
+	db.connect(dir);
+
+	let sql = `SELECT * FROM ?`;
+
+	var output;
+
+	db.run(sql, [table], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		output = res.length;
+	});
+
+	db.close;
+	return output;
+}
+
+function setWeeklyScore(username, date) {
+	
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getTrack = getTrack;
