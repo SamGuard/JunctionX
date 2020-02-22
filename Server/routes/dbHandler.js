@@ -122,16 +122,15 @@ function getTrackNames() {
 
 	var output;
 
-	db.all(sql, [], (res, rows) => {
+	db.run(sql, [], (res) => {
 		if (res.error) {
 			throw res.error;
 		}
-		rows.forEach((row) => {
-			console.log(row.name);
-		});
+		output = res;
 	});
 
 	db.close();
+	
 	return output;
 }
 
@@ -153,6 +152,8 @@ function getGoal(goalID) {
 	return output;
 }
 
+
+getTrackNames();
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
