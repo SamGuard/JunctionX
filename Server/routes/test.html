@@ -2,10 +2,13 @@
 <html>
 	<head>
 		<title>Not Tetris Tension</title>
+                <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	    <script src="main.js"></script>
 	    <link rel="stylesheet" type="text/css" href="main.css">
 	    <script src="https://kit.fontawesome.com/ecc5823153.js" crossorigin="anonymous"></script>
+
 
 	</head>
     
@@ -13,12 +16,16 @@
         <div id="leftMenuIcon">
             <i class="fas fa-bars"></i>
         </div>   
-        <div id="leftMenuID" class="leftMenu">
+        <div id="leftMenuID" class="leftMenuHidden">
 
         </div>
         
         <div id="loginSectionID" class="loginSection">
-            LOGIN
+            LOGIN<br>
+            <input type="text" id="username"> <br>
+    PASSWORD <br>
+    <input type="password" id="password"> <br> <br>
+            <button id="submit">Submit</button><br><br><br>
         </div>
         
 	</body>

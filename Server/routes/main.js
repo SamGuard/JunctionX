@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $("#submit").click(function(){
         var username = $("#username").val();
         var password = $("#password").val();
@@ -9,11 +10,7 @@ $(document).ready(function() {
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-<<<<<<< HEAD
-            data: JSON.stringify({aa: "fuck you sam"}),
-=======
             data: JSON.stringify({aaa: "fuck you sam"}),
->>>>>>> origin/master
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -36,6 +33,4 @@ $(document).ready(function() {
         $("#loginSectionID").removeClass("loginSection");
         $("#loginSectionID").addClass("loginSectionHidden");
     });
-    
-    
 });
