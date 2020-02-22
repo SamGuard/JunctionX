@@ -9,7 +9,7 @@ $(document).ready(function() {
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-            data: {username: "fuck you sam"},
+            data: JSON.stringify({aaa: "fuck you sam"}),
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
