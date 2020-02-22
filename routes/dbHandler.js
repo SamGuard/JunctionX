@@ -16,7 +16,7 @@ function verify(attemptPassword, actual){
 function addUser(username, password){
 	db.connect(dir);
 
-	let user = [username, password];
+	let user = [username, password, 50];
 
 
 	let sql = `SELECT * FROM users WHERE username = ?`
@@ -38,7 +38,7 @@ function addUser(username, password){
 	
 
 
-	sql = `INSERT INTO users(username, pass) VALUES(?, ?)`;
+	sql = `INSERT INTO users(username, pass, avg_score) VALUES(?, ?, ?)`;
 
 	console.log("running");
 	db.run(sql, user, function(res) {

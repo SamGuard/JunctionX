@@ -15,7 +15,8 @@ router.get("/", function(req, res, next){
 
 	db.run(`CREATE TABLE IF NOT EXISTS users (
 					username TEXT PRIMARY KEY, 
-					pass TEXT NOT NULL)`, 
+					pass TEXT NOT NULL,
+					avg_score INTEGER)`, 
 		function(res) {
 			if(res.error){
 				throw res.error;
