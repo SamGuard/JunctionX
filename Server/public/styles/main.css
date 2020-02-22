@@ -13,15 +13,14 @@
 @keyframes loginAppear{
     0%{padding: 0px; height: 0%; width: 0%}
     50%{padding: 0px; height: 0%; width: 40%}
-    100%{padding: 20px; height: 30%; width: 40%}
+    100%{padding: 20px; height: 50%; width: 40%}
 }
 
 @keyframes loginDisappear{
-    0%{padding: 20px; height: 30%; width: 40%; visibility: visible}
+    0%{padding: 20px; height: 50%; width: 40%; visibility: visible}
     50%{padding: 0px; height: 0%; width: 40%}
     100%{padding: 0px; height: 0%; width: 0%; visibility: visible}
 }
-
 
 body{
     font-family: "Titillium Web", sans-serif;
@@ -63,7 +62,8 @@ body{
 
 .loginSection{
     border: 3px solid black;
-    height: 30%;
+    height: 50%;
+    white-space: nowrap;
     width: 40%;
     top: 50%;
     left: 50%;
@@ -81,7 +81,7 @@ body{
 .loginSectionHidden{
     visibility: hidden;
     border: 3px solid black;
-    height: 30%;
+    height: 50%;
     width: 40%;
     top: 50%;
     left: 50%;
@@ -112,7 +112,7 @@ body{
 }
 
 
-input[type=text], input[type=password], select {
+input[type=text], input[type=password], button, select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -120,15 +120,4 @@ input[type=text], input[type=password], select {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }

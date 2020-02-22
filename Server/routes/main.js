@@ -1,14 +1,12 @@
 $(document).ready(function() {
     
+    
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
+    $("#registerInfo").hide();
 
-    $("#submit").click(function(){
-        $("#leftMenuIcon").show();
-
-        $("#loginSectionID").removeClass("loginSection");
-        $("#loginSectionID").addClass("loginSectionHidden");
+    $("#loginSubmit").click(function(){
         
         var username = $("#username").val();
         var password = $("#password").val();
@@ -25,13 +23,59 @@ $(document).ready(function() {
                 xhr.setRequestHeader("X-Mobile", "false");
             },
             success: function (data) {
-                console.log(data);
-                console.log(data.status);
+                if (data.status == true) {
+                    $("#leftMenuIcon").show();
+                    $("#loginSectionID").removeClass("loginSection");
+                    $("#loginSectionID").addClass("loginSectionHidden");
+                }
+                else {
+                    // incorrect password
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
             }
         });
+
+
+    });
+    
+    $("#registerSubmit").click(function(){
+        
+        var username = $("#registerUsername").val();
+        var password = $("#registerPassword").val();
+        var repeatPassword = $("#registerRepeatPassword").val();
+        
+        if (password == repeatPassword) {
+            $.ajax({
+                url: "register",
+                method: "POST",
+                dataType: "json",
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+                    xhr.setRequestHeader("X-Mobile", "false");
+                },
+                success: function (data) {
+                    if (data.status == true) {
+                        $("#leftMenuIcon").show();
+                        $("#loginSectionID").removeClass("loginSection");
+                        $("#loginSectionID").addClass("loginSectionHidden");
+                    }
+                    else {
+                        // username used already
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        else {
+            // two password boxes not the same
+        }
 
 
     });
@@ -50,3 +94,15 @@ $(document).ready(function() {
 
     });
 });
+
+function showDiv(goToRegister)
+{
+    if (goToRegister) {
+        $("#loginInfo").hide();
+        $("#registerInfo").show();
+    }
+    else {
+        $("#loginInfo").show();
+        $("#registerInfo").hide();
+    }
+}

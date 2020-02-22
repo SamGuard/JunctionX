@@ -21,11 +21,28 @@
         </div>
         
         <div id="loginSectionID" class="loginSection">
-            LOGIN<br>
-            <input type="text" id="username"> <br>
-    PASSWORD <br>
-    <input type="password" id="password"> <br> <br>
-            <button id="submit">Submit</button><br><br><br>
+            <div id="loginInfo">
+                <h1>LOG IN</h1>
+                USERNAME<br>
+                <input type="text" id="username"> <br>
+                PASSWORD <br>
+                <input type="password" id="password"> <br>
+                <button id="loginSubmit">Log In</button><br>
+                
+                <a onClick="showDiv(true);" href="#">NO ACCOUNT? REGISTER HERE</a>
+            </div>
+            <div id="registerInfo">
+                <h1>REGISTER</h1>
+                USERNAME<br>
+                <input type="text" id="registerUsername"> <br>
+                PASSWORD <br>
+                <input type="password" id="registerPassword"> <br> 
+                REPEAT PASSWORD <br>
+                <input type="password" id="registerRepeatPassword"> <br>
+                <button id="registerSubmit">Register</button><br>
+                <a onClick="showDiv(false);" href="#">LOG IN HERE</a><br><br>
+
+            </div>
         </div>
         
 	</body>
