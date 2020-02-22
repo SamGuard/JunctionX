@@ -1,0 +1,27 @@
+@keyframes appear{
+    0%{height: 40px; width: 0px}
+    50%{height: 40px; width: 200px}
+    100%{height: 300px}
+}
+
+#test{
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    left: -100;
+    border: 1px solid black;
+    animation-name: appear;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    overflow: hidden;
+
+}
+
+#leftMenuIcon{
+    padding: 3px;
+    border:2px solid black;
+}
+
+.test2{
+    display: inline-block;
+}
