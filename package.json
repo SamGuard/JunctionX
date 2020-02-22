@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.0.0",
+  "version": "12.13.0",
   "description": "Backend for sustainability application",
   "main": "server.js",
   "scripts": {
