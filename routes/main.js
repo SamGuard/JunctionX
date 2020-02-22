@@ -3,11 +3,8 @@ $(document).ready(function() {
     var auth;
     var firstTime = true;
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     var mainScreenOn = false;
+    
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
     $("#registerInfo").hide();
