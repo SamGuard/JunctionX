@@ -15,14 +15,14 @@ $(document).ready(function() {
             $("#loginSubmit").trigger("click");
         }
     });
-    
+
     $('#registerRepeatPassword').keyup(function(e){
         if(e.keyCode == 13)
         {
             $("#registerSubmit").trigger("click");
         }
     });
-    
+
     $("#loginSubmit").click(function(){
 
         var username = $("#username").val();
@@ -88,7 +88,7 @@ $(document).ready(function() {
                         $("#registerIncorrect").text("That username is already taken.");
 
                         $("#registerIncorrect").show();
-                        
+
                         // username used already
                     }
                 },
@@ -117,7 +117,7 @@ $(document).ready(function() {
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
             $(".accordion").show();
-            
+
             if (firstTime) {
                 $("#leftMenuID").show();
                 setupAccordion();
@@ -164,6 +164,24 @@ $(document).ready(function() {
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
+    var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
+    var seaBedGritIndex = 0;
+
+    var seaBedGrit = document.getElementById("seaBedGrit")
+    seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
+
+    var seaAnimationAssets = ['/Asset/Sea_animation/Neutral_Sea-1.png', '/Asset/Sea_animation/Neutral_Sea-2.png', '/Asset/Sea_animation/Neutral_Sea-3.png'];
+    var seaAnimationIndex = 0;
+
+    var seaAnimation = document.getElementById("seaAnimation");
+    seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
+
+    var kelpAssets = ['/Asset/Kelp/Neutral_Sea-1.png', '/Asset/Kelp/Neutral_Sea-2.png', '/Asset/Kelp/Neutral_Sea-3.png', '/Asset/Kelp/Neutral_Sea-4.png'];
+    var kelpIndex = 0;
+
+    var kelp = document.getElementById("seaKelp");
+    kelp.src = kelpAssets[kelpIndex];
+
     function nextImages() {
         for (var img in fishAssets) {
             fishCurrentIndex[img]++;
@@ -176,6 +194,27 @@ $(document).ready(function() {
             fishDivs[img].src = fishAssets[img][fishCurrentIndex[img]];
             //console.log("Changed");
         };
+
+        seaBedGritIndex++;
+        if(seaBedGritIndex >= seaBedGritAssets.length) {
+            seaBedGritIndex = 0;
+        }
+        console.log(seaBedGritIndex);
+        seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
+
+        seaAnimationIndex++;
+        if(seaAnimationIndex >= seaAnimationAssets.length) {
+            seaAnimationIndex = 0;
+        }
+        console.log(seaAnimationIndex);
+        seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
+
+        kelpIndex++;
+        if(kelpIndex >= kelpAssets.length) {
+            kelpIndex = 0;
+        }
+        console.log(kelpIndex);
+        kelp.src = kelpAssets[kelpIndex];
     }
 
     function runAnimation() {
@@ -201,6 +240,22 @@ $(document).ready(function() {
     runAnimation();
     runImageToggler();
     
+    function change(current, history, num){
+        if (current > history) {
+            document.getElementById("top" + num).style = "width:"+(current - history)+"%";
+            document.getElementById("top" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+history+"%";
+            document.getElementById("bottom" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+        } else if (current < history) {
+            document.getElementById("top" + num).style = "width:"+(history - current)+"%";
+            document.getElementById("top" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+current+"%";
+            document.getElementById("bottom" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+        } else {
+            //switch, honky honk
+            // what????
+        }
+    }
     
     function loadTracks(){
         console.log("sending");
@@ -213,13 +268,32 @@ $(document).ready(function() {
             },
             type: 'POST',
             success: function(res) {
-                console.log(res);
-                alert(res);
+                console.log(res.tracks);
+                for (var i = 0; i < res.tracks.length; i++) {
+                    console.log(res.tracks[i]);
+                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i);
+                    change(7, 93, i);
+                }
             }
         });
     }
+    
+    
+
 
 });
+
+
+function addTrack(name, description, goals, num) {
+    
+    $("#leftMenuID").append("<div class='accordion'>" + name + "<div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='panel'><p>" + goals[0].name + "</p></div>");
+}
+
+function addGoal(goa) {
+    var output = "";
+    
+    return output;
+}
 
 function showDiv(goToRegister) {
     if (goToRegister) {
@@ -261,20 +335,4 @@ function setupAccordion() {
         }
       });
     }
-}
-
-function change(current, history){
-	if (current > history) {
-		document.getElementById("top1").style = "width:"+(current - history)+"%";
-		document.getElementById("top1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom1").style = "width:"+history+"%";
-		document.getElementById("bottom1").className = "progress-bar progress-bar-striped progress-bar-animated";
-	} else if (current < history) {
-		document.getElementById("top1").style = "width:"+(history - current)+"%";
-		document.getElementById("top1").className = "progress-bar progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom1").style = "width:"+current+"%";
-		document.getElementById("bottom1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-	} else {
-		//switch, honky honk
-	}
 }
