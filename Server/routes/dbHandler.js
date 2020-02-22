@@ -6,23 +6,6 @@ const db = require("sqlite-sync");
 
 var dir = "./routes/db/userdata.db";
 
-
-var genRandomString = function(length){
-    return crypto.randomBytes(Math.ceil(length/2))
-            .toString('hex') /** convert to hexadecimal format */
-            .slice(0,length);   /** return required number of characters */
-};
-
-var sha512 = function(password, salt){
-    var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
-    hash.update(password);
-    var value = hash.digest('hex');
-    return {
-        salt:salt,
-        passwordHash:value
-    };
-};
-
 function verify(attemptPassword, actual){
 	if(attemptPassword == actual){
 		return true;
@@ -192,10 +175,27 @@ function getWeeklyScore(username, dateStart) {
 	return output;
 }
 
-function get
+function getTrackScore(username, dateStart, trackID) {
+	db.connect(dir);
 
+	let sql = `SELECT * FROM trackScore 
+				WHERE trackID = ?
+				AND week_id = (SELECT week_id FROM weeklyScore
+								WHERE username = ?
+								AND dateStart = ?)`;
 
-getTrackNames();
+	var output;
+
+	db.run(sql, [trackID, username, dateStart], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
@@ -204,3 +204,4 @@ module.exports.getTrackNames = getTrackNames;
 module.exports.getGoal = getGoal;
 module.exports.getGoalsForTrack = getGoalsForTrack;
 module.exports.getWeeklyScore = getWeeklyScore;
+module.exports.getTrackScore = getTrackScore;
