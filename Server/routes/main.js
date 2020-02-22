@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var auth;
+    var firstTime = true;
+
 
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
@@ -7,11 +10,24 @@ $(document).ready(function() {
     $("#registerInfo").hide();
     $("#loginSectionID").css("height", "400px");
 
+    $('#password').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#loginSubmit").trigger("click");
+        }
+    });
+    
+    $('#registerRepeatPassword').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#registerSubmit").trigger("click");
+        }
+    });
+    
     $("#loginSubmit").click(function(){
 
         var username = $("#username").val();
         var password = $("#password").val();
-
         $.ajax({
             url: "auth",
             method: "POST",
@@ -28,9 +44,10 @@ $(document).ready(function() {
                     $("#leftMenuIcon").show();
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
+                    auth = "Basic " + btoa(username + ":" + password);
                 }
                 else {
-                    // incorrect password
+                    $("#loginIncorrect").show();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -66,6 +83,10 @@ $(document).ready(function() {
                         $("#loginSectionID").addClass("loginSectionHidden");
                     }
                     else {
+                        $("#registerIncorrect").text("That username is already taken.");
+
+                        $("#registerIncorrect").show();
+                        
                         // username used already
                     }
                 },
@@ -76,6 +97,9 @@ $(document).ready(function() {
         }
         else {
             // two password boxes not the same
+            $("#registerIncorrect").text("Passwords do not match.");
+
+            $("#registerIncorrect").show();
         }
 
 
@@ -85,49 +109,96 @@ $(document).ready(function() {
         if (mainScreenOn) {
             $("#leftMenuID").removeClass("leftMenu");
             $("#leftMenuID").addClass("leftMenuHidden");
+            $(".accordion").hide();
         }
         else {
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
-            $("#leftMenuID").show();
-            setupAccordion();
+            $(".accordion").show();
+            
+            if (firstTime) {
+                $("#leftMenuID").show();
+                setupAccordion();
+                firstTime = false;
+            }
         }
         mainScreenOn = !mainScreenOn;
 
     });
 
-    var fishAssets = ["Asset/87848148_617952652362559_8000237377555529728_n.png", "Asset/87280708_202912071075942_8515485405552836608_n.png"];
-    var fishDivs = [];
+    var fishAssets = {
+        "Fish_1": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
+        "Fish_2": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png']
+    }
 
-    for (var i = 0; i < fishAssets.length; i++) {
-        fishDivs.push(document.createElement('img'));
-        fishDivs[i].src = fishAssets[i];
-        fishDivs[i].id = 'fish' + i;
-        fishDivs[i].className = 'fish';
-        fishDivs[i].style.height = 10 + Math.floor(Math.random() * 5) + '%';
-        fishDivs[i].style.width = 'auto';
-        fishDivs[i].style.right = '-300px';
-        fishDivs[i].style.right = '-300px';
-        fishDivs[i].style.top = Math.floor(Math.random() * 20) + 40 + '%';
-        fishDivs[i].style.position = 'absolute';
-        console.log("fish " + i + " done");
-        document.getElementById('fish-container').appendChild(fishDivs[i]);
-    };
+    var fishDivs = {};
 
+    var fishCurrentIndex = {
+        "Fish_1": 0,
+        "Fish_2": 0
+    }
 
-    function runBackground() {
-        for (var i = 0; i < fishDivs.length; i++) {
-            fishDivs[i].style.right = parseInt(fishDivs[i].style.right) + 5 + 'px';
-            if(parseInt(fishDivs[i].style.right) > $(document).width() + 200) {
-                console.log("fish " + i + " left");
-                fishDivs[i].style.top = Math.floor(Math.random() * 20) + 40 + '%';
-                fishDivs[i].style.right = '-300px'
+    var fishCurrentSpeeds = {
+    }
+
+    for (const key in fishAssets) {
+        console.log("Spawned fish: " + key + ", Array: " + fishAssets[key]);
+        spawnFish(key);
+    }
+
+    function spawnFish(name) {
+        fishDivs[name] = (document.createElement('img'));
+        fishDivs[name].src = fishAssets[name][fishCurrentIndex[name]];
+        fishDivs[name].id = name;
+        fishCurrentSpeeds[name] = 3 + Math.floor(Math.random() * 10);
+        fishDivs[name].className = 'fish';
+        fishDivs[name].style.height = 10 + Math.floor(Math.random() * 5) + '%';
+        fishDivs[name].style.width = 'auto';
+        fishDivs[name].style.right = '-300px';
+        fishDivs[name].style.right = '-300px';
+        fishDivs[name].style.top = Math.floor(Math.random() * 20) + 40 + '%';
+        fishDivs[name].style.position = 'absolute';
+        console.log("fish " + name + " done");
+        document.getElementById('fish-container').appendChild(fishDivs[name]);
+    }
+
+    function nextImages() {
+        for (var img in fishAssets) {
+            fishCurrentIndex[img]++;
+
+            if(fishCurrentIndex[img] >= fishAssets[img].length) {
+                fishCurrentIndex[img] = 0;
+            }
+
+            //console.log("fishCurrentIndex[img]: " + fishCurrentIndex[img]);
+            fishDivs[img].src = fishAssets[img][fishCurrentIndex[img]];
+            //console.log("Changed");
+        };
+    }
+
+    function runAnimation() {
+        for (const imgKey in fishDivs) {
+            var img = fishDivs[imgKey];
+            img.style.right = parseInt(img.style.right) + fishCurrentSpeeds[imgKey] + 'px';
+            if(parseInt(img.style.right) > $(document).width() + 200) {
+                console.log("fish: " + imgKey + " left");
+                img.style.top = Math.floor(Math.random() * 20) + 40 + '%';
+                img.style.right = -Math.floor(Math.random() * 600) + 'px'
+                fishCurrentSpeeds[imgKey] = 3 + Math.floor(Math.random() * 10);
             }
         };
 
-        setTimeout(runBackground, 10);
+        setTimeout(runAnimation, 20);
     }
-    runBackground();
+
+    function runImageToggler() {
+        nextImages()
+        setTimeout(runImageToggler, 200);
+    }
+
+    runAnimation();
+    runImageToggler();
+
 });
 
 function showDiv(goToRegister)
@@ -157,6 +228,17 @@ function setupAccordion() {
           panel.style.display = "none";
         } else {
           panel.style.display = "block";
+        }
+        var j;
+        var acc = document.getElementsByClassName("accordion");
+        for (j = 0; j < acc.length; j++) {
+            if (acc[j] != this) {
+                var panel = acc[j].nextElementSibling;
+                if (panel.style.display == "block") {
+                    panel.style.display = "none";
+                    acc[j].classList.toggle("active");
+                }
+            }
         }
       });
     }

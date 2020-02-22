@@ -85,7 +85,6 @@ body{
     animation-name: loginAppear;
     animation-duration: 2s;
     animation-iteration-count: 1;
-	overflow: auto;
 }
 
 .loginSectionHidden{
@@ -175,12 +174,13 @@ input[type=text], input[type=password], button, select {
 }
 
 .accordion {
+    
   background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
   width: 100%;
-  border: none;
+  border: 3px;
   text-align: left;
   outline: none;
   font-size: 15px;
