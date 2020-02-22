@@ -81,6 +81,7 @@ $(document).ready(function() {
                         $("#leftMenuIcon").show();
                         $("#loginSectionID").removeClass("loginSection");
                         $("#loginSectionID").addClass("loginSectionHidden");
+                        loadTracks();
                     }
                     else {
                         $("#registerIncorrect").text("That username is already taken.");
@@ -200,6 +201,18 @@ $(document).ready(function() {
     runImageToggler();
 
 });
+
+function loadTracks(){
+	$.ajax({
+    url: "data",
+    body: JSON.stringify({type: "load"}),
+    type: 'GET',
+    success: function(res) {
+        console.log(res);
+        alert(res);
+    }
+});
+}
 
 function showDiv(goToRegister)
 {
