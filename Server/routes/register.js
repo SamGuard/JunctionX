@@ -10,7 +10,7 @@ function decodeBase64(string){
 	return buff.toString('base64');
 }
 
-router.post("/register", function(req, res, next){
+router.post("/", function(req, res, next){
 	console.log(req.body.username);
 	console.log(req.body.password);
 
