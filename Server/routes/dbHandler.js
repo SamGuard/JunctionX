@@ -5,24 +5,6 @@ var async = require("async");
 const db = require("sqlite-sync");
 
 
-/*
-console.log("openning sb");
-
-db.connect('./routes/db/login.db');
-
-db.run('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL, pass TEXT NOT NULL UNIQUE, salt TEXT NOT NULL)', 
-	function(res) {
-		if(res.error){
-			throw res.error;
-		}
-		console.log("created users table");
-	});
-
-db.close();
-*/
-
-
-
 var genRandomString = function(length){
     return crypto.randomBytes(Math.ceil(length/2))
             .toString('hex') /** convert to hexadecimal format */
@@ -47,10 +29,9 @@ function verify(attemptPassword, actual){
 }
 
 function addUser(username, password){
-	db.connect('./routes/db/login.db');
+	db.connect('./routes/db/userdata.db');
 
-	let salt = genRandomString(32);
-	let user = [username, password, "salttest"];
+	let user = [username, password];
 
 
 	let sql = `SELECT * FROM users WHERE username = ?`
@@ -72,7 +53,7 @@ function addUser(username, password){
 	
 
 
-	sql = `INSERT INTO users(username, pass, salt) VALUES(?, ?, ?)`;
+	sql = `INSERT INTO users(username, pass) VALUES(?, ?)`;
 
 	console.log("running");
 	db.run(sql, user, function(res) {
@@ -87,7 +68,7 @@ function addUser(username, password){
 }
 
 function userInDB(username, password){
-	db.connect('./routes/db/login.db');
+	db.connect('./routes/db/userdata.db.db');
 
 	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
 
