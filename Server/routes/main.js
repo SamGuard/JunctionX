@@ -1,15 +1,16 @@
 $(document).ready(function() {
+
     $("#submit").click(function(){
         var username = $("#username").val();
         var password = $("#password").val();
-        
+
         $.ajax({
             url: "auth",
             method: "POST",
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({aa: "fuck you sam"}),
+            data: JSON.stringify({aaa: "fuck you sam"}),
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -22,16 +23,14 @@ $(document).ready(function() {
 
             }
         });
-        
+
 
     });
-    
+
     $("#leftMenuIcon").click(function(){
         $("#leftMenuID").removeClass("leftMenu");
         $("#leftMenuID").addClass("leftMenuHidden");
         $("#loginSectionID").removeClass("loginSection");
         $("#loginSectionID").addClass("loginSectionHidden");
     });
-    
-    
 });
