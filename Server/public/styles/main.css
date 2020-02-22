@@ -147,6 +147,7 @@ input[type=text], input[type=password], button, select {
     position: absolute;
     z-index: -5;
 }
+<<<<<<< HEAD
 
 #leftMenuID::-webkit-scrollbar-track
 {
@@ -174,7 +175,7 @@ input[type=text], input[type=password], button, select {
 }
 
 .accordion {
-    
+
   background-color: #eee;
   border-radius: 50px;
   color: #444;
@@ -191,7 +192,7 @@ input[type=text], input[type=password], button, select {
 }
 
 .active, .accordion:hover {
-  background-color: #ccc; 
+  background-color: #ccc;
 }
 
 .panel {
@@ -200,3 +201,5 @@ input[type=text], input[type=password], button, select {
   background-color: white;
   overflow: hidden;
 }
+=======
+>>>>>>> parent of e609964... Small changes
