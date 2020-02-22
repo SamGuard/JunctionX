@@ -235,13 +235,11 @@ $(document).ready(function() {
 
     runAnimation();
     runImageToggler();
-<<<<<<< Updated upstream
 
 });
 
 function showDiv(goToRegister)
 {
-=======
 
     function change(current, history, num){
         if (current > history) {
@@ -299,7 +297,6 @@ function addGoal(goa) {
 }
 
 function showDiv(goToRegister) {
->>>>>>> Stashed changes
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
@@ -340,7 +337,6 @@ function setupAccordion() {
       });
     }
 }
-<<<<<<< Updated upstream
 
 function change(current, history){
 	if (current > history) {
@@ -357,5 +353,3 @@ function change(current, history){
 		//switch, honky honk
 	}
 }
-=======
->>>>>>> Stashed changes
