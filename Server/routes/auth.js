@@ -25,7 +25,7 @@ router.post("/", function (req, res, next){//When a get request is made on this 
 	password = string.split(":")[1];
 	console.log("hello");
 
-	res.json({username: username, password: password, status: dbHandler.userInDB(username,password)});
+	res.json({username: username, status: dbHandler.userInDB(username,password)});
 });
 
 module.exports = router;

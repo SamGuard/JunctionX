@@ -68,7 +68,7 @@ function addUser(username, password){
 }
 
 function userInDB(username, password){
-	db.connect('./routes/db/userdata.db.db');
+	db.connect('./routes/db/userdata.db');
 
 	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
 
