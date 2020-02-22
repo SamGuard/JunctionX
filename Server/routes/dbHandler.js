@@ -1,7 +1,26 @@
 var crypto = require('crypto');
+var async = require("async");
 
 
-const sqlite3 = require("sqlite3").verbose();
+const db = require("sqlite-sync");
+
+
+/*
+console.log("openning sb");
+
+db.connect('./routes/db/login.db');
+
+db.run('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL, pass TEXT NOT NULL UNIQUE, salt TEXT NOT NULL)', 
+	function(res) {
+		if(res.error){
+			throw res.error;
+		}
+		console.log("created users table");
+	});
+
+db.close();
+*/
+
 
 
 var genRandomString = function(length){
@@ -20,34 +39,75 @@ var sha512 = function(password, salt){
     };
 };
 
-function verify(attemptPassword, salt){
-	var password = "put db password here patricia";
-
-	if(sha512(attemptPassword, salt) == password){
+function verify(attemptPassword, actual){
+	if(attemptPassword == actual){
 		return true;
 	}
 	return false;
 }
 
 function addUser(username, password){
-	//Do stuff
+	db.connect('./routes/db/login.db');
+
+	let salt = genRandomString(32);
+	let user = [username, password, "salttest"];
+
+
+	let sql = `SELECT * FROM users WHERE username = ?`
+
+	var output = true;
+	db.run(sql, [username], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+
+		if(res.length > 0){
+			output = false;
+		}
+	});
+
+	if(output == false){
+		return false;
+	}
+	
+
+
+	sql = `INSERT INTO users(username, pass, salt) VALUES(?, ?, ?)`;
+
+	console.log("running");
+	db.run(sql, user, function(res) {
+		if (res.error) {
+			return console.error(res.error);
+		}
+		console.log(`A user has been created with id ${res}`);
+	});
+
+	db.close();
+
 }
 
 function userInDB(username, password){
-	//Do stuff
-	let db = new sqlite3.Database('./db/login.db', sqlite3.OPEN_READ, (err) => {
-		if (err) {
-			return console.error(err.message);
-		}
-		console.log('Connected to login database');
-	})
+	db.connect('./routes/db/login.db');
 
-	db.close((err) => {
-		if (err) {
-			return console.error(err.message);
-		}
-		console.log('Closed the login databse connection');
-	})
+	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
+
+	var output;
+
+	db.run(sql, [username], (res) => {
+			if (res.error) {
+				throw res.error;
+			}
+			console.log(res);
+			if(res.length > 0){
+				output = verify(password, res[0].pass);
+			}else{
+				output = false;
+			}
+		});
+	
+
+	db.close();
+	return output;
 }
 
 
