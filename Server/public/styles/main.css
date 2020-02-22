@@ -13,11 +13,11 @@
 @keyframes loginAppear{
     0%{padding: 0px; height: 0%; width: 0%}
     50%{padding: 0px; height: 0%; width: 40%}
-    100%{padding: 20px; height: 50%; width: 40%}
+    100%{padding: 20px; height: 450px; width: 40%}
 }
 
 @keyframes loginDisappear{
-    0%{padding: 20px; height: 50%; width: 40%; visibility: visible}
+    0%{padding: 20px; height: 450px; width: 40%; visibility: visible}
     50%{padding: 0px; height: 0%; width: 40%}
     100%{padding: 0px; height: 0%; width: 0%; visibility: visible}
 }
@@ -31,6 +31,7 @@ body{
 	width: calc(100% - 20px);
 	height: 40%;
 	padding: 6px;
+	overflow: hidden;
 }
 
 .leftMenu{
@@ -69,7 +70,7 @@ body{
 
 .loginSection {
     border: 3px solid black;
-    height: 50%;
+    height: 450px;
     white-space: nowrap;
     width: 40%;
     top: 50%;
@@ -83,13 +84,12 @@ body{
     animation-name: loginAppear;
     animation-duration: 2s;
     animation-iteration-count: 1;
-	overflow: auto;
 }
 
 .loginSectionHidden{
     visibility: hidden;
     border: 3px solid black;
-    height: 50%;
+    height: 450px;
     width: 40%;
     top: 50%;
     left: 50%;

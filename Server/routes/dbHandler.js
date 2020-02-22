@@ -130,7 +130,7 @@ function getTrackNames() {
 	});
 
 	db.close();
-	
+
 	return output;
 }
 
@@ -152,8 +152,30 @@ function getGoal(goalID) {
 	return output;
 }
 
+<<<<<<< HEAD
+function getGoalsForTrack(trackID) {
+	db.connect(dir);
+
+	let sql = `SELECT goal_id, name FROM goals WHERE track_id = ?`;
+
+	var output;
+
+	db.run(sql, [trackID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		console.log(res);
+	});
+
+	db.close();
+	return output;
+}
+
 
 getTrackNames();
-
+=======
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
+module.exports.getTrackNames = getTrackNames;
+module.exports.getGoal = getGoal;
+>>>>>>> 40a0f9ea0481b5874fdd683b9253a60cd8210977
