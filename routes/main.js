@@ -240,6 +240,22 @@ $(document).ready(function() {
     runAnimation();
     runImageToggler();
     
+    function change(current, history, num){
+        if (current > history) {
+            document.getElementById("top" + num).style = "width:"+(current - history)+"%";
+            document.getElementById("top" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+history+"%";
+            document.getElementById("bottom" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+        } else if (current < history) {
+            document.getElementById("top" + num).style = "width:"+(history - current)+"%";
+            document.getElementById("top" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+current+"%";
+            document.getElementById("bottom" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+        } else {
+            //switch, honky honk
+            // what????
+        }
+    }
     
     function loadTracks(){
         console.log("sending");
@@ -252,13 +268,32 @@ $(document).ready(function() {
             },
             type: 'POST',
             success: function(res) {
-                console.log(res);
-                alert(res);
+                console.log(res.tracks);
+                for (var i = 0; i < res.tracks.length; i++) {
+                    console.log(res.tracks[i]);
+                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i);
+                    change(7, 93, i);
+                }
             }
         });
     }
+    
+    
+
 
 });
+
+
+function addTrack(name, description, goals, num) {
+    
+    $("#leftMenuID").append("<div class='accordion'>" + name + "<div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='panel'><p>" + goals[0].name + "</p></div>");
+}
+
+function addGoal(goa) {
+    var output = "";
+    
+    return output;
+}
 
 function showDiv(goToRegister) {
     if (goToRegister) {
@@ -300,20 +335,4 @@ function setupAccordion() {
         }
       });
     }
-}
-
-function change(current, history){
-	if (current > history) {
-		document.getElementById("top1").style = "width:"+(current - history)+"%";
-		document.getElementById("top1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom1").style = "width:"+history+"%";
-		document.getElementById("bottom1").className = "progress-bar progress-bar-striped progress-bar-animated";
-	} else if (current < history) {
-		document.getElementById("top1").style = "width:"+(history - current)+"%";
-		document.getElementById("top1").className = "progress-bar progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom1").style = "width:"+current+"%";
-		document.getElementById("bottom1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-	} else {
-		//switch, honky honk
-	}
 }
