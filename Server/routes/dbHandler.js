@@ -60,10 +60,12 @@ function addUser(username, password){
 	});
 
 	let salt = genRandomString(32);
-	let user = [username, sha512(password, salt), salt];
+	let user = [username, "password123", "salttest"];
 
-	let sql = 'INSERT INTO users(username, password, salt) VALUES(?, ?, ?)';
+	let sql = `INSERT INTO users(username, pass, salt) VALUES(${user[0]}, ${user[1]}, ${user[2]})`;
 
+
+	console.log("running");
 	db.run(sql, user, function(err) {
 		if (err) {
 			return console.error(err.message);

@@ -23,7 +23,7 @@ router.post("/", function(req, res, next){
 
 
 
-	//dbHandler.addUser(req.body.username, req.body.password);
+	dbHandler.addUser(username, password);
 
 
 	res.send("thank you jospa register");
