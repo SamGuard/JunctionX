@@ -12,12 +12,12 @@ router.get("/", function(req,res,next){
 		jsonOut = JSON.stringify(trackNames);
 
 		res.json(jsonOut);
-
 	}else if(body.type == "goals"){
+		console.log("goals");
 		res.json(JSON.stringify(dbHandler.getGoal(body.id)));
+	}else{
+		res.json("{error: 'invalid body type'}");
 	}
-
-	res.json("{error: 'invalid body type'}");
 });
 
 
