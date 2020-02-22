@@ -8,10 +8,16 @@ function decodeBase64(string){
 	return buff.toString('ascii');
 }
 
-function checkAuth(str){
-	var decB64 = decodeBase64(str.split(" ")[1]);
+function getUsername(str){
+	return decodeBase64(str.split(" ")[1]).split(":")[0];
+}
 
-	return dbHandler.userInDB(decB64.split(":")[0],decB64.split(":")[1]);
+function getPassword(str){
+	return decodeBase64(str.split(" ")[1]).split(":")[1];
+}
+
+function checkAuth(str){
+	return dbHandler.userInDB(getUsername(str),getPassword(str));
 }
 
 
@@ -30,3 +36,5 @@ router.post("/", function (req, res, next){//When a get request is made on this 
 
 module.exports = router;
 module.exports.checkAuth = checkAuth;
+module.exports.getUsername = getUsername;
+module.exports.getPassword = getPassword;
