@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var auth;
+    var coolAuth = "";
     var firstTime = true;
     
     var mainScreenOn = false;
@@ -27,6 +27,8 @@ $(document).ready(function() {
 
         var username = $("#username").val();
         var password = $("#password").val();
+        coolAuth = "Basic " + btoa(username + ":" + password);
+        console.log(coolAuth);
         $.ajax({
             url: "auth",
             method: "POST",
@@ -35,7 +37,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             cache: false,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+                xhr.setRequestHeader("Authorization", coolAuth);
                 xhr.setRequestHeader("X-Mobile", "false");
             },
             success: function (data) {
@@ -43,7 +45,8 @@ $(document).ready(function() {
                     $("#leftMenuIcon").show();
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
-                    auth = "Basic " + btoa(username + ":" + password);
+                    console.log(coolAuth);
+                    loadTracks();
                 }
                 else {
                     $("#loginIncorrect").show();
@@ -80,7 +83,6 @@ $(document).ready(function() {
                         $("#leftMenuIcon").show();
                         $("#loginSectionID").removeClass("loginSection");
                         $("#loginSectionID").addClass("loginSectionHidden");
-                        loadTracks();
                     }
                     else {
                         $("#registerIncorrect").text("That username is already taken.");
@@ -198,25 +200,25 @@ $(document).ready(function() {
 
     runAnimation();
     runImageToggler();
-
-});
-
-/*
-function loadTracks(){
-	$.ajax({
-    url: "data",
-    body: JSON.stringify({type: "load"}),
-    beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", auth);
-    },
-    type: 'GET',
-    success: function(res) {
-        console.log(res);
-        alert(res);
+    
+    
+    function loadTracks(){
+        $.ajax({
+            url: "data",
+            body: JSON.stringify({type: "load"}),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", coolAuth);
+            },
+            type: 'GET',
+            success: function(res) {
+                console.log(res);
+                alert(res);
+            }
+        });
     }
+
 });
-}
-*/
+
 function showDiv(goToRegister) {
     if (goToRegister) {
         $("#loginInfo").hide();
