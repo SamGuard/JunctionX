@@ -10,3 +10,7 @@ function addUser(username, password, salt){
 function userInDB(username, password, salt){
 	//Do stuff
 }
+
+
+module.exports.addUser = addUser;
+module.exports.userInDB = userInDB;

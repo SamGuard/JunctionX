@@ -9,6 +9,7 @@ const bodyparse = require("body-parser");
 const index = require('./routes/index');
 const login = require('./routes/login');
 const dbTest = require('./routes/testingSQLite');
+const dbCreator = require("./routes/dbCreator");
 
 
 
@@ -19,6 +20,7 @@ app.use(express.static("public"));
 app.use("/",index);
 app.use("/login", login);
 app.use("/dbTest",dbTest);
+app.use("/cdb", dbCreator);
 
 
 //This deals with when a directory has not been found
