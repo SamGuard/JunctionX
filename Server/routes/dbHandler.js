@@ -4,6 +4,8 @@ var async = require("async");
 
 const db = require("sqlite-sync");
 
+var dir = "./routes/db/userdata.db";
+
 
 var genRandomString = function(length){
     return crypto.randomBytes(Math.ceil(length/2))
@@ -29,7 +31,7 @@ function verify(attemptPassword, actual){
 }
 
 function addUser(username, password){
-	db.connect('./routes/db/userdata.db');
+	db.connect(dir);
 
 	let user = [username, password];
 
@@ -69,7 +71,7 @@ function addUser(username, password){
 }
 
 function userInDB(username, password){
-	db.connect('./routes/db/userdata.db');
+	db.connect(dir);
 
 	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
 
@@ -87,6 +89,65 @@ function userInDB(username, password){
 			}
 		});
 	
+
+	db.close();
+	return output;
+}
+
+
+function getTrack(trackID){
+	db.connect(dir);
+
+	let sql = 'SELECT * FROM tracks WHERE track_id = ?';
+
+	var output;
+
+	db.run(sql, [trackID], (res) => {
+			if (res.error) {
+				throw res.error;
+			}
+			console.log(res);
+		});
+	
+
+	db.close();
+	return output;
+}
+
+function getTrackNames() {
+	db.connect(dir);
+
+	let sql = `SELECT track_id, name FROM tracks
+				ORDER BY name`;
+
+	var output;
+
+	db.all(sql, [], (res, rows) => {
+		if (res.error) {
+			throw res.error;
+		}
+		rows.forEach((row) => {
+			console.log(row.name);
+		});
+	});
+
+	db.close();
+	return output;
+}
+
+function getGoal(goalID) {
+	db.connect(dir);
+
+	let sql = `SELECT * FROM goals WHERE goal_id = ?`;
+
+	var output;
+
+	db.run(sql, [goalID], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		console.log(res);
+	});
 
 	db.close();
 	return output;
