@@ -15,7 +15,7 @@ router.get("/", function(req,res,next){
 		out.tracks = tracks;
 
 		for(var i = 0; i < out.tracks.length; i++){
-			out.tracks[i].goals = dbHandler.getGoalForTrack(out.tracks[i].track_id);
+			out.tracks[i].goals = dbHandler.getGoalsForTrack(out.tracks[i].track_id);
 		}
 
 		res.json(out);
