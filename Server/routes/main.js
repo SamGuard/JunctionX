@@ -1,6 +1,15 @@
 $(document).ready(function() {
+    
+    var mainScreenOn = false;
+    $("#leftMenuIcon").hide();
+    $("#leftMenuID").hide();
 
     $("#submit").click(function(){
+        $("#leftMenuIcon").show();
+
+        $("#loginSectionID").removeClass("loginSection");
+        $("#loginSectionID").addClass("loginSectionHidden");
+        
         var username = $("#username").val();
         var password = $("#password").val();
 
@@ -10,7 +19,6 @@ $(document).ready(function() {
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({aaa: "fuck you sam"}),
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -18,6 +26,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 console.log(data);
+                console.log(data.status);
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -28,9 +37,16 @@ $(document).ready(function() {
     });
 
     $("#leftMenuIcon").click(function(){
-        $("#leftMenuID").removeClass("leftMenu");
-        $("#leftMenuID").addClass("leftMenuHidden");
-        $("#loginSectionID").removeClass("loginSection");
-        $("#loginSectionID").addClass("loginSectionHidden");
+        if (mainScreenOn) {
+            $("#leftMenuID").removeClass("leftMenu");
+            $("#leftMenuID").addClass("leftMenuHidden");
+        }
+        else {
+            $("#leftMenuID").removeClass("leftMenuHidden");
+            $("#leftMenuID").addClass("leftMenu");
+            $("#leftMenuID").show();
+        }
+        mainScreenOn = !mainScreenOn;
+
     });
 });
