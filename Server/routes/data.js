@@ -14,7 +14,7 @@ router.get("/", function(req,res,next){
 		res.json(jsonOut);
 
 	}else if(body.type == "goals"){
-		res.json(JSON.stringify(dbHandler.getGoal(body.id));
+		res.json(JSON.stringify(dbHandler.getGoal(body.id)));
 	}
 
 	res.json("{error: 'invalid body type'}");
