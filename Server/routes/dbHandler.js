@@ -65,6 +65,7 @@ function addUser(username, password){
 
 	db.close();
 
+	return output;
 }
 
 function userInDB(username, password){
@@ -72,7 +73,7 @@ function userInDB(username, password){
 
 	let sql = 'SELECT DISTINCT pass pass FROM users WHERE username = ?';
 
-	var output;
+	var output = true;
 
 	db.run(sql, [username], (res) => {
 			if (res.error) {
