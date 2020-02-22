@@ -138,7 +138,7 @@ function getGoal(goalID) {
 function getGoalsForTrack(trackID) {
 	db.connect(dir);
 
-	let sql = `SELECT goal_id, name, desc FROM goals 
+	let sql = `SELECT goal_id, name, desc, max_num_per_week FROM goals 
 				WHERE track_id = ?
 				ORDER BY name`;
 
@@ -240,7 +240,23 @@ function getNextID(table) {
 }
 
 function setWeeklyScore(username, date) {
-	
+	var nextID = getNextID('weeklyScore');
+
+	db.connect(dir);
+
+	let sql = `INSERT INTO weeklyScore(week_id, username, date_start, total_score)
+				VALUES(?, ?, ?, ?)`;
+
+	let newWeek = [nextID, username, date, 0];
+
+	db.run(sql, newWeek, (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		console.log(`A new week has been started for ${username} starting at ${date}`);
+	});
+
+	db.close();
 }
 
 module.exports.addUser = addUser;
