@@ -41,10 +41,8 @@ var sha512 = function(password, salt){
     };
 };
 
-function verify(attemptPassword, salt){
-	var password = "CCSS4F4";
-
-	if(sha512(attemptPassword, salt) == password){
+function verify(attemptPassword, actual){
+	if(attemptPassword = actual){
 		return true;
 	}
 	return false;
@@ -92,8 +90,8 @@ function userInDB(username, password){
 			throw err;
 		}
 		return row
-		  ? console.log(row.username)
-		  : console.log(`No user found with the username ${username}`);
+		  ? console.log(verify(password, row.pass))
+		  : console.log("unable to find username");
 	});
 
 	db.close((err) => {
