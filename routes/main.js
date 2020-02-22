@@ -65,43 +65,53 @@ $(document).ready(function() {
         var username = $("#registerUsername").val();
         var password = $("#registerPassword").val();
         var repeatPassword = $("#registerRepeatPassword").val();
+        if (username == "") {
+            $("#registerIncorrect").text("You may not leave the username field empty.");
+            $("#registerIncorrect").show();
 
-        if (password == repeatPassword) {
-            $.ajax({
-                url: "register",
-                method: "POST",
-                dataType: "json",
-                crossDomain: true,
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-                    xhr.setRequestHeader("X-Mobile", "false");
-                },
-                success: function (data) {
-                    if (data.status == true) {
-                        $("#leftMenuIcon").show();
-                        $("#loginSectionID").removeClass("loginSection");
-                        $("#loginSectionID").addClass("loginSectionHidden");
-                    }
-                    else {
-                        $("#registerIncorrect").text("That username is already taken.");
-
-                        $("#registerIncorrect").show();
-
-                        // username used already
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                }
-            });
+        }
+        else if (password == "") {
+            $("#registerIncorrect").text("You may not leave the password field empty.");
+            $("#registerIncorrect").show();
         }
         else {
-            // two password boxes not the same
-            $("#registerIncorrect").text("Passwords do not match.");
+            if (password == repeatPassword) {
+                $.ajax({
+                    url: "register",
+                    method: "POST",
+                    dataType: "json",
+                    crossDomain: true,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+                        xhr.setRequestHeader("X-Mobile", "false");
+                    },
+                    success: function (data) {
+                        if (data.status == true) {
+                            $("#leftMenuIcon").show();
+                            $("#loginSectionID").removeClass("loginSection");
+                            $("#loginSectionID").addClass("loginSectionHidden");
+                        }
+                        else {
+                            $("#registerIncorrect").text("That username is already taken.");
 
-            $("#registerIncorrect").show();
+                            $("#registerIncorrect").show();
+
+                            // username used already
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+            else {
+                // two password boxes not the same
+                $("#registerIncorrect").text("Passwords do not match.");
+
+                $("#registerIncorrect").show();
+            }
         }
 
 
@@ -299,7 +309,7 @@ function showDiv(goToRegister) {
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
-        $("#loginSectionID").css("height", "450px");
+        $("#loginSectionID").css("height", "500px");
 
     }
     else {
