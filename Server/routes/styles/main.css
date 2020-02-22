@@ -31,7 +31,6 @@ body{
 	width: calc(100% - 20px);
 	height: 40%;
 	padding: 6px;
-    overflow: hidden;
 }
 
 .leftMenu{
@@ -48,7 +47,6 @@ body{
     animation-name: appear;
     animation-duration: 2s;
     animation-iteration-count: 1;
-    z-index: 20;
 }
 
 .leftMenuHidden{
@@ -119,7 +117,6 @@ body{
     left: 0px;
     top: 10%;
     border-radius: 5px;
-    z-index: 10;
 }
 
 input[type=text], input[type=password], button, select {
@@ -130,22 +127,6 @@ input[type=text], input[type=password], button, select {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-.background{
-    top: 0px;
-    left: 50%;
-    transform: translate(-50%, 0px);
-    width: auto;
-    height: 100%;
-    position: absolute;
-    z-index: -10;
-    overflow: hidden;
-}
-
-.fish{
-    position: absolute;
-    z-index: -5;
 }
 
 #leftMenuID::-webkit-scrollbar-track
@@ -162,12 +143,15 @@ input[type=text], input[type=password], button, select {
 
 #leftMenuID::-webkit-scrollbar-thumb
 {
-	background-color: #ff2222;
+	background-color: #000000;
 }
 
 .scrollbar
 {
+	margin-left: 30px;
 	float: left;
+	height: 300px;
+	width: 65px;
 	background: #F5F5F5;
 	overflow-y: scroll;
 	margin-bottom: 25px;
