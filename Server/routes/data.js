@@ -3,11 +3,11 @@ router = express.Router();
 
 
 router.get("/", function(req,res,next){
-	//var body = req.body;
+	var body = req.body;
 
-	var body = JSON.parse('{"type":"trackNames","id": 1}');
+	//var body = JSON.parse('{"type":"trackNames","id": 1}');
 
-	if(body.type == "tracksNames"){
+	if(body.type == "trackNames"){
 		var trackNames = dbHandler.getTrackNames();
 
 		res.json(trackNames);
