@@ -62,7 +62,7 @@ function addUser(username, password){
 	let salt = genRandomString(32);
 	let user = [username, "password123", "salttest"];
 
-	let sql = `INSERT INTO users(username, pass, salt) VALUES(${user[0]}, ${user[1]}, ${user[2]})`;
+	let sql = `INSERT INTO users(username, pass, salt) VALUES(?, ?, ?)`;
 
 
 	console.log("running");
@@ -70,7 +70,7 @@ function addUser(username, password){
 		if (err) {
 			return console.error(err.message);
 		}
-		console.log('A user has been created with id ${this.lastID}');
+		console.log(`A user has been created with id ${this.lastID}`);
 	});
 
 	db.close();
@@ -91,7 +91,7 @@ function userInDB(username, password){
 		if (err) {
 			throw err;
 		}
-		rows.forEach((row) => {
+		row.forEach((row) => {
 			console.log(row.username);
 		});
 	});
