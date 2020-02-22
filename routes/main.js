@@ -1,9 +1,8 @@
 $(document).ready(function() {
 
-    var auth;
+    var coolAuth = "";
     var firstTime = true;
-
-
+    
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
@@ -28,6 +27,8 @@ $(document).ready(function() {
 
         var username = $("#username").val();
         var password = $("#password").val();
+        coolAuth = "Basic " + btoa(username + ":" + password);
+        console.log(coolAuth);
         $.ajax({
             url: "auth",
             method: "POST",
@@ -36,7 +37,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             cache: false,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+                xhr.setRequestHeader("Authorization", coolAuth);
                 xhr.setRequestHeader("X-Mobile", "false");
             },
             success: function (data) {
@@ -44,7 +45,8 @@ $(document).ready(function() {
                     $("#leftMenuIcon").show();
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
-                    auth = "Basic " + btoa(username + ":" + password);
+                    console.log(coolAuth);
+                    loadTracks();
                 }
                 else {
                     $("#loginIncorrect").show();
@@ -198,11 +200,27 @@ $(document).ready(function() {
 
     runAnimation();
     runImageToggler();
+    
+    
+    function loadTracks(){
+        console.log("sending");
+        $.ajax({
+            url: "data",
+            data: JSON.stringify({type: "load"}),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", coolAuth);
+            },
+            type: 'GET',
+            success: function(res) {
+                console.log(res);
+                alert(res);
+            }
+        });
+    }
 
 });
 
-function showDiv(goToRegister)
-{
+function showDiv(goToRegister) {
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
@@ -246,15 +264,15 @@ function setupAccordion() {
 
 function change(current, history){
 	if (current > history) {
-		document.getElementById("top").style = "width:"+(current - history)+"%";
-		document.getElementById("top").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom").style = "width:"+history+"%";
-		document.getElementById("bottom").className = "progress-bar progress-bar-striped progress-bar-animated";
+		document.getElementById("top1").style = "width:"+(current - history)+"%";
+		document.getElementById("top1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom1").style = "width:"+history+"%";
+		document.getElementById("bottom1").className = "progress-bar progress-bar-striped progress-bar-animated";
 	} else if (current < history) {
-		document.getElementById("top").style = "width:"+(history - current)+"%";
-		document.getElementById("top").className = "progress-bar progress-bar-striped progress-bar-animated";
-		document.getElementById("bottom").style = "width:"+current+"%";
-		document.getElementById("bottom").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+		document.getElementById("top1").style = "width:"+(history - current)+"%";
+		document.getElementById("top1").className = "progress-bar progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom1").style = "width:"+current+"%";
+		document.getElementById("bottom1").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
 	} else {
 		//switch, honky honk
 	}

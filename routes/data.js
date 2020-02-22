@@ -8,9 +8,11 @@ router.get("/", function(req,res,next){
 	var body = req.body;
 
 	if(auth.checkAuth(req.headers["authorization"]) == false){
-		res.send("GTFO");
+		res.send("false");
 		return;
 	}
+
+	console.log(body);
 
 	//var body = JSON.parse('{"type":"trackNames","id": 1}');
 	if(body.type == "load"){
@@ -25,9 +27,8 @@ router.get("/", function(req,res,next){
 
 		res.json(out);
 
-
-	}else if(body.type == "stats-weekly"){
-
+	}else{
+		res.send("FAIL");
 	}
 
 
