@@ -27,8 +27,6 @@ router.post("/", function(req,res,next){
 
 	}else if(body.type == "newGoal"){
 		dbHandler.updateGoalScore(getUsername(req.headers["authorization"],new Date(),body.trackID,body.goalID))
-
-
 	}else{
 		res.send("FAIL");
 	}
