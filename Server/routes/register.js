@@ -19,9 +19,7 @@ router.post("/", function(req, res, next){
 	var decB64 = decodeBase64(req.headers["authorization"].split(" ")[1]);
 
 	
-
-
-	res.send(dbHandler.addUser(decB64.split(":")[0], decB64.split(":")[1]));
+	res.json({username: decB64.split(":")[0], status: dbHandler.addUser(decB64.split(":")[0], decB64.split(":")[1])});
 });
 
 

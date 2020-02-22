@@ -14,7 +14,7 @@ $(document).ready(function() {
         var password = $("#password").val();
 
         $.ajax({
-            url: "auth",
+            url: "register",
             method: "POST",
             dataType: "json",
             crossDomain: true,
