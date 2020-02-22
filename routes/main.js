@@ -203,6 +203,7 @@ $(document).ready(function() {
     
     
     function loadTracks(){
+        console.log("sending");
         $.ajax({
             url: "data",
             body: JSON.stringify({type: "load"}),
