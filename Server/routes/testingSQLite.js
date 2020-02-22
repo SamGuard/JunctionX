@@ -10,9 +10,22 @@ router.get("/", function (req, res, next){//When a get request is made on this d
 	console.log("connection of testing sqlite");
 	
 	//put code here
+	const sqlite3 = require("sqlite3").verbose();
+
+	let db = new sqlite3.Database(':memory:', (err) => {
+		if (err) {
+			return console.error(err.message);
+		}
+		console.log('Connected to the in-memory SQLite database.');
+	});
 
 
-	
+	db.close((err) => {
+		if (err) {
+			return console.error(err.message);
+		}
+		console.log('Close the database connection.');
+	})
 });
 
 
