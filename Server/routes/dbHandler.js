@@ -3,25 +3,26 @@ var crypto = require('crypto');
 
 const sqlite3 = require("sqlite3").verbose();
 
-let db = new sqlite3.Database('.;db/login.db', sqlite3.OPEN_WRITE, (err) => {
+console.log("openning sb");
+let db = new sqlite3.Database('./routes/db/login.db', sqlite3.OPEN_WRITE, (err) => {
 	if (err) {
 		return console.error(err.message);
 	}
-	console.log('Connected to login database')
+	console.log('Connected to login database');
+
+	
 });
 
-db.run('CREATE TABLE IF NOT EXISTS users (
-			username TEXT NOT NULL,
-			pass TEXT NOT NULL UNIQUE,
-			salt TEXT NOT NULL UNIQUE,
-	)');
+db.run('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL, pass TEXT NOT NULL UNIQUE, salt TEXT NOT NULL UNIQUE)');
 
 db.close((err) => {
 	if (err) {
 		return console.error(err.message);
 	}
 	console.log('Login database created');
-})
+});
+
+
 
 
 var genRandomString = function(length){
@@ -51,12 +52,12 @@ function verify(attemptPassword, salt){
 
 function addUser(username, password){
 	//Do stuff
-	let db = new sqlite3.Database('./db/login.db', sqlite3.OPEN_WRITE, (err) => {
+	let db = new sqlite3.Database('./routes/db/login.db', sqlite3.OPEN_WRITE, (err) => {
 		if (err) {
 			return console.error(err.message);
 		}
 		console.log('Connected to login database');
-	})
+	});
 
 	let salt = genRandomString(32);
 	let user = [username, sha512(password, salt), salt];
@@ -75,7 +76,7 @@ function addUser(username, password){
 
 function userInDB(username, password){
 	//Do stuff
-	let db = new sqlite3.Database('./db/login.db', sqlite3.OPEN_READ, (err) => {
+	let db = new sqlite3.Database('./routes/db/login.db', sqlite3.OPEN_READ, (err) => {
 		if (err) {
 			return console.error(err.message);
 		}
