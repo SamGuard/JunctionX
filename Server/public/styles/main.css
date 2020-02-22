@@ -176,10 +176,13 @@ input[type=text], input[type=password], button, select {
 .accordion {
     
   background-color: #eee;
+  border-radius: 50px;
   color: #444;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
+  width: 95%;
+  margin: auto;
+  margin-bottom: 5px;
   border: 3px;
   text-align: left;
   outline: none;
