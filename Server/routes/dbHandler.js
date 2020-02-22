@@ -29,11 +29,11 @@ function verify(attemptPassword, salt){
 	return false;
 }
 
-function addUser(username, password, salt){
+function addUser(username, password){
 	//Do stuff
 }
 
-function userInDB(username, password, salt){
+function userInDB(username, password){
 	//Do stuff
 	let db = new sqlite3.Database('./db/login.db', sqlite3.OPEN_READ, (err) => {
 		if (err) {
