@@ -168,6 +168,17 @@ $(document).ready(function() {
     var seaBedGrit = document.getElementById("seaBedGrit")
     seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
 
+    var seaAnimationAssets = ['/Asset/Sea_animation/Neutral_Sea-1.png', '/Asset/Sea_animation/Neutral_Sea-2.png', '/Asset/Sea_animation/Neutral_Sea-3.png'];
+    var seaAnimationIndex = 0;
+
+    var seaAnimation = document.getElementById("seaAnimation");
+    seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
+
+    var kelpAssets = ['/Asset/Kelp/Neutral_Sea-1.png', '/Asset/Kelp/Neutral_Sea-2.png', '/Asset/Kelp/Neutral_Sea-3.png', '/Asset/Kelp/Neutral_Sea-4.png'];
+    var kelpIndex = 0;
+
+    var kelp = document.getElementById("seaKelp");
+    kelp.src = kelpAssets[kelpIndex];
 
     function nextImages() {
         for (var img in fishAssets) {
@@ -188,6 +199,20 @@ $(document).ready(function() {
         }
         console.log(seaBedGritIndex);
         seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
+
+        seaAnimationIndex++;
+        if(seaAnimationIndex >= seaAnimationAssets.length) {
+            seaAnimationIndex = 0;
+        }
+        console.log(seaAnimationIndex);
+        seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
+
+        kelpIndex++;
+        if(kelpIndex >= kelpAssets.length) {
+            kelpIndex = 0;
+        }
+        console.log(kelpIndex);
+        kelp.src = kelpAssets[kelpIndex];
     }
 
     function runAnimation() {
