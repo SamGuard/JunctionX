@@ -78,10 +78,10 @@ function userInDB(username, password){
 }
 
 
-function getTrack(trackID){
+function getTracks(){
 	db.connect(dir);
 
-	let sql = 'SELECT * FROM tracks WHERE track_id = ?';
+	let sql = 'SELECT * FROM tracks';
 
 	var output;
 
