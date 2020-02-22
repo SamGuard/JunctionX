@@ -197,6 +197,30 @@ function getTrackScore(username, dateStart, trackID) {
 	return output;
 }
 
+function getGoalScore(username, dateStart, trackID, goalID) {
+	db.connect(dir);
+
+	let sql = `SELECT * FROM goalScore 
+				WHERE goal_id = ?
+				AND track_score_id = (SELECT track_score_id FROM trackScore
+										WHERE track_id = ?
+										AND week_id = (SELECT week_id FROM weeklyScore
+														WHERE username = ?
+														AND dateStart = ?))`;
+
+	var output;
+
+	db.run(sql, [goalID, trackID, username, dateStart], (res) => {
+		if(res.error) {
+			throw res.errir;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getTrack = getTrack;
@@ -205,3 +229,4 @@ module.exports.getGoal = getGoal;
 module.exports.getGoalsForTrack = getGoalsForTrack;
 module.exports.getWeeklyScore = getWeeklyScore;
 module.exports.getTrackScore = getTrackScore;
+module.exports.getGoalScore = getGoalScore;
