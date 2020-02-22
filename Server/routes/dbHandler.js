@@ -85,15 +85,15 @@ function userInDB(username, password){
 		console.log('Connected to login database');
 	});
 
-	let sql = 'SELECT pass pass, salt salt FROM users WHERE username = ?';
+	let sql = 'SELECT DISTINCT username username FROM users';
 
-	db.get(sql, [username], (err, row) => {
+	db.all(sql, [], (err, row) => {
 		if (err) {
-			return console.error(err.message);
+			throw err;
 		}
-		return row
-		  ? console.log(row.pass, row.salt)
-		  : console.log('No user found with the username ${username}');
+		rows.forEach((row) => {
+			console.log(row.username);
+		});
 	});
 
 	db.close((err) => {
