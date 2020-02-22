@@ -599,13 +599,6 @@ function updateUserScore(username, date) {
 	db.close();
 }
 
-
-setWeeklyScore("sam", Date.now());
-updateGoalScore("sam", Date.now(), 1, 2);
-
-
-
-
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getAllUsers = getAllUsers;
