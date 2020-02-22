@@ -175,15 +175,9 @@ input[type=text], input[type=password], button, select {
 }
 
 .accordion {
-<<<<<<< HEAD
-    
+
   background-color: #C0C0C0;
   border-radius: 25px;
-=======
-
-  background-color: #eee;
-  border-radius: 50px;
->>>>>>> c7152e394c12141fdbb001093be1ba15a531229a
   color: #444;
   cursor: pointer;
   padding: 18px;
@@ -207,5 +201,3 @@ input[type=text], input[type=password], button, select {
   background-color: white;
   overflow: hidden;
 }
-=======
->>>>>>> parent of e609964... Small changes
