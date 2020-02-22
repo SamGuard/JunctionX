@@ -95,20 +95,59 @@ function userInDB(username, password){
 }
 
 
-function getTrack(trackNum){
+function getTrack(trackID){
 	db.connect(dir);
 
 	let sql = 'SELECT * FROM tracks WHERE track_id = ?';
 
 	var output;
 
-	db.run(sql, [trackNum], (res) => {
+	db.run(sql, [trackID], (res) => {
 			if (res.error) {
 				throw res.error;
 			}
 			console.log(res);
 		});
 	
+
+	db.close();
+	return output;
+}
+
+function getTrackNames() {
+	db.connect(dir);
+
+	let sql = `SELECT track_id, name FROM tracks
+				ORDER BY name`;
+
+	var output;
+
+	db.all(sql, [], (res, rows) => {
+		if (res.error) {
+			throw res.error;
+		}
+		rows.forEach((row) => {
+			console.log(row.name);
+		});
+	});
+
+	db.close();
+	return output;
+}
+
+function getGoal(goalID) {
+	db.connect(dir);
+
+	let sql = `SELECT * FROM goals WHERE goal_id = ?`;
+
+	var output;
+
+	db.run(sql, [goalID], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		console.log(res);
+	});
 
 	db.close();
 	return output;
