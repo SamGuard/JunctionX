@@ -236,7 +236,7 @@ function getTrackScore(username, dateStart, trackID) {
 function getGoalScore(username, dateStart, trackID, goalID) {
 	db.connect(dir);
 
-	let sql = `SELECT * FROM goalScore 
+	let sql = `SELECT * FROM goalScores 
 				WHERE goal_id = ?
 				AND track_score_id = (SELECT track_score_id FROM trackScores
 										WHERE track_id = ?
@@ -287,7 +287,7 @@ function getNumGoals(trackID) {
 		if(res.error) {
 			throw res.error;
 		}
-		output = res;
+		output = res.length;
 	});
 
 	db.close();
@@ -296,16 +296,25 @@ function getNumGoals(trackID) {
 
 function setGoalScores(trackID, trackScoreID, numGoals, nextGoalID) {
 	for(var i=1; i<=numGoals; i++) {
-		var nextID = getNextID('goalScore');
-
 		db.connect(dir);
 
-		let sql = `INSERT INTO goalScore(goal_score_id, track_score_id, goal_id, goal_score, num_this_week)
+		let sql = `SELECT * FROM goalScores`;
+
+		var nextID;
+
+		db.run(sql, [], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			nextID = res.length;
+		});
+
+		sql = `INSERT INTO goalScores(goal_score_id, track_score_id, goal_id, goal_score, num_this_week)
 					VALUES(?, ?, ?, ?, ?)`;
 
 		let newGoal = [nextID, trackScoreID, nextGoalID+i, 0, 0];
 
-		db.run(sql, newTrack, (res) => {
+		db.run(sql, newGoal, (res) => {
 			if(res.error) {
 				throw res.error;
 			}
@@ -318,11 +327,20 @@ function setGoalScores(trackID, trackScoreID, numGoals, nextGoalID) {
 function setTrackScores(weekID) {
 	var nextGoalID = 0;
 	for (var i=1; i<8; i++){
-		var nextID = getNextID('trackScores');
-
 		db.connect(dir);
 
-		let sql = `INSERT INTO trackScores(track_score_id, week_id, track_id, track_score)
+		let sql = `SELECT * FROM trackScores`;
+
+		var nextID;
+
+		db.run(sql, [], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			nextID = res.length;
+		});
+
+		sql = `INSERT INTO trackScores(track_score_id, week_id, track_id, track_score)
 					VALUES(?, ?, ?, ?)`;
 
 		let newTrack = [nextID, weekID, i, 0];
@@ -342,11 +360,20 @@ function setTrackScores(weekID) {
 }
 
 function setWeeklyScore(username, date) {
-	var nextID = getNextID('weeklyScore');
-
 	db.connect(dir);
 
-	let sql = `INSERT INTO weeklyScore(week_id, username, date_start, total_score)
+	let sql = `SELECT * FROM weeklyScore`;
+
+	var nextID;
+
+	db.run(sql, [], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		nextID = res.length;
+	});
+
+	sql = `INSERT INTO weeklyScore(week_id, username, date_start, total_score)
 				VALUES(?, ?, ?, ?)`;
 
 	let newWeek = [nextID, username, date, 0];
@@ -438,14 +465,15 @@ function updateTrackScore(trackScoreID, increment) {
 function updateGoalScore(username, date, trackID, goalID) {
 	db.connect(dir);
 
-	let sql = `SELECT goal_score_id FROM goalScore
-				WHERE goal_id = ?,
-				AND track_score_id = (SELECT track_score_id FROM  trackScores
+	let sql = `SELECT goal_score_id FROM goalScores
+				WHERE goal_id = ?
+				AND track_score_id = (SELECT track_score_id FROM trackScores
 										WHERE track_id = ?
 										AND week_id = (SELECT week_id FROM weeklyScore
 														WHERE username = ?
-														AND date = ?))`;
+														AND date_start = ?))`;
 
+	console.log(date);
 	var goalScoreID;
 
 	db.run(sql, [goalID, trackID, username, date], (res) => {
@@ -455,11 +483,13 @@ function updateGoalScore(username, date, trackID, goalID) {
 		goalScoreID = res[0];
 	});
 
-	sql = `SELECT goals.max_num_per_week, goalScore.num_this_week
-				FROM goals, goalScore
-				WHERE goalScore.goal_score_id = ?
-				AND goals.goal_id = (SELECT goalScore.goal_id FROM goalScore 
-										WHERE goalScore.goal_score_id = ?)`;
+	console.log(goalScoreID);
+
+	sql = `SELECT goals.max_num_per_week, goalScores.num_this_week
+				FROM goals, goalScores
+				WHERE goalScores.goal_score_id = ?
+				AND goals.goal_id = (SELECT goalScores.goal_id FROM goalScores 
+										WHERE goalScores.goal_score_id = ?)`;
 
 	var output = true;
 	var currentNum;
@@ -477,7 +507,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 
 	if (output) {
 		sql = `SELECT weight FROM goals
-					WHERE goal_id = (SELECT goal_id FROM goalScore
+					WHERE goal_id = (SELECT goal_id FROM goalScores
 										WHERE goal_score_id = ?)`;
 
 		var weight;
@@ -489,7 +519,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 			weight = res[0];
 		});
 
-		sql = `SELECT goal_score FROM goalScore
+		sql = `SELECT goal_score FROM goalScores
 					WHERE goal_score_id = ?`;
 
 		var currentScore;
@@ -501,7 +531,12 @@ function updateGoalScore(username, date, trackID, goalID) {
 			currentScore = res[0];
 		});
 
-		sql = `UPDATE goalScore
+		console.log(currentScore);
+		console.log(weight); 
+		console.log(currentNum);
+		console.log(goalScoreID);
+
+		sql = `UPDATE goalScores
 					SET goal_score = ?,
 						num_this_week = ?
 					WHERE
@@ -513,7 +548,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 			}
 		});
 
-		sql = `SELECT track_score_id FROM goalScore
+		sql = `SELECT track_score_id FROM goalScores
 					WHERE goal_score_id = ?`;
 
 		var trackScoreID;
@@ -562,7 +597,7 @@ function updateUserScore(username, date) {
 	db.close();
 }
 
-setWeeklyScore("sam", Date.now());
+updateGoalScore("sam", Date.now(), 1, 2);
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
