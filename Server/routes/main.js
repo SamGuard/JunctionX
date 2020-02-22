@@ -4,7 +4,7 @@ $(document).ready(function() {
         var username = $("#username").val();
         var password = $("#password").val();
 
-        $.post("login", {username: username, password: password}, function(result){
+        $.post("account/login", {username: username, password: password}, function(result){
             console.log(result);
         });
     });

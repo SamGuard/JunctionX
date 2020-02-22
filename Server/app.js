@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 //Assigning directories to redirect the incoming request to
 app.use("/",index);
-app.use("/login", login);
+app.use("/account", login);
 app.use("/dbTest",dbTest);
 app.use("/cdb", dbCreator);
 
