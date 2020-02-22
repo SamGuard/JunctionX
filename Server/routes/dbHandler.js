@@ -152,7 +152,6 @@ function getGoal(goalID) {
 	return output;
 }
 
-<<<<<<< HEAD
 function getGoalsForTrack(trackID) {
 	db.connect(dir);
 
@@ -173,9 +172,7 @@ function getGoalsForTrack(trackID) {
 
 
 getTrackNames();
-=======
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getTrackNames = getTrackNames;
 module.exports.getGoal = getGoal;
->>>>>>> 40a0f9ea0481b5874fdd683b9253a60cd8210977
