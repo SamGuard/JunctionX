@@ -28,4 +28,6 @@ router.post("/", function (req, res, next){//When a get request is made on this 
 	res.json({username: username, status: dbHandler.userInDB(username,password)});
 });
 
+module.exports.checkAuth = checkAuth;
+
 module.exports = router;
