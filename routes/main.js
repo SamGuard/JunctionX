@@ -243,3 +243,19 @@ function setupAccordion() {
       });
     }
 }
+
+function change(current, history){
+	if (current > history) {
+		document.getElementById("top").style = "width:"+(current - history)+"%";
+		document.getElementById("top").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom").style = "width:"+history+"%";
+		document.getElementById("bottom").className = "progress-bar progress-bar-striped progress-bar-animated";
+	} else if (current < history) {
+		document.getElementById("top").style = "width:"+(history - current)+"%";
+		document.getElementById("top").className = "progress-bar progress-bar-striped progress-bar-animated";
+		document.getElementById("bottom").style = "width:"+current+"%";
+		document.getElementById("bottom").className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+	} else {
+		//switch, honky honk
+	}
+}
