@@ -4,7 +4,7 @@ const dbHandler = require("./dbHandler");
 const auth = require("./auth");
 
 
-router.post("/", function(req,res,next){
+router.get("/", function(req,res,next){
 	var body = req.body;
 
 	if(auth.checkAuth(req.headers["authorization"]) == false){
