@@ -206,6 +206,9 @@ function loadTracks(){
 	$.ajax({
     url: "data",
     body: JSON.stringify({type: "load"}),
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+    },
     type: 'GET',
     success: function(res) {
         console.log(res);
