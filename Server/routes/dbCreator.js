@@ -38,10 +38,15 @@ router.get("/", function(req, res, next){
 
 	db.run(`CREATE TABLE IF NOT EXISTS goals (
 					goal_id INTEGER PRIMARY KEY,
+					track_id INTEGER,
 					name TEXT,
 					weight INTEGER,
 					desc TEXT,
-					max_num_per_week INTEGER)`,
+					max_num_per_week INTEGER,
+					FOREIGN KEY (track_id)
+					  REFERENCES tracks (track_id)
+					  	ON DELETE CASCADE
+					  	ON UPDATE NO ACTION)`,
 		function(res) {
 			if(res.error) {
 				throw res.error;
