@@ -11,15 +11,15 @@
 }
 
 @keyframes loginAppear{
-    0%{padding: 0px; height: 0%; width: 0%}
-    50%{padding: 0px; height: 0%; width: 40%}
-    100%{padding: 20px; height: 450px; width: 40%}
+    0%{padding: 0px; height: 0px; width: 0%}
+    50%{padding: 0px; height: 0px; width: 40%}
+    100%{padding: 20px; height: 400px; width: 40%}
 }
 
 @keyframes loginDisappear{
-    0%{padding: 20px; height: 45§0px; width: 40%; visibility: visible}
-    50%{padding: 0px; height: 0%; width: 40%}
-    100%{padding: 0px; height: 0%; width: 0%; visibility: visible}
+    0%{padding: 20px; height: 400px; width: 40%; visibility: visible}
+    50%{padding: 0px; height: 0px; width: 40%}
+    100%{padding: 0px; height: 0px; width: 0%; visibility: visible}
 }
 
 body{
@@ -71,7 +71,7 @@ body{
 
 .loginSection {
     border: 3px solid black;
-    height: 450px;
+    height: 400px;
     white-space: nowrap;
     width: 40%;
     top: 50%;
@@ -92,7 +92,7 @@ body{
     visibility: hidden;
     border: 3px solid black;
     height: 50%;
-    width: 450px;
+    width: 400px;
     top: 50%;
     left: 50%;
     z-index: 2;
@@ -120,6 +120,7 @@ body{
     top: 10%;
     border-radius: 5px;
     z-index: 10;
+    background-color: white;
 }
 
 input[type=text], input[type=password], button, select {
@@ -171,4 +172,28 @@ input[type=text], input[type=password], button, select {
 	background: #F5F5F5;
 	overflow-y: scroll;
 	margin-bottom: 25px;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
 }
