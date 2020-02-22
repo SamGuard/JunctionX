@@ -16,14 +16,14 @@ $(document).ready(function() {
             $("#loginSubmit").trigger("click");
         }
     });
-    
+
     $('#registerRepeatPassword').keyup(function(e){
         if(e.keyCode == 13)
         {
             $("#registerSubmit").trigger("click");
         }
     });
-    
+
     $("#loginSubmit").click(function(){
 
         var username = $("#username").val();
@@ -86,7 +86,7 @@ $(document).ready(function() {
                         $("#registerIncorrect").text("That username is already taken.");
 
                         $("#registerIncorrect").show();
-                        
+
                         // username used already
                     }
                 },
@@ -115,7 +115,7 @@ $(document).ready(function() {
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
             $(".accordion").show();
-            
+
             if (firstTime) {
                 $("#leftMenuID").show();
                 setupAccordion();
@@ -162,6 +162,13 @@ $(document).ready(function() {
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
+    var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
+    var seaBedGritIndex = 0;
+
+    var seaBedGrit = document.getElementById("seaBedGrit")
+    seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
+
+
     function nextImages() {
         for (var img in fishAssets) {
             fishCurrentIndex[img]++;
@@ -174,6 +181,13 @@ $(document).ready(function() {
             fishDivs[img].src = fishAssets[img][fishCurrentIndex[img]];
             //console.log("Changed");
         };
+
+        seaBedGritIndex++;
+        if(seaBedGritIndex >= seaBedGritAssets.length) {
+            seaBedGritIndex = 0;
+        }
+        console.log(seaBedGritIndex);
+        seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
     }
 
     function runAnimation() {
