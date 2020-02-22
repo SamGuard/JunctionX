@@ -1,4 +1,4 @@
-
+var crypto = require('crypto');
 
 
 const sqlite3 = require("sqlite3").verbose();
@@ -10,6 +10,24 @@ var genRandomString = function(length){
             .slice(0,length);   /** return required number of characters */
 };
 
+var sha512 = function(password, salt){
+    var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
+    hash.update(password);
+    var value = hash.digest('hex');
+    return {
+        salt:salt,
+        passwordHash:value
+    };
+};
+
+function verify(attemptPassword, salt){
+	var password = "put db password here";
+
+	if(sha512(attemptPassword, salt) == password){
+		return true;
+	}
+	return false;
+}
 
 function addUser(username, password){
 	//Do stuff
