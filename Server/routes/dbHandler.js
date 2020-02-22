@@ -239,6 +239,72 @@ function getNextID(table) {
 	return output;
 }
 
+function getNumGoals(trackID) {
+	db.connect(dir);
+
+	let sql = `SELECT goal_id FROM goals
+				WHERE track_id = ?`;
+
+	var output;
+
+	db.run(sql, [trackID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
+
+function setGoalScores(trackID, trackScoreID, numGoals, nextGoalID) {
+	for(var i=1; i<=numGoals; i++) {
+		var nextID = getNextID('goalScore');
+
+		db.connect(dir);
+
+		let sql = `INSERT INTO goalScore(goal_score_id, track_score_id, goal_id, goal_score, num_this_week)
+					VALUES(?, ?, ?, ?, ?)`;
+
+		let newGoal = [nextID, trackScoreID, nextGoalID+i, 0, 0];
+
+		db.run(sql, newTrack, (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+		});
+
+		db.close();
+	}
+}
+
+function setTrackScores(weekID) {
+	var nextGoalID = 0;
+	for (var i=1; i<8; i++){
+		var nextID = getNextID('trackScore');
+
+		db.connect(dir);
+
+		let sql = `INSERT INTO trackScore(track_score_id, week_id, track_id, track_score)
+					VALUES(?, ?, ?, ?)`;
+
+		let newTrack = [nextID, week_id, i, 0];
+
+		db.run(sql, newTrack, (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+		});
+
+		db.close();
+
+		var numGoals = getNumGoals(trackID);
+		setGoalScores(i, nextID, numGoals, nextGoalID);
+		nextGoalID += numGoals;
+	}
+}
+
 function setWeeklyScore(username, date) {
 	var nextID = getNextID('weeklyScore');
 
@@ -253,10 +319,12 @@ function setWeeklyScore(username, date) {
 		if(res.error) {
 			throw res.error;
 		}
-		console.log(`A new week has been started for ${username} starting at ${date}`);
 	});
 
 	db.close();
+
+	setTrackScores(nextID);
+	console.log(`A new week has been started for ${username} starting at ${date}`);
 }
 
 module.exports.addUser = addUser;
@@ -268,3 +336,4 @@ module.exports.getGoalsForTrack = getGoalsForTrack;
 module.exports.getWeeklyScore = getWeeklyScore;
 module.exports.getTrackScore = getTrackScore;
 module.exports.getGoalScore = getGoalScore;
+module.exports.setWeeklyScore = setWeeklyScore;

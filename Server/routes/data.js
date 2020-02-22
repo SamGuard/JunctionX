@@ -26,6 +26,8 @@ router.get("/", function(req,res,next){
 		res.json(out);
 
 
+	}else if(body.type == "stats-weekly"){
+
 	}
 
 
