@@ -3,7 +3,10 @@ $(document).ready(function() {
     var auth;
     var firstTime = true;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     var mainScreenOn = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
@@ -126,6 +129,7 @@ $(document).ready(function() {
 
     });
 
+    // TODO: Change fish to not require so many images
     var fishAssets = {
         "Fish_1": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
         "Fish_2": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png']
@@ -162,23 +166,17 @@ $(document).ready(function() {
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
-    var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
+    var seaBedHolder = document.getElementById('seaGritHolder');
+    var seaBedImgs = seaBedHolder.children;
     var seaBedGritIndex = 0;
 
-    var seaBedGrit = document.getElementById("seaBedGrit")
-    seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
-
-    var seaAnimationAssets = ['/Asset/Sea_animation/Neutral_Sea-1.png', '/Asset/Sea_animation/Neutral_Sea-2.png', '/Asset/Sea_animation/Neutral_Sea-3.png'];
+    var seaAnimationHolder = document.getElementById("seaAnimationHolder");
+    var seaAnimationImgs = seaAnimationHolder.children;
     var seaAnimationIndex = 0;
 
-    var seaAnimation = document.getElementById("seaAnimation");
-    seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
-
-    var kelpAssets = ['/Asset/Kelp/Neutral_Sea-1.png', '/Asset/Kelp/Neutral_Sea-2.png', '/Asset/Kelp/Neutral_Sea-3.png', '/Asset/Kelp/Neutral_Sea-4.png'];
+    var kelpHolder = document.getElementById("kelpHolder");
+    var kelpImgs = kelpHolder.children;
     var kelpIndex = 0;
-
-    var kelp = document.getElementById("seaKelp");
-    kelp.src = kelpAssets[kelpIndex];
 
     function nextImages() {
         for (var img in fishAssets) {
@@ -193,26 +191,26 @@ $(document).ready(function() {
             //console.log("Changed");
         };
 
+        seaBedImgs[seaBedGritIndex].style.visibility = 'hidden';
         seaBedGritIndex++;
-        if(seaBedGritIndex >= seaBedGritAssets.length) {
+        if(seaBedGritIndex >= seaBedImgs.length) {
             seaBedGritIndex = 0;
         }
-        console.log(seaBedGritIndex);
-        seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
+        seaBedImgs[seaBedGritIndex].style.visibility = 'visible';
 
+        seaAnimationImgs[seaAnimationIndex].style.visibility = 'hidden';
         seaAnimationIndex++;
-        if(seaAnimationIndex >= seaAnimationAssets.length) {
+        if(seaAnimationIndex >= seaAnimationImgs.length) {
             seaAnimationIndex = 0;
         }
-        console.log(seaAnimationIndex);
-        seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
+        seaAnimationImgs[seaAnimationIndex].style.visibility = 'visible';
 
+        kelpImgs[kelpIndex].style.visibility = 'hidden';
         kelpIndex++;
-        if(kelpIndex >= kelpAssets.length) {
+        if(kelpIndex >= kelpImgs.length) {
             kelpIndex = 0;
         }
-        console.log(kelpIndex);
-        kelp.src = kelpAssets[kelpIndex];
+        kelpImgs[kelpIndex].style.visibility = 'visible';
     }
 
     function runAnimation() {
@@ -231,17 +229,77 @@ $(document).ready(function() {
     }
 
     function runImageToggler() {
-        nextImages()
-        setTimeout(runImageToggler, 200);
+        nextImages();
+        setTimeout(runImageToggler, 200 + Math.floor(Math.random() * 200));
     }
 
     runAnimation();
     runImageToggler();
+<<<<<<< Updated upstream
 
 });
 
 function showDiv(goToRegister)
 {
+=======
+
+    function change(current, history, num){
+        if (current > history) {
+            document.getElementById("top" + num).style = "width:"+(current - history)+"%";
+            document.getElementById("top" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+history+"%";
+            document.getElementById("bottom" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+        } else if (current < history) {
+            document.getElementById("top" + num).style = "width:"+(history - current)+"%";
+            document.getElementById("top" + num).className = "progress-bar progress-bar-striped progress-bar-animated";
+            document.getElementById("bottom" + num).style = "width:"+current+"%";
+            document.getElementById("bottom" + num).className = "progress-bar bg-info progress-bar-striped progress-bar-animated";
+        } else {
+            //switch, honky honk
+            // what????
+        }
+    }
+
+    function loadTracks(){
+        console.log("sending");
+        $.ajax({
+            url: "data",
+            dataType: "json",
+            data: {"type": "load"},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", coolAuth);
+            },
+            type: 'POST',
+            success: function(res) {
+                console.log(res.tracks);
+                for (var i = 0; i < res.tracks.length; i++) {
+                    console.log(res.tracks[i]);
+                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i);
+                    change(7, 93, i);
+                }
+            }
+        });
+    }
+
+
+
+
+});
+
+
+function addTrack(name, description, goals, num) {
+
+    $("#leftMenuID").append("<div class='accordion'>" + name + "<div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='panel'><p>" + goals[0].name + "</p></div>");
+}
+
+function addGoal(goa) {
+    var output = "";
+
+    return output;
+}
+
+function showDiv(goToRegister) {
+>>>>>>> Stashed changes
     if (goToRegister) {
         $("#loginInfo").hide();
         $("#registerInfo").show();
@@ -282,6 +340,7 @@ function setupAccordion() {
       });
     }
 }
+<<<<<<< Updated upstream
 
 function change(current, history){
 	if (current > history) {
@@ -298,3 +357,5 @@ function change(current, history){
 		//switch, honky honk
 	}
 }
+=======
+>>>>>>> Stashed changes
