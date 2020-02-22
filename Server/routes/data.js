@@ -9,6 +9,8 @@ router.get("/", function(req,res,next){
 		dbHandler.getTrack(body.trackNum);
 		
 	}
+
+	res.send("thanks");
 });
 
 
