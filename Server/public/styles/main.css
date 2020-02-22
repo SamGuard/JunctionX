@@ -147,6 +147,7 @@ input[type=text], input[type=password], button, select {
     position: absolute;
     z-index: -5;
 }
+<<<<<<< HEAD
 
 #leftMenuID::-webkit-scrollbar-track
 {
@@ -200,3 +201,5 @@ input[type=text], input[type=password], button, select {
   background-color: white;
   overflow: hidden;
 }
+=======
+>>>>>>> parent of e609964... Small changes
