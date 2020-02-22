@@ -4,7 +4,7 @@ router = express.Router();
 
 router.get("/", function(req,res,next){
 	//var body = req.body;
-	var body = JSON.parse("{type: 'goals', id: 0");
+	var body = JSON.parse('{ "type":"goals", "id": 0}'); 
 
 	if(body.type == "track"){
 		var trackNames = dbHandler.getTrackNames();
