@@ -11,6 +11,7 @@ const register = require('./routes/register');
 const dbTest = require('./routes/testingSQLite');
 const dbCreator = require("./routes/dbCreator");
 const authenticator = require("./routes/auth");
+const getData = require("./routes/data");
 
 
 app.use(bodyparse());
@@ -22,6 +23,7 @@ app.use("/register", register);
 app.use("/auth",authenticator)
 app.use("/dbTest",dbTest);
 app.use("/cdb", dbCreator);
+app.use("/data", getData);
 
 
 
