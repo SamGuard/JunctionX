@@ -77,15 +77,32 @@ function userInDB(username, password){
 	return output;
 }
 
+function getAllUsers(){
+	db.connect(dir);
 
-function getTracks(trackID){
+	let sql = 'SELECT username FROM users';
+
+	var output;
+
+	db.run(sql, [], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
+
+function getTracks(){
 	db.connect(dir);
 
 	let sql = 'SELECT * FROM tracks';
 
 	var output;
 
-	db.run(sql, [trackID], (res) => {
+	db.run(sql, [], (res) => {
 			if (res.error) {
 				throw res.error;
 			}
@@ -327,8 +344,162 @@ function setWeeklyScore(username, date) {
 	console.log(`A new week has been started for ${username} starting at ${date}`);
 }
 
+function updateWeeklyScore(weekID, increment) {
+	db.connect(dir);
+
+	let sql = `SELECT total_score FROM weeklyScore
+				WHERE week_id = ?`;
+
+	var newScore;
+
+	db.run(sql, [weekID], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		newScore = res[0] + increment;
+	})
+
+	let sql = `UPDATE weeklyScore
+				SET total_score = ?
+				WHERE week_id = ?`;
+
+	db.run(sql, [newScore, weekID], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+	});
+
+	db.close();
+}
+
+function updateTrackScore(trackScoreID, increment) {
+	db.connect(dir);
+
+	let sql = `SELECT tracks.threshold, tracks.weight, trackScore.track_score, trackScore.week_id
+				FROM tracks, trackScore
+				WHERE trackScore.track_score_id = ?
+				AND tracks.track_id = (SELECT trackScore.track_id FROM trackScore
+										WHERE trackScore.track_score_id = ?)`;
+
+	var threshold;
+	var weight;
+	var newScore;
+	var weekID;
+
+	db.run(sql, [trackScoreID, trackScoreID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		threshold = res[0];
+		weight = res[1];
+		newScore = res[2] + increment;
+		weekID = res[3];
+		if (newScore > threshold) {
+			newScore = threshold;
+		}
+	});
+
+	let sql = `UPDATE trackScore
+				SET track_score = ?
+				WHERE track_score_id = ?`;
+
+	db.run(sql, [newScore, trackScoreID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+	});
+
+	db.close();
+
+	var scoreForward = ((newScore/threshold)*weight)/100;
+
+	updateWeeklyScore(weekID, scoreForward);
+}
+
+function updateGoalScore(goalScoreID) {
+	db.connect(dir);
+
+	let sql = `SELECT goals.max_num_per_week, goalScore.num_this_week
+				FROM goals, goalScore
+				WHERE goalScore.goal_score_id = ?
+				AND goals.goal_id = (SELECT goalScore.goal_id FROM goalScore 
+										WHERE goalScore.goal_score_id = ?)`;
+
+	var output = true;
+	var currentNum;
+
+	db.run(sql, [goalScoreID, goalScoreID], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		
+		currentNum = res[1];
+		if (res[1] >= res[0]) {
+			output = false;
+		}
+	});
+
+	if (output) {
+		let sql = `SELECT weight FROM goals
+					WHERE goal_id = (SELECT goal_id FROM goalScore
+										WHERE goal_score_id = ?)`;
+
+		var weight;
+
+		db.run(sql, [goalScoreID], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			weight = res[0];
+		});
+
+		let sql = `SELECT goal_score FROM goalScore
+					WHERE goal_score_id = ?`;
+
+		var currentScore;
+
+		db.run(sql, [goalScoreID], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			currentScore = res[0];
+		});
+
+		let sql = `UPDATE goalScore
+					SET goal_score = ?,
+						num_this_week = ?
+					WHERE
+						goal_score_id = ?`;
+
+		db.run(sql, [currentScore+weight, currentNum+1, goalScoreID], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+		});
+
+		let sql = `SELECT track_score_id FROM goalScore
+					WHERE goal_score_id = ?`;
+
+		var trackScoreID;
+
+		db.run(sql, [goalScoreID], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			trackScoreID = res[0];
+		});
+
+		db.close();
+		updateTrackScore(trackScoreID, weight);
+	} else {
+		db.close();
+	}
+
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
+module.exports.getAllUsers = getAllUsers;
 module.exports.getTracks = getTracks;
 module.exports.getTrackNames = getTrackNames;
 module.exports.getGoal = getGoal;
@@ -337,3 +508,4 @@ module.exports.getWeeklyScore = getWeeklyScore;
 module.exports.getTrackScore = getTrackScore;
 module.exports.getGoalScore = getGoalScore;
 module.exports.setWeeklyScore = setWeeklyScore;
+module.exports.updateGoalScore = updateGoalScore;
