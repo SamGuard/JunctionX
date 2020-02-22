@@ -1,7 +1,3 @@
-var crypto = require('crypto');
-var async = require("async");
-
-
 const db = require("sqlite-sync");
 
 var dir = "./routes/db/userdata.db";

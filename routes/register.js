@@ -18,8 +18,14 @@ router.post("/", function(req, res, next){
 
 	var decB64 = decodeBase64(req.headers["authorization"].split(" ")[1]);
 
+	var status = dbHandler.addUser(decB64.split(":")[0], decB64.split(":")[1]);
+
+	res.json({username: decB64.split(":")[0], status: status});
+
+	if(status == true){
+		dbHandler.setWeeklyScore(decB64.split(":")[0], Date.now());
+	}
 	
-	res.json({username: decB64.split(":")[0], status: dbHandler.addUser(decB64.split(":")[0], decB64.split(":")[1])});
 });
 
 
