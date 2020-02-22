@@ -106,7 +106,7 @@ function getTrack(trackID){
 			if (res.error) {
 				throw res.error;
 			}
-			console.log(res);
+			output = res;
 		});
 	
 
@@ -145,6 +145,7 @@ function getGoal(goalID) {
 		if (res.error) {
 			throw res.error;
 		}
+		output = res;
 		console.log(res);
 	});
 
@@ -163,7 +164,7 @@ function getGoalsForTrack(trackID) {
 		if(res.error) {
 			throw res.error;
 		}
-		console.log(res);
+		output = res;
 	});
 
 	db.close();

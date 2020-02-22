@@ -4,7 +4,8 @@ router = express.Router();
 
 router.get("/", function(req,res,next){
 	//var body = req.body;
-	var body = JSON.parse('{ "type":"goals", "id": 0}'); 
+
+	var body = JSON.parse('{"type":"goal", "id": 1}');
 
 	if(body.type == "track"){
 		var trackNames = dbHandler.getTrackNames();
@@ -12,9 +13,11 @@ router.get("/", function(req,res,next){
 		jsonOut = JSON.stringify(trackNames);
 
 		res.json(jsonOut);
-	}else if(body.type == "goals"){
-		console.log("goals");
-		res.json(JSON.stringify(dbHandler.getGoal(body.id)));
+	}else if(body.type == "goal"){
+		var dbData = dbHandler.getGoal(body.id);
+		var out = JSON.parse('{}');
+		out.goalID
+
 	}else{
 		res.json("{error: 'invalid body type'}");
 	}
