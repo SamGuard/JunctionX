@@ -18,11 +18,19 @@
 
 	</head>
 
-	<body onload="change(50, 60)">
+	<body onload="change(56, 40)">
         <div style="display: none;" id="leftMenuIcon">
             <i style="position: relative; top: -10px" class="fas fa-bars"></i>
         </div>
         <div  style="display: none;" id="leftMenuID" class="leftMenu">
+			<div id="keyDIV">
+				<p id="keyText"> Key: </p>
+				<div class="progress" id="key">
+					<div class="progress-bar bg-info progress-bar-striped progress-bar-animated" style="width:50%">Current Week</div>
+					<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:50%">Average Week</div>
+				</div>
+			</div>
+			<br>
             <div class="accordion">Section 1 aaaaaa
 				<div class="progress">
 					<div class="progress-bar progress-bar-warning progress-bar-striped progress-bar-animated" style="width:50%" id="bottom"></div>

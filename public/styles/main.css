@@ -156,18 +156,21 @@ input[type=text], input[type=password], button, select {
 #leftMenuID::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
 #leftMenuID::-webkit-scrollbar
 {
-	width: 6px;
-	background-color: #F5F5F5;
+	width: 10px;
+	background-color: #B2E6D2;
 }
 
 #leftMenuID::-webkit-scrollbar-thumb
 {
-	background-color: #ff2222;
+	border-radius: 12px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #B2E6D2;
 }
 
 .scrollbar
@@ -204,4 +207,19 @@ input[type=text], input[type=password], button, select {
   display: none;
   background-color: white;
   overflow: hidden;
+}
+
+#keyDIV{
+	display: inline;
+}
+
+#key{
+	width: 80%;	
+	float: left;
+	margin-left: 5%;
+}
+
+#keyText{
+	margin-left: 5%;
+	float:left;
 }
