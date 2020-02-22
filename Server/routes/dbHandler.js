@@ -92,7 +92,7 @@ function userInDB(username, password){
 			throw err;
 		}
 		return row
-		  ? console.log(row.id, row.name)
+		  ? console.log(row.username)
 		  : console.log(`No user found with the username ${username}`);
 	});
 
