@@ -15,6 +15,6 @@ console.log("listening on port " + port);
 setTimeout(function(){
 	var users = dbHandler.getAllUsers();
 	for(var i = 0; i < users.length; i++){
-		db.updateUserScore(user[i].username, Date.now()-604800000);
+		db.updateUserScore(users[i].username, Date.now()-604800000);
 	}
-},100000);
+},604800000);
