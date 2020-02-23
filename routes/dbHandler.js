@@ -603,7 +603,9 @@ function updateUserScore(username, date) {
 		if(res.error) {
 			throw res.error;
 		}
-		weekScore = res[0];
+		console.log(res);
+		console.log(username);
+		weekScore = res[0].total_score;
 	});
 
 	sql = `UPDATE users
