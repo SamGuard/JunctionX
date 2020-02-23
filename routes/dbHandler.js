@@ -749,4 +749,3 @@ module.exports.updateUserScore = updateUserScore;
 module.exports.getUser = getUser;
 module.exports.getTrackFromGoal = getTrackFromGoal;
 module.exports.getGoalHist = getGoalHist;
-module.exports.avgTrackScore = avgTrackScore;
