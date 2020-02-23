@@ -4,6 +4,8 @@
 		<title>Not Tetris Tension</title>
                 <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
 
+		<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	    <script src="main.js"></script>
 		<script src="Asset/anim.js"></script>
@@ -23,6 +25,17 @@
         <div style="display: none;" id="leftMenuIcon">
             <i style="position: relative; top: -10px" class="fas fa-bars"></i>
         </div>
+<<<<<<< Updated upstream
+=======
+		<div id="rightMenuIcon">
+		            <i style="position: relative; top: -10px" class="fas fa-info-circle"></i>
+		        </div>
+        <div id="rightMenuIcon">
+            <i style="position: relative; top: -10px" class="fas fa-info-circle"></i>
+        </div>
+
+
+>>>>>>> Stashed changes
         <div  style="display: none;" id="leftMenuID" class="leftMenu">
 			<div id="keyDIV">
 				<p id="keyText"> Key: </p>
@@ -39,7 +52,13 @@
         </div>
         <div  style="display: none;" id="leftMenuID2" class="leftMenu2">
 			<div id="keyDIV">
-				<p id="keyText"> ADD DATA </p>
+				<p id="keyText"> Please select an action to update your data </p>
+				<form>
+					<select id="addData" size=10>
+					</select>
+				</form>
+				<button type="button" onClick="addAction()" id="addActionButton">Add Action</button>
+
 			</div>
 			<br>
         </div>
