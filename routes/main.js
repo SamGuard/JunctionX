@@ -21,12 +21,12 @@ $(document).ready(function() {
         $("#loginInfo").hide();
         $("#registerInfo").hide();
         $("#aboutInfo").show();
-    }
+    });
     $("#infoReturn").click(function(){
         $("#loginInfo").show();
         $("#registerInfo").show();
         $("#aboutInfo").hide();
-    }
+    });
 
 
     $("#registerSubmit").click(function(){
@@ -355,8 +355,6 @@ $(document).ready(function() {
             }
         });
     });
-
-});
 
 function runGoalCallback(goalID, toggle) {
     console.log("nyahaha");
