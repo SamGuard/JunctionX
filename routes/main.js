@@ -9,7 +9,7 @@ $(document).ready(function() {
 	var mainScreenOn2 = false;
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-    
+
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
 	$("#leftMenuIcon2").hide();
@@ -139,7 +139,7 @@ $(document).ready(function() {
 				$("#leftMenuID2").addClass("leftMenuHidden2");
 				mainScreenOn2 = !mainScreenOn2;
 			}
-			
+
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
             $(".accordion").show();
@@ -153,7 +153,7 @@ $(document).ready(function() {
         mainScreenOn = !mainScreenOn;
 
     });
-	
+
 	$("#leftMenuIcon2").click(function(){
         if (mainScreenOn2) {
             $("#leftMenuID2").removeClass("leftMenu2");
@@ -166,10 +166,10 @@ $(document).ready(function() {
 				$(".accordion").hide();
 				mainScreenOn = !mainScreenOn;
 			}
-			
+
             $("#leftMenuID2").removeClass("leftMenuHidden2");
             $("#leftMenuID2").addClass("leftMenu2");
-			
+
             if (firstTime2) {
                 $("#leftMenuID2").show();
                 firstTime2 = false;
@@ -181,18 +181,33 @@ $(document).ready(function() {
 
     var fishAssets = {
         "Fish_1": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
-        "Fish_2": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png']
+        "Fish_2": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png'],
+        "Fish_3": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
+        "Fish_4": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png'],
+        "Fish_5": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
+        "Fish_6": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png'],
+        "Fish_7": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
+        "Fish_8": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png'],
+        "Fish_9": ['/Asset/Fish_1/Neutral_Sea-1.png', '/Asset/Fish_1/Neutral_Sea-2.png', 'Asset/Fish_1/Neutral_Sea-3.png'],
+        "Fish_0": ['/Asset/Fish_2/Neutral_Sea-1.png', '/Asset/Fish_2/Neutral_Sea-2.png', 'Asset/Fish_2/Neutral_Sea-3.png']
     }
 
     var fishDivs = {};
 
     var fishCurrentIndex = {
         "Fish_1": 0,
-        "Fish_2": 0
+        "Fish_2": 0,
+        "Fish_3": 1,
+        "Fish_4": 1,
+        "Fish_5": 2,
+        "Fish_6": 2,
+        "Fish_7": 1,
+        "Fish_8": 0,
+        "Fish_9": 2,
+        "Fish_0": 1,
     }
 
-    var fishCurrentSpeeds = {
-    }
+    var fishCurrentSpeeds = {}
 
     for (const key in fishAssets) {
         console.log("Spawned fish: " + key + ", Array: " + fishAssets[key]);
@@ -205,35 +220,15 @@ $(document).ready(function() {
         fishDivs[name].id = name;
         fishCurrentSpeeds[name] = 3 + Math.floor(Math.random() * 10);
         fishDivs[name].className = 'fish';
-        fishDivs[name].style.height = 10 + Math.floor(Math.random() * 5) + '%';
+        fishDivs[name].style.height = 8 + Math.floor(Math.random() * 5) + '%';
         fishDivs[name].style.width = 'auto';
-        fishDivs[name].style.right = '-300px';
-        fishDivs[name].style.right = '-300px';
-        fishDivs[name].style.top = Math.floor(Math.random() * 20) + 40 + '%';
+        fishDivs[name].style.right = -Math.floor(Math.random() * 400) - 400 + 'px';
+        fishDivs[name].style.top = Math.floor(Math.random() * 25) + 30 + '%';
         fishDivs[name].style.position = 'absolute';
         console.log("fish " + name + " done");
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
-    /*
-    var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
-    var seaBedGritIndex = 0;
-
-    var seaBedGrit = document.getElementById("seaBedGrit")
-    seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
-
-    var seaAnimationAssets = ['/Asset/Sea_animation/Neutral_Sea-1.png', '/Asset/Sea_animation/Neutral_Sea-2.png', '/Asset/Sea_animation/Neutral_Sea-3.png'];
-    var seaAnimationIndex = 0;
-
-    var seaAnimation = document.getElementById("seaAnimation");
-    seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
-
-    var kelpAssets = ['/Asset/Kelp/Neutral_Sea-1.png', '/Asset/Kelp/Neutral_Sea-2.png', '/Asset/Kelp/Neutral_Sea-3.png', '/Asset/Kelp/Neutral_Sea-4.png'];
-    var kelpIndex = 0;
-
-    var kelp = document.getElementById("seaKelp");
-    kelp.src = kelpAssets[kelpIndex];
-*/
     function nextImages() {
         for (var img in fishAssets) {
             fishCurrentIndex[img]++;
@@ -242,33 +237,9 @@ $(document).ready(function() {
                 fishCurrentIndex[img] = 0;
             }
 
-            //console.log("fishCurrentIndex[img]: " + fishCurrentIndex[img]);
             fishDivs[img].src = fishAssets[img][fishCurrentIndex[img]];
-            //console.log("Changed");
         };
 
-        /*
-        seaBedGritIndex++;
-        if(seaBedGritIndex >= seaBedGritAssets.length) {
-            seaBedGritIndex = 0;
-        }
-        console.log(seaBedGritIndex);
-        seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
-
-        seaAnimationIndex++;
-        if(seaAnimationIndex >= seaAnimationAssets.length) {
-            seaAnimationIndex = 0;
-        }
-        console.log(seaAnimationIndex);
-        seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
-
-        kelpIndex++;
-        if(kelpIndex >= kelpAssets.length) {
-            kelpIndex = 0;
-        }
-        console.log(kelpIndex);
-        kelp.src = kelpAssets[kelpIndex];
-        */
     }
 
     function runAnimation() {
@@ -277,8 +248,9 @@ $(document).ready(function() {
             img.style.right = parseInt(img.style.right) + fishCurrentSpeeds[imgKey] + 'px';
             if(parseInt(img.style.right) > $(document).width() + 200) {
                 console.log("fish: " + imgKey + " left");
+
                 img.style.top = Math.floor(Math.random() * 20) + 40 + '%';
-                img.style.right = -Math.floor(Math.random() * 600) + 'px'
+                img.style.right = -Math.floor(Math.random() * 600) - 200 + 'px'
                 fishCurrentSpeeds[imgKey] = 3 + Math.floor(Math.random() * 10);
             }
         };
@@ -293,7 +265,7 @@ $(document).ready(function() {
 
     runAnimation();
     runImageToggler();
-    
+
     function change(current, history, num){
         if (current > history) {
             document.getElementById("top" + num).style = "width:"+(current - history)+"%";
@@ -310,7 +282,7 @@ $(document).ready(function() {
             // what????
         }
     }
-    
+
     function loadTracks(){
         console.log("sending");
         $.ajax({
@@ -333,7 +305,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     function loadGoalSelect() {
         for (var i = 0; i < dataStore.length; i++) {
             for (var j = 0; j < dataStore[i].goals.length; j++) {
@@ -341,7 +313,7 @@ $(document).ready(function() {
             }
         }
     }
-    
+
     function addTrack(track) {
     var output = "<div class='accordion'><h2>" + track.name + "</h2><div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + track.track_id + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + track.track_id + "'></div></div></div><div style='display: none'>";
     var i = 0;
@@ -367,7 +339,7 @@ $(document).ready(function() {
             $("#registerInfo").show();
             $("#loginSectionID").css("height", "500px");
         }
-        
+
         else {
             $("#loginInfo").show();
             $("#registerInfo").hide();
@@ -375,7 +347,7 @@ $(document).ready(function() {
 
         }
     }
-    
+
     function setupAccordion() {
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -412,10 +384,10 @@ $(document).ready(function() {
         option.value = goalId;
         x.add(option);
     }
-    
+
     $("#addActionButton").click(function(){
         console.log(coolAuth);
-        var id = $("#addData").val(); 
+        var id = $("#addData").val();
         $.ajax({
             url: "data",
             dataType: "json",
@@ -429,9 +401,9 @@ $(document).ready(function() {
             }
         });
     });
-    
-    
-    
+
+
+
 });
 
 function runGoalCallback(goalID, toggle) {
@@ -489,6 +461,4 @@ function runGoalCallback(goalID, toggle) {
 
         chart.draw(data, options);
     }
-
-
-
+}
