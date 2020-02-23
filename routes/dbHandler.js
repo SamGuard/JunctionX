@@ -642,7 +642,7 @@ function getGoalHist(username, goalId) {
 															WHERE goal_id = ?)
 										AND week_id = (SELECT week_id FROM weeklyScore
 														WHERE username = ?
-														AND date = ?))`;
+														AND date_start = ?))`;
 
 	var output;
 	output = JSON.parse('{}');
