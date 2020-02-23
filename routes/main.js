@@ -97,6 +97,7 @@ $(document).ready(function() {
                             $("#leftMenuIcon").show();
                             $("#loginSectionID").removeClass("loginSection");
                             $("#loginSectionID").addClass("loginSectionHidden");
+                            loadTracks();
                         }
                         else {
                             $("#registerIncorrect").text("That username is already taken.");
@@ -316,36 +317,29 @@ $(document).ready(function() {
             success: function(res) {
                 console.log(res.tracks);
                 for (var i = 0; i < res.tracks.length; i++) {
-                    console.log(res.tracks[i]);
-                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i, res.tracks[i].track_id);
-                    change(7, 93, i);
+                    addTrack(res.tracks[i]);
+                    change(5, res.tracks[i].threshold, res.tracks[i].track_id);
                 }
             }
         });
     }
-    
-    
-
-
 });
 
-
-function addTrack(name, description, goals, num, trackID) {
-    var output = "<div class='accordion'><h2>" + name + "</h2><div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='parent'>";
-    
-    for (var i = 0; i < goals.length; i++) {
-        console.log(goals[i].name); // panelDiv + i is the one that needs to be toggled with goal + goalID
-        output += "<div id='parentDiv'" + i + "'><div class='panel' id='panelDiv" + i + "'><h3>" + goals[i].name + "</h3><br><p>" + goals[i].desc + "</p><br><p>You have completed this goal " +goals[i].getGoalInfo + " out of a possible " + goals[i]. max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ i  + ", false)' >View Historical Data</button></div></div>";
-        output += addGoal(goals[i], i);
-    
+function addTrack(track) {
+    var output = "<div class='accordion'><h2>" + track.name + "</h2><div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + track.track_id + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + track.track_id + "'></div></div></div><div style='display: none'>";
+    var i = 0;
+    for (i = 0; i < track.goals.length; i++) {
+        output += addGoal(track.goals[i]);
     }
-    
-    
     $("#leftMenuID").append(output + "</div>");
+
 }
 
-function addGoal(goal, goalID) {
-    var output = "<div class='panel' id='goalDiv" +goalID + "'><h3>" + goal.name + "</h3><br>x dddddd<button onClick = 'runGoalCallback("+ goalID  + ", true)'>Return</button></div>";
+function addGoal(goal) {
+    var output = "<div class='panel' id='panelDiv" + goal.goal_id + "'><h3>" + goal.name + "</h3><br><p>" + goal.desc + "</p><br><p>You have completed this goal " +goal.goal_score + " out of a possible " + goal.max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", false)' >View Historical Data</button></div>";
+    
+        output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'><h3>x dddddd</h3><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
+
     
     return output;
 }
