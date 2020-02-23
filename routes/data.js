@@ -3,7 +3,6 @@ const router = express.Router();
 const dbHandler = require("./dbHandler");
 const auth = require("./auth");
 
-
 router.post("/", function(req,res,next){
 	var body = req.body;
 
@@ -25,7 +24,7 @@ router.post("/", function(req,res,next){
 
 		res.json(out);
 
-	}else if(body.type == "newGoal"){
+	}else if(body.type == "compGoal"){
 		dbHandler.updateGoalScore(getUsername(req.headers["authorization"],new Date(),body.trackID,body.goalID))
 	
 	}else if(body.type == "getGoalInfo"){
