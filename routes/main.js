@@ -69,6 +69,20 @@ $(document).ready(function() {
 
     });
 
+<<<<<<< HEAD
+=======
+    $("#rightMenuIcon").click(function(){
+        $("#loginInfo").hide();
+        $("#registerInfo").hide();
+        $("#aboutInfo").show();
+    }
+    $("#infoReturn").click(function(){
+        $("#loginInfo").show();
+        $("#registerInfo").show();
+        $("#aboutInfo").hide();
+    }
+                              
+>>>>>>> parent of 358d464... hi
     $("#registerSubmit").click(function(){
 
         var username = $("#registerUsername").val();
