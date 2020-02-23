@@ -215,10 +215,10 @@ function getTrackScore(username, dateStart, trackID) {
 	dateStart = Math.floor(dateStart/604800000);
 
 	let sql = `SELECT * FROM trackScores 
-				WHERE trackID = ?
+				WHERE track_id = ?
 				AND week_id = (SELECT week_id FROM weeklyScore
 								WHERE username = ?
-								AND dateStart = ?)`;
+								AND date_start = ?)`;
 
 	var output;
 
