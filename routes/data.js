@@ -11,7 +11,8 @@ router.post("/", function(req,res,next){
 		return;
 	}
 
-
+	var username = auth.getUsername(req.headers["authorization"]);
+	var password = auth.getPassword(req.headers["authorization"]);
 	if(body.type == "load"){
 		var out = JSON.parse('{}');
 		var tracks = dbHandler.getTracks();
@@ -23,9 +24,13 @@ router.post("/", function(req,res,next){
 		for(var i = 0; i < out.tracks.length; i++){
 			out.tracks[i].goals = dbHandler.getGoalsForTrack(out.tracks[i].track_id);
 			for(var j = 0; j < out.tracks[i].goals.length; j++){
-				goalInfo = dbHandler.getGoalScore(body.username, Date.now(), body.trackID, body.goalID);
+				console.log(out.tracks[i].goals[j].goal_id);
+				console.log(username);
+				goalInfo = dbHandler.getGoalScore(username, Date.now(), out.tracks[i].track_id, out.tracks[i].goals[j].goal_id);
 				console.log(goalInfo);
-				out.track[i].goal.goal_score = goalInfo.goal_score;
+				if(goalInfo.length > 0){
+					out.tracks[i].goals[j].goal_score = goalInfo[0].goal_score;
+				}
 			}
 		}
 

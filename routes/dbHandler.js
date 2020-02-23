@@ -328,7 +328,7 @@ function setGoalScores(trackID, trackScoreID, numGoals, nextGoalID) {
 
 function setTrackScores(weekID) {
 	var nextGoalID = 0;
-	for (var i=1; i<8; i++){
+	for (var i=1; i<=8; i++){
 		db.connect(dir);
 
 		let sql = `SELECT * FROM trackScores`;
