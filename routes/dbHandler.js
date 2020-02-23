@@ -190,7 +190,7 @@ function getGoalsForTrack(trackID) {
 function getWeeklyScore(username, dateStart) {
 	db.connect(dir);
 
-	dateStart = Math.round(dateStart/604800000);
+	dateStart = Math.floor(dateStart/604800000);
 
 	let sql = `SELECT * FROM weeklyScore
 				WHERE username = ?
@@ -212,7 +212,7 @@ function getWeeklyScore(username, dateStart) {
 function getTrackScore(username, dateStart, trackID) {
 	db.connect(dir);
 
-	dateStart = Math.round(dateStart/604800000);
+	dateStart = Math.floor(dateStart/604800000);
 
 	let sql = `SELECT * FROM trackScores 
 				WHERE trackID = ?
@@ -236,7 +236,7 @@ function getTrackScore(username, dateStart, trackID) {
 function getGoalScore(username, dateStart, trackID, goalID) {
 	db.connect(dir);
 
-	dateStart = Math.round(dateStart/604800000);
+	dateStart = Math.floor(dateStart/604800000);
 
 	let sql = `SELECT * FROM goalScores 
 				WHERE goal_id = ?
@@ -364,7 +364,7 @@ function setTrackScores(weekID) {
 function setWeeklyScore(username, date) {
 	db.connect(dir);
 
-	date = Math.round(date/604800000);
+	date = Math.floor(date/604800000);
 
 	let sql = `SELECT * FROM weeklyScore`;
 
@@ -469,7 +469,7 @@ function updateTrackScore(trackScoreID, increment) {
 function updateGoalScore(username, date, trackID, goalID) {
 	db.connect(dir);
 
-	date = Math.round(date/604800000);
+	date = Math.floor(date/604800000);
 
 	let sql = `SELECT goal_score_id FROM goalScores
 				WHERE goal_id = ?
@@ -571,7 +571,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 function updateUserScore(username, date) {
 	db.connect(dir);
 
-	date = Math.round(date/604800000);
+	date = Math.floor(date/604800000);
 
 	let sql = `SELECT total_score FROM weeklyScore
 				WHERE username = ?
