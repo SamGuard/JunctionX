@@ -307,7 +307,7 @@ $(document).ready(function() {
                 console.log(res.tracks);
                 for (var i = 0; i < res.tracks.length; i++) {
                     console.log(res.tracks[i]);
-                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i);
+                    addTrack(res.tracks[i].name, res.tracks[i].desc, res.tracks[i].goals, i, res.tracks[i].track_id);
                     change(7, 93, i);
                 }
             }
@@ -320,15 +320,36 @@ $(document).ready(function() {
 });
 
 
-function addTrack(name, description, goals, num) {
+function addTrack(name, description, goals, num, trackID) {
+    var output = "<div class='accordion'><h2>" + name + "</h2><div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='parent'>";
     
-    $("#leftMenuID").append("<div class='accordion'>" + name + "<div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + num + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + num + "'></div></div></div><div class='panel'><p>" + goals[0].name + "</p></div>");
+    for (var i = 0; i < goals.length; i++) {
+        console.log(goals[i].name); // panelDiv + i is the one that needs to be toggled with goal + goalID
+        output += "<div id='parentDiv'" + i + "'><div class='panel' id='panelDiv" + i + "'><h3>" + goals[i].name + "</h3><br><p>" + goals[i].desc + "</p><br><p>You have completed this goal " +goals[i].getGoalInfo + " out of a possible " + goals[i]. max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ i  + ", false)' >View Historical Data</button></div></div>";
+        output += addGoal(goals[i], i);
+    
+    }
+    
+    
+    $("#leftMenuID").append(output + "</div>");
 }
 
-function addGoal(goa) {
-    var output = "";
+function addGoal(goal, goalID) {
+    var output = "<div class='panel' id='goalDiv" +goalID + "'><h3>" + goal.name + "</h3><br>x dddddd<button onClick = 'runGoalCallback("+ goalID  + ", true)'>Return</button></div>";
     
     return output;
+}
+
+function runGoalCallback(goalID, toggle) {
+    console.log("nyahaha");
+    if (toggle) {
+        $("#panelDiv" + goalID).show();
+        $("#goalDiv" + goalID).hide();
+    }
+    else {
+        $("#panelDiv" + goalID).hide();
+        $("#goalDiv" + goalID).show();
+    }
 }
 
 function showDiv(goToRegister) {
@@ -352,19 +373,20 @@ function setupAccordion() {
     for (i = 0; i < acc.length; i++) {
       acc[i].addEventListener("click", function() {
         this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-          panel.style.display = "none";
+        var parent = this.nextElementSibling;
+        if (parent.style.display === "block") {
+          parent.style.display = "none";
         } else {
-          panel.style.display = "block";
+          parent.style.display = "block";
         }
         var j;
         var acc = document.getElementsByClassName("accordion");
-        for (j = 0; j < acc.length; j++) {
+
+          for (j = 0; j < acc.length; j++) {
             if (acc[j] != this) {
-                var panel = acc[j].nextElementSibling;
-                if (panel.style.display == "block") {
-                    panel.style.display = "none";
+                var parent = acc[j].nextElementSibling;
+                if (parent.style.display == "block") {
+                    parent.style.display = "none";
                     acc[j].classList.toggle("active");
                 }
             }
