@@ -1,12 +1,15 @@
+    var coolAuth = "";
 
 $(document).ready(function() {
 
-    var coolAuth = "";
     var firstTime = true;
 	var firstTime2 = true;
     var dataStore;
     var mainScreenOn = false;
 	var mainScreenOn2 = false;
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
 	$("#leftMenuIcon2").hide();
@@ -352,21 +355,9 @@ $(document).ready(function() {
         addOption(goal.name, goal.goal_id);
         var output = "<div class='panel' id='panelDiv" + goal.goal_id + "'><h3>" + goal.name + "</h3><br><p>" + goal.desc + "</p><br><p>You have completed this goal " +goal.num_this_week + " out of a possible " + goal.max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", false)' >View Historical Data</button></div>";
 
-            output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'><h3>x dddddd</h3><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
+            output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'>" + "<div id='curve_chart" + goal.goal_id + "' style='width: 900px; height: 500px'></div>" + "<br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
 
         return output;
-    }
-
-    function runGoalCallback(goalID, toggle) {
-        console.log("nyahaha");
-        if (toggle) {
-            $("#panelDiv" + goalID).show();
-            $("#goalDiv" + goalID).hide();
-        }
-        else {
-            $("#panelDiv" + goalID).hide();
-            $("#goalDiv" + goalID).show();
-        }
     }
 
     function showDiv(goToRegister) {
@@ -374,8 +365,8 @@ $(document).ready(function() {
             $("#loginInfo").hide();
             $("#registerInfo").show();
             $("#loginSectionID").css("height", "500px");
-
         }
+        
         else {
             $("#loginInfo").show();
             $("#registerInfo").hide();
@@ -383,6 +374,7 @@ $(document).ready(function() {
 
         }
     }
+    
     function setupAccordion() {
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -436,5 +428,56 @@ $(document).ready(function() {
             }
         });
     });
+    
+    
+    
 });
+
+function runGoalCallback(goalID, toggle) {
+    console.log("nyahaha");
+    if (toggle) {
+        $("#panelDiv" + goalID).show();
+        $("#goalDiv" + goalID).hide();
+    }
+    else {
+
+        $.ajax({
+        url: "data",
+        dataType: "json",
+        data: {"type": "getHistData", "goalId": goalID},
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", coolAuth);
+        },
+        type: 'POST',
+        success: function(res) {
+            drawChart(goalID);
+        }
+    });
+
+        $("#panelDiv" + goalID).hide();
+        $("#goalDiv" + goalID).show();
+    }
+}
+
+    function drawChart(goalID) {
+        var data = google.visualization.arrayToDataTable([
+            ['Week', 'Days completed'],
+            ['2004',  1000],
+            ['2005',  1170],
+            ['2006',  660],
+            ['2007',  1030]
+        ]);
+
+        var options = {
+            title: 'Historical Evidence',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart' + goalID));
+
+        chart.draw(data, options);
+    }
+
+
 
