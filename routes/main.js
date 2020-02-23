@@ -15,7 +15,6 @@ $(document).ready(function() {
 	$("#leftMenuIcon2").hide();
     $("#leftMenuID2").hide();
     $("#registerInfo").hide();
-    $("#aboutInfo").hide();
 
     $("#loginSectionID").css("height", "400px");
 
@@ -54,7 +53,6 @@ $(document).ready(function() {
                 if (data.status == true) {
                     $("#leftMenuIcon").show();
 					$("#leftMenuIcon2").show();
-                                                $("#rightMenuIcon").hide();
 
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
@@ -71,18 +69,7 @@ $(document).ready(function() {
         });
 
 
-    });
-
-    $("#rightMenuIcon").click(function(){
-        $("#loginInfo").hide();
-        $("#registerInfo").hide();
-        $("#aboutInfo").show();
-    });
-    $("#infoReturn").click(function(){
-        $("#loginInfo").show();
-        $("#aboutInfo").hide();
-    });
-                              
+    });                     
     $("#registerSubmit").click(function(){
 
         var username = $("#registerUsername").val();
@@ -113,7 +100,6 @@ $(document).ready(function() {
                     success: function (data) {
                         if (data.status == true) {
                             $("#leftMenuIcon").show();
-                            $("#rightMenuIcon").hide();
                             $("leftMenuIcon2").hide();
 
                             $("#loginSectionID").removeClass("loginSection");
@@ -311,9 +297,7 @@ $(document).ready(function() {
             },
             type: 'POST',
             success: function(res) {
-                console.log(res.tracks);
                 dataStore = res.tracks;
-                loadGoalSelect();
                 for (var i = 0; i < res.tracks.length; i++) {
                     addTrack(res.tracks[i]);
 
@@ -321,14 +305,6 @@ $(document).ready(function() {
                 }
             }
         });
-    }
-
-    function loadGoalSelect() {
-        for (var i = 0; i < dataStore.length; i++) {
-            for (var j = 0; j < dataStore[i].goals.length; j++) {
-                $("#myTable tr:last").after("<tr><td>" + dataStore[i].goals[j].name + "</td></tr>");
-            }
-        }
     }
 
     function addTrack(track) {
@@ -419,8 +395,6 @@ $(document).ready(function() {
         });
     });
 
-
-
 });
 
 function runGoalCallback(goalID, toggle) {
@@ -449,33 +423,33 @@ function runGoalCallback(goalID, toggle) {
     }
 }
 
-    function drawChart(goalID, res) {
-        console.log(res);
-        
-        var output = [];
-        
-          for (var i=0;i<=res.x.length;i++) {
-             output[i] = [];
-          }
-        output[0][0] = 'Week';
-        output[0][1] = 'Days completed';
-        
-        for (var i = 1; i <= res.x.length; i++) {
-            output[i][0] = res.x[i-1];
-            output[i][1] = res.y[i-1];
-        }
-        
-        console.log(output);
-        var data = google.visualization.arrayToDataTable(output);
+function drawChart(goalID, res) {
+    console.log(res);
 
-        var options = {
-            title: 'Historical Evidence',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
+    var output = [];
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart' + goalID));
+      for (var i=0;i<=res.x.length;i++) {
+         output[i] = [];
+      }
+    output[0][0] = 'Week';
+    output[0][1] = 'Days completed';
 
-        chart.draw(data, options);
+    for (var i = 1; i <= res.x.length; i++) {
+        output[i][0] = res.x[i-1];
+        output[i][1] = res.y[i-1];
     }
 
+
+    console.log(output);
+    var data = google.visualization.arrayToDataTable(output);
+
+    var options = {
+        title: 'Historical Evidence',
+        curveType: 'function',
+        legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart' + goalID));
+
+    chart.draw(data, options);
+}
