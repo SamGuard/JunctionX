@@ -15,7 +15,10 @@ $(document).ready(function() {
 	$("#leftMenuIcon2").hide();
     $("#leftMenuID2").hide();
     $("#registerInfo").hide();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     $("#loginSectionID").css("height", "400px");
 
     $('#password').keyup(function(e){
@@ -53,7 +56,10 @@ $(document).ready(function() {
                 if (data.status == true) {
                     $("#leftMenuIcon").show();
 					$("#leftMenuIcon2").show();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
                     console.log(coolAuth);
@@ -69,7 +75,12 @@ $(document).ready(function() {
         });
 
 
+<<<<<<< HEAD
     });                     
+=======
+    });
+
+>>>>>>> origin/master
     $("#registerSubmit").click(function(){
 
         var username = $("#registerUsername").val();
@@ -100,8 +111,11 @@ $(document).ready(function() {
                     success: function (data) {
                         if (data.status == true) {
                             $("#leftMenuIcon").show();
+<<<<<<< HEAD
                             $("leftMenuIcon2").hide();
 
+=======
+>>>>>>> origin/master
                             $("#loginSectionID").removeClass("loginSection");
                             $("#loginSectionID").addClass("loginSectionHidden");
                             loadTracks();
