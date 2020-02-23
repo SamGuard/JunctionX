@@ -632,6 +632,21 @@ function getTrackFromGoal(goalId){
 	return tID;
 }
 
+function getUserHistory(username){
+	let sql = `SELECT * FROM weeklyScore
+				WHERE username = ?`;
+
+	var ;
+	db.run(sql, [username], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		tID = res[0].track_id;
+	});
+
+	return tID;
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getAllUsers = getAllUsers;
@@ -646,3 +661,4 @@ module.exports.setWeeklyScore = setWeeklyScore;
 module.exports.updateGoalScore = updateGoalScore;
 module.exports.getUser = getUser;
 module.exports.getTrackFromGoal = getTrackFromGoal;
+module.exports.getUserHistory = getUserHistory;
