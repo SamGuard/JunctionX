@@ -12,7 +12,7 @@ router.post("/", function(req,res,next){
 		return;
 	}
 
-	//var body = JSON.parse('{"type":"trackNames","id": 1}');
+
 	if(body.type == "load"){
 		var out = JSON.parse('{}');
 		var tracks = dbHandler.getTracks();
