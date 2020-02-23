@@ -603,9 +603,7 @@ function updateUserScore(username, date) {
 		if(res.error) {
 			throw res.error;
 		}
-		console.log(res);
-		console.log(username);
-		weekScore = res[0].total_score;
+		weekScore = res[0];
 	});
 
 	sql = `UPDATE users
@@ -694,43 +692,6 @@ function newGoal(goalId, trackId, name, weight, desc, maxNum){
 	console.log("lol nope");
 }
 
-function avgTrackScore(username, trackID) {
-	db.connect(dir); 
-
-	let sql = `SELECT week_id FROM weeklyScore
-				WHERE username = ?`;
-
-	var weeks;
-	var numWeeks;
-
-	db.run(sql, [username], (res) => {
-		if(run.error) {
-			throw run.error;
-		}
-		weeks = res;
-		numWeeks = res.length;
-	});
-
-	sql = `SELECT track_score FROM trackScores
-			WHERE week_id = ?
-			AND track_id = ?`;
-
-	var totalScore = 0;
-
-	for (var i=0; i<numWeeks; i++) {
-		db.run(sql, [weeks[i].week_id, trackID], (res) => {
-			if(res.error) {
-				throw res.error;
-			}
-			totalScore += res[0].track_score;
-		});
-	}
-
-	var output = Math.round(totalScore/numWeeks);
-
-	return output;
-}
-
 
 
 module.exports.addUser = addUser;
@@ -745,8 +706,6 @@ module.exports.getTrackScore = getTrackScore;
 module.exports.getGoalScore = getGoalScore;
 module.exports.setWeeklyScore = setWeeklyScore;
 module.exports.updateGoalScore = updateGoalScore;
-module.exports.updateUserScore = updateUserScore;
 module.exports.getUser = getUser;
 module.exports.getTrackFromGoal = getTrackFromGoal;
 module.exports.getGoalHist = getGoalHist;
-module.exports.avgTrackScore = avgTrackScore;
