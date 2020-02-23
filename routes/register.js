@@ -14,7 +14,7 @@ router.post("/", function(req, res, next){
 	//console.log(req.body.username);
 	//console.log(req.body.password);
 
-	console.log(req.headers["authorization"]);
+	//console.log(req.headers["authorization"]);
 
 	var decB64 = decodeBase64(req.headers["authorization"].split(" ")[1]);
 

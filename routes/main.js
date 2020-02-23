@@ -1,6 +1,8 @@
+var coolAuth = "";
+
 $(document).ready(function() {
 
-    var coolAuth = "";
+    //var coolAuth = "";
     var firstTime = true;
 	var firstTime2 = true;
     var dataStore;
@@ -422,22 +424,17 @@ function addOption(goalName, goalId){
 }
 
 function addAction(){
+    console.log(coolAuth);
+    var id = $("#addData").val(); 
     $.ajax({
         url: "data",
-        method: "POST",
         dataType: "json",
-        data: {"type": "compGoal", "goalId": $("#addData").val()},
-        crossDomain: true,
-        contentType: "application/json; charset=utf-8",
-        cache: false,
+        data: {"type": "compGoal", "goalId": id},
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", coolAuth);
-            xhr.setRequestHeader("X-Mobile", "false");
         },
-        success: function (data) {
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-
+        type: 'POST',
+        success: function(res) {
         }
     });
 }

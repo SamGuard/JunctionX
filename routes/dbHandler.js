@@ -60,7 +60,7 @@ function userInDB(username, password){
 			if (res.error) {
 				throw res.error;
 			}
-			console.log(res);
+
 			if(res.length > 0){
 				output = verify(password, res[0].pass);
 			}else{
@@ -503,6 +503,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 		if(res.error) {
 			throw res.error;
 		}
+		console.log(res);
 		goalScoreID = res[0].goal_score_id;
 	});
 
@@ -579,6 +580,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 		});
 
 		db.close();
+
 		updateTrackScore(trackScoreID, weight);
 	} else {
 		db.close();
@@ -674,12 +676,15 @@ function getTrackFromGoal(goalId) {
 		if(res.error) {
 			throw res.error;
 		}
-
 		output = res[0].track_id;
 	});
 
 	db.close();
 	return output;
+}
+
+function newGoal(goalId, trackId, name, weight, desc, maxNum){
+	
 }
 
 module.exports.addUser = addUser;

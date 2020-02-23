@@ -4,7 +4,11 @@ const dbHandler = require("./dbHandler");
 const auth = require("./auth");
 
 router.post("/", function(req,res,next){
+
+
 	var body = req.body;
+
+	console.log(body);
 
 	if(auth.checkAuth(req.headers["authorization"]) == false){
 		res.send("false");
@@ -25,10 +29,7 @@ router.post("/", function(req,res,next){
 		for(var i = 0; i < out.tracks.length; i++){
 			out.tracks[i].goals = dbHandler.getGoalsForTrack(out.tracks[i].track_id);
 			for(var j = 0; j < out.tracks[i].goals.length; j++){
-				console.log(out.tracks[i].goals[j].goal_id);
-				console.log(username);
 				goalInfo = dbHandler.getGoalScore(username, Date.now(), out.tracks[i].track_id, out.tracks[i].goals[j].goal_id);
-				console.log(goalInfo);
 				if(goalInfo.length > 0){
 					out.tracks[i].goals[j].goal_score = goalInfo[0].goal_score;
 				}
@@ -40,14 +41,16 @@ router.post("/", function(req,res,next){
 		res.json(out);
 
 	}else if(body.type == "compGoal"){
-		dbHandler.updateGoalScore(getUsername(req.headers["authorization"],new Date(), dbHandler.getTrackFromGoal(body.goalId),body.goalId));
-		res.send("done");
+		dbHandler.updateGoalScore(auth.getUsername(req.headers["authorization"]), new Date(), dbHandler.getTrackFromGoal(body.goalId), body.goalId);
+		res.json({"status": "success"});
 	}else if(body.type == "addGoal"){
+		dbHandler.newGoal(body.goalId, body.track_Id, body.name, body.desc, body.maxNum);
 
+		res.json({"status": "success"});
 	}else if(body.type == "getGoalInfo"){
 		res.json(dbHandler.getGoalScore(body.username, Date.now(), body.trackID, body.goalID));
 	}else{
-		res.send("FAIL");
+		res.json({"status": "failuire"});
 	}
 
 
