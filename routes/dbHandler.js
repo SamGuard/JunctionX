@@ -92,6 +92,24 @@ function getUserScore(username) {
 	return output;
 }
 
+function getUser(username){
+	db.connect(dir);
+
+	let sql = 'SELECT * FROM users WHERE username=?';
+
+	var output;
+
+	db.run(sql, [username], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
+
 function getAllUsers(){
 	db.connect(dir);
 
@@ -599,6 +617,36 @@ function updateUserScore(username, date) {
 	db.close();
 }
 
+function getTrackFromGoal(goalId){
+	let sql = `SELECT track_id FROM goals
+				WHERE goal_id = ?`;
+
+	var tID;
+	db.run(sql, [goalId], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		tID = res[0].track_id;
+	});
+
+	return tID;
+}
+
+function getUserHistory(username){
+	let sql = `SELECT * FROM weeklyScore
+				WHERE username = ?`;
+
+	var ;
+	db.run(sql, [username], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+		tID = res[0].track_id;
+	});
+
+	return tID;
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getAllUsers = getAllUsers;
@@ -611,3 +659,6 @@ module.exports.getTrackScore = getTrackScore;
 module.exports.getGoalScore = getGoalScore;
 module.exports.setWeeklyScore = setWeeklyScore;
 module.exports.updateGoalScore = updateGoalScore;
+module.exports.getUser = getUser;
+module.exports.getTrackFromGoal = getTrackFromGoal;
+module.exports.getUserHistory = getUserHistory;

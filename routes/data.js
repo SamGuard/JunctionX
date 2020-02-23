@@ -21,6 +21,7 @@ router.post("/", function(req,res,next){
 
 
 		var goalInfo;
+		out.curr_score = dbHandler.getUser(username)[0].avg_score;
 		for(var i = 0; i < out.tracks.length; i++){
 			out.tracks[i].goals = dbHandler.getGoalsForTrack(out.tracks[i].track_id);
 			for(var j = 0; j < out.tracks[i].goals.length; j++){
@@ -33,12 +34,13 @@ router.post("/", function(req,res,next){
 				}
 			}
 			out.tracks[i].track_score = dbHandler.getTrackScore(username, Date.now(), out.tracks[i].track_id)[0].track_score;
+
 		}
 
 		res.json(out);
 
 	}else if(body.type == "compGoal"){
-		dbHandler.updateGoalScore(getUsername(req.headers["authorization"],new Date(),body.trackID,body.goalID))
+		dbHandler.updateGoalScore(getUsername(req.headers["authorization"],new Date(), dbHandler.getTrackFromGoal(body.goalId),body.goalId));
 		res.send("done");
 	}else if(body.type == "addGoal"){
 
