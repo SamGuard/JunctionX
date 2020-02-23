@@ -334,7 +334,6 @@ function runGoalCallback(goalID, toggle) {
     }
 }
 
-<<<<<<< Updated upstream
 function showDiv(goToRegister) {
     if (goToRegister) {
         $("#loginInfo").hide();
@@ -346,35 +345,35 @@ function showDiv(goToRegister) {
         $("#loginInfo").show();
         $("#registerInfo").hide();
         $("#loginSectionID").css("height", "400px");
-=======
-    function drawChart(goalID, res) {
-        console.log(res);
-
-        var output = [];
-
-          for (var i=0;i<=res.x.length;i++) {
-             output[i] = [];
-          }
-        output[0][0] = 'Week';
-        output[0][1] = 'Days completed';
-
-        for (var i = 1; i <= res.x.length; i++) {
-            output[i][0] = res.x[i-1];
-            output[i][1] = res.y[i-1];
-        }
-
-        console.log(output);
-        var data = google.visualization.arrayToDataTable(output);
-
-        var options = {
-            title: 'Historical Evidence',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
->>>>>>> Stashed changes
-
     }
 }
+
+function drawChart(goalID, res) {
+    console.log(res);
+
+    var output = [];
+
+      for (var i=0;i<=res.x.length;i++) {
+         output[i] = [];
+      }
+    output[0][0] = 'Week';
+    output[0][1] = 'Days completed';
+
+    for (var i = 1; i <= res.x.length; i++) {
+        output[i][0] = res.x[i-1];
+        output[i][1] = res.y[i-1];
+    }
+
+    console.log(output);
+    var data = google.visualization.arrayToDataTable(output);
+
+    var options = {
+        title: 'Historical Evidence',
+        curveType: 'function',
+        legend: { position: 'bottom' }
+    };
+}
+
 function setupAccordion() {
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -402,3 +401,4 @@ function setupAccordion() {
         }
       });
     }
+}
