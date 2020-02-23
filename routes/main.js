@@ -228,27 +228,6 @@ $(document).ready(function() {
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
-    var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
-    var seaBedGritIndex = 0;
-
-    var seaBedGrit = document.getElementById("seaBedGrit")
-    seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
-    seaBedGrit.style.opacity = '0.4';
-
-    var seaAnimationAssets = ['/Asset/Sea_animation/Neutral_Sea-1.png', '/Asset/Sea_animation/Neutral_Sea-2.png', '/Asset/Sea_animation/Neutral_Sea-3.png'];
-    var seaAnimationIndex = 0;
-
-    var seaAnimation = document.getElementById("seaAnimation");
-    seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
-    seaAnimation.style.opacity = '0.4';
-
-    var kelpAssets = ['/Asset/Kelp/Neutral_Sea-1.png', '/Asset/Kelp/Neutral_Sea-2.png', '/Asset/Kelp/Neutral_Sea-3.png', '/Asset/Kelp/Neutral_Sea-4.png'];
-    var kelpIndex = 0;
-
-    var kelp = document.getElementById("seaKelp");
-    kelp.src = kelpAssets[kelpIndex];
-    kelp.style.opacity = '0.8';
-
     function nextImages() {
         for (var img in fishAssets) {
             fishCurrentIndex[img]++;
@@ -260,26 +239,6 @@ $(document).ready(function() {
             fishDivs[img].src = fishAssets[img][fishCurrentIndex[img]];
         };
 
-        seaBedGritIndex++;
-        if(seaBedGritIndex >= seaBedGritAssets.length) {
-            seaBedGritIndex = 0;
-        }
-        console.log(seaBedGritIndex);
-        seaBedGrit.src = seaBedGritAssets[seaBedGritIndex];
-
-        seaAnimationIndex++;
-        if(seaAnimationIndex >= seaAnimationAssets.length) {
-            seaAnimationIndex = 0;
-        }
-        console.log(seaAnimationIndex);
-        seaAnimation.src = seaAnimationAssets[seaAnimationIndex];
-
-        kelpIndex++;
-        if(kelpIndex >= kelpAssets.length) {
-            kelpIndex = 0;
-        }
-        console.log(kelpIndex);
-        kelp.src = kelpAssets[kelpIndex];
     }
 
     function runAnimation() {

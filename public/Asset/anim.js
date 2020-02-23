@@ -1,11 +1,7 @@
+
 $(document).ready(function() {
 
     var index = 0;
-
-    var flowIndex = 0;
-    var gritIndex = 0;
-    var kelpIndex = 0;
-    var seaweedIndex = 0;
 
     var delayTime = 1500;
 
@@ -13,7 +9,7 @@ $(document).ready(function() {
     var neutralTimer;
     var badTimer;
 
-    startBad();
+    startNeutral();
 
     function startNeutral() {
         neutralTimer = setInterval(neutral, delayTime);

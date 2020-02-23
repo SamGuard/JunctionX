@@ -255,7 +255,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .background2{
@@ -269,7 +269,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .background3{
@@ -283,7 +283,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .backgroundGood{
@@ -311,7 +311,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 .backgroundGood2{
 
@@ -324,7 +324,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 .backgroundGood3{
 
@@ -337,7 +337,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .backgroundBad{
@@ -365,7 +365,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .backgroundBad2{
@@ -379,7 +379,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .backgroundBad3{
@@ -393,7 +393,7 @@ background-color: #5c9b90;
   top: 0;
   left: 0;
 
-  z-index: -100;
+  z-index: 1;
 }
 
 .fish{
