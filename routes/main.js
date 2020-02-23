@@ -431,7 +431,7 @@ function addAction(){
         contentType: "application/json; charset=utf-8",
         cache: false,
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", coolAuth));
+            xhr.setRequestHeader("Authorization", coolAuth);
             xhr.setRequestHeader("X-Mobile", "false");
         },
         success: function (data) {
