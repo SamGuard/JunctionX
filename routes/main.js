@@ -2,10 +2,14 @@ $(document).ready(function() {
 
     var coolAuth = "";
     var firstTime = true;
+	var firstTime2 = true;
     
     var mainScreenOn = false;
+	var mainScreenOn2 = false;
     $("#leftMenuIcon").hide();
     $("#leftMenuID").hide();
+	$("#leftMenuIcon2").hide();
+    $("#leftMenuID2").hide();
     $("#registerInfo").hide();
     $("#loginSectionID").css("height", "400px");
 
@@ -43,6 +47,7 @@ $(document).ready(function() {
             success: function (data) {
                 if (data.status == true) {
                     $("#leftMenuIcon").show();
+					$("#leftMenuIcon2").show();
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
                     console.log(coolAuth);
@@ -135,6 +140,27 @@ $(document).ready(function() {
             }
         }
         mainScreenOn = !mainScreenOn;
+
+    });
+	
+	$("#leftMenuIcon2").click(function(){
+        if (mainScreenOn2) {
+            $("#leftMenuID2").removeClass("leftMenu2");
+            $("#leftMenuID2").addClass("leftMenuHidden2");
+            $(".accordion").hide();
+        }
+        else {
+            $("#leftMenuID2").removeClass("leftMenuHidden2");
+            $("#leftMenuID2").addClass("leftMenu2");
+            $(".accordion").show();
+
+            if (firstTime2) {
+                $("#leftMenuID2").show();
+                setupAccordion();
+                firstTime2 = false;
+            }
+        }
+        mainScreenOn2 = !mainScreenOn2;
 
     });
 
