@@ -644,6 +644,7 @@ function getGoalHist(username, goalId) {
 														WHERE username = ?
 														AND date_start = ?))`;
 
+
 	var output;
 	output = JSON.parse('{}');
 	output.x = [];
@@ -651,15 +652,18 @@ function getGoalHist(username, goalId) {
 
 
 	for (var i = 0; i < dates.length; i++) {
-		db.run(sql, [goalId, goalId, username, dates[i]], (res) => {
+		db.run(sql, [goalId, goalId, username, dates[i].date_start], (res) => {
 			if(res.error) {
 				throw res.error;
 			}
+
 			output.x.push(dates[i].date_start);
 			output.y.push(res[0].num_this_week);
 		});
 
 	}
+
+
 
 	db.close();
 	return output;
