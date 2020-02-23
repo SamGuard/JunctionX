@@ -15,10 +15,6 @@ $(document).ready(function() {
 	$("#leftMenuIcon2").hide();
     $("#leftMenuID2").hide();
     $("#registerInfo").hide();
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
     $("#loginSectionID").css("height", "400px");
 
     $('#password').keyup(function(e){
@@ -56,10 +52,6 @@ $(document).ready(function() {
                 if (data.status == true) {
                     $("#leftMenuIcon").show();
 					$("#leftMenuIcon2").show();
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
                     console.log(coolAuth);
@@ -75,12 +67,8 @@ $(document).ready(function() {
         });
 
 
-<<<<<<< HEAD
-    });                     
-=======
     });
 
->>>>>>> origin/master
     $("#registerSubmit").click(function(){
 
         var username = $("#registerUsername").val();
@@ -111,11 +99,6 @@ $(document).ready(function() {
                     success: function (data) {
                         if (data.status == true) {
                             $("#leftMenuIcon").show();
-<<<<<<< HEAD
-                            $("leftMenuIcon2").hide();
-
-=======
->>>>>>> origin/master
                             $("#loginSectionID").removeClass("loginSection");
                             $("#loginSectionID").addClass("loginSectionHidden");
                             loadTracks();
@@ -311,7 +294,9 @@ $(document).ready(function() {
             },
             type: 'POST',
             success: function(res) {
+                console.log(res.tracks);
                 dataStore = res.tracks;
+                loadGoalSelect();
                 for (var i = 0; i < res.tracks.length; i++) {
                     addTrack(res.tracks[i]);
 
@@ -319,6 +304,14 @@ $(document).ready(function() {
                 }
             }
         });
+    }
+
+    function loadGoalSelect() {
+        for (var i = 0; i < dataStore.length; i++) {
+            for (var j = 0; j < dataStore[i].goals.length; j++) {
+                $("#myTable tr:last").after("<tr><td>" + dataStore[i].goals[j].name + "</td></tr>");
+            }
+        }
     }
 
     function addTrack(track) {
@@ -409,6 +402,8 @@ $(document).ready(function() {
         });
     });
 
+
+
 });
 
 function runGoalCallback(goalID, toggle) {
@@ -433,37 +428,37 @@ function runGoalCallback(goalID, toggle) {
     });
 
         $("#panelDiv" + goalID).hide();
-        $("#goalDiv" + goalID).show();
+        $("#goalDiv" + goalID).show(); // jim'll fix it
     }
 }
 
-function drawChart(goalID, res) {
-    console.log(res);
+    function drawChart(goalID, res) {
+        console.log(res);
+        
+        var output = [];
+        
+          for (var i=0;i<=res.x.length;i++) {
+             output[i] = [];
+          }
+        output[0][0] = 'Week';
+        output[0][1] = 'Days completed';
+        
+        for (var i = 1; i <= res.x.length; i++) {
+            output[i][0] = res.x[i-1];
+            output[i][1] = res.y[i-1];
+        }
+        
+        console.log(output);
+        var data = google.visualization.arrayToDataTable(output);
 
-    var output = [];
+        var options = {
+            title: 'Historical Evidence',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
 
-      for (var i=0;i<=res.x.length;i++) {
-         output[i] = [];
-      }
-    output[0][0] = 'Week';
-    output[0][1] = 'Days completed';
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart' + goalID));
 
-    for (var i = 1; i <= res.x.length; i++) {
-        output[i][0] = res.x[i-1];
-        output[i][1] = res.y[i-1];
+        chart.draw(data, options);
     }
 
-
-    console.log(output);
-    var data = google.visualization.arrayToDataTable(output);
-
-    var options = {
-        title: 'Historical Evidence',
-        curveType: 'function',
-        legend: { position: 'bottom' }
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart' + goalID));
-
-    chart.draw(data, options);
-}
