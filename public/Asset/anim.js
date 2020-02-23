@@ -1,83 +1,228 @@
-$(document).ready(function() {
-    var flowDivs = ["bg1", "bg2", "bg3"];
-    var gritDivs = ["grit1", "grit2", "grit3"];
-    var kelpDivs = ["kelp1", "kelp2", "kelp3"];
-    var seaweedDivs = ["seaweed1", "seaweed2", "seaweed3", "seaweed4", "seaweed5"];
 
-    var flowIndex = 0;
-    var gritIndex = 0;
-    var kelpIndex = 0;
-    var seaweedIndex = 0;
+$(document).ready(function() {
+
+    var index = 0;
 
     var delayTime = 1500;
-    
+
     var goodTimer;
-        
-    for (var i = 0; i < 3; i++) {
-        $("#" + flowDivs[i]).hide();
-        $("#" + gritDivs[i]).hide();
-        $("#" + kelpDivs[i]).hide();
-    }
-    for (var i = 0; i < 5; i++) {
-        $("#" + seaweedDivs[i]).hide();
-    }
-    function startNeutral() {
-    var neutralTimer = setInterval(neutral, delayTime);
-    }
+    var neutralTimer;
+    var badTimer;
+
     startNeutral();
+
+    function startNeutral() {
+        neutralTimer = setInterval(neutral, delayTime);
+        endGood();
+        endBad();
+
+        $(".background").each(function () {
+            $(this).fadeIn(delayTime);
+        })
+        $(".backgroundGood").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+    }
+
+    function startGood() {
+        goodTimer = setInterval(good, delayTime);
+
+        endNeutral();
+        endBad();
+        $(".backgroundGood").each(function () {
+            $(this).fadeIn(delayTime);
+        })
+        $(".background").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundBad3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+    }
+
+    function startBad() {
+        badTimer = setInterval(bad, delayTime);
+
+        endNeutral();
+        endGood();
+
+        $(".backgroundBad").each(function () {
+            $(this).fadeIn(delayTime);
+        })
+        $(".background").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".background3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood1").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood2").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+        $(".backgroundGood3").each(function () {
+            $(this).fadeOut(delayTime);
+        })
+    }
+
+    function endGood() {
+        clearInterval(goodTimer);
+    }
 
     function endNeutral() {
         clearInterval(neutralTimer);
-    } 
-    
-    function startGood() {
-        goodTimer = setInterval(good, delayTime);
     }
-    function endGood() {
-        clearInterval(goodTimer);
-    } 
-    
+
+    function endBad() {
+        clearInterval(badTimer);
+    }
+
     function neutral() {
+        if(index == 0) {
+            $(".background3").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".background1").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else if(index == 1)  {
+            $(".background1").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".background2").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else {
+            $(".background2").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".background3").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+
+            index = 0
+        }
+
+        /*
         $("#" + flowDivs[flowIndex]).fadeOut(delayTime);
         $("#" + gritDivs[gritIndex]).fadeOut(delayTime);
         $("#" + kelpDivs[kelpIndex]).fadeOut(delayTime);
 
         increaseIndexes();
-        
+
         $("#" + flowDivs[flowIndex]).fadeIn(delayTime);
         $("#" + gritDivs[gritIndex]).fadeIn(delayTime);
         $("#" + kelpDivs[kelpIndex]).fadeIn(delayTime);
+        */
     }
-    
-    
+
+
     function good() {
-        $("#" + flowDivs[flowIndex]).fadeOut(delayTime);
-        $("#" + seaweedDivs[seaweedIndex]).fadeOut(delayTime);
+        if(index == 0) {
+            $(".backgroundGood3").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundGood1").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else if(index == 1)  {
+            $(".backgroundGood1").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundGood2").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else {
+            $(".backgroundGood2").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundGood3").each(function () {
+                $(this).fadeIn(delayTime);
+            })
 
-        increaseIndexes();
-        
-        $("#" + flowDivs[flowIndex]).fadeIn(delayTime);
-        $("#" + seaweedDivs[seaweedIndex]).fadeIn(delayTime);
-
+            index = 0
+        }
     }
-   
-    
-    function increaseIndexes() {
-        flowIndex++;
-        if (flowIndex >= flowDivs.length) {
-            flowIndex = 0;
-        }
-        gritIndex++;
-        if (gritIndex >= gritDivs.length) {
-            gritIndex = 0;
-        }        
-        kelpIndex++;
-        if (kelpIndex >= kelpDivs.length) {
-            kelpIndex = 0;
-        }
-        seaweedIndex++;
-        if (seaweedIndex >= seaweedDivs.length) {
-            seaweedIndex = 0;
+
+    function bad() {
+        if(index == 0) {
+            $(".backgroundBad3").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundBad1").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else if(index == 1)  {
+            $(".backgroundBad1").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundBad2").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+            index++;
+        } else {
+            $(".backgroundBad2").each(function () {
+                $(this).fadeOut(delayTime);
+            })
+            $(".backgroundBad3").each(function () {
+                $(this).fadeIn(delayTime);
+            })
+
+            index = 0
         }
     }
 });
