@@ -1,8 +1,7 @@
-var coolAuth = "";
 
 $(document).ready(function() {
 
-    //var coolAuth = "";
+    var coolAuth = "";
     var firstTime = true;
 	var firstTime2 = true;
     var dataStore;
@@ -338,9 +337,8 @@ $(document).ready(function() {
             }
         }
     }
-});
-
-function addTrack(track) {
+    
+    function addTrack(track) {
     var output = "<div class='accordion'><h2>" + track.name + "</h2><div class='progress'><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:50%' id='bottom" + track.track_id + "'></div><div class='progress-bar progress-bar-warning progress-bar-striped progress-bar-animated' style='width:10%' id='top" + track.track_id + "'></div></div></div><div style='display: none'>";
     var i = 0;
     for (i = 0; i < track.goals.length; i++) {
@@ -350,92 +348,93 @@ function addTrack(track) {
 
 }
 
-function addGoal(goal) {
-	addOption(goal.name, goal.goal_id);
-    var output = "<div class='panel' id='panelDiv" + goal.goal_id + "'><h3>" + goal.name + "</h3><br><p>" + goal.desc + "</p><br><p>You have completed this goal " +goal.goal_score + " out of a possible " + goal.max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", false)' >View Historical Data</button></div>";
-    
-        output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'><h3>x dddddd</h3><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
+    function addGoal(goal) {
+        addOption(goal.name, goal.goal_id);
+        var output = "<div class='panel' id='panelDiv" + goal.goal_id + "'><h3>" + goal.name + "</h3><br><p>" + goal.desc + "</p><br><p>You have completed this goal " +goal.num_this_week + " out of a possible " + goal.max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", false)' >View Historical Data</button></div>";
 
-    
-    return output;
-}
+            output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'><h3>x dddddd</h3><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
 
-function runGoalCallback(goalID, toggle) {
-    console.log("nyahaha");
-    if (toggle) {
-        $("#panelDiv" + goalID).show();
-        $("#goalDiv" + goalID).hide();
+        return output;
     }
-    else {
-        $("#panelDiv" + goalID).hide();
-        $("#goalDiv" + goalID).show();
-    }
-}
 
-function showDiv(goToRegister) {
-    if (goToRegister) {
-        $("#loginInfo").hide();
-        $("#registerInfo").show();
-        $("#loginSectionID").css("height", "500px");
-
-    }
-    else {
-        $("#loginInfo").show();
-        $("#registerInfo").hide();
-        $("#loginSectionID").css("height", "400px");
-
-    }
-}
-function setupAccordion() {
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var parent = this.nextElementSibling;
-        if (parent.style.display === "block") {
-          parent.style.display = "none";
-        } else {
-          parent.style.display = "block";
+    function runGoalCallback(goalID, toggle) {
+        console.log("nyahaha");
+        if (toggle) {
+            $("#panelDiv" + goalID).show();
+            $("#goalDiv" + goalID).hide();
         }
-        var j;
-        var acc = document.getElementsByClassName("accordion");
+        else {
+            $("#panelDiv" + goalID).hide();
+            $("#goalDiv" + goalID).show();
+        }
+    }
 
-          for (j = 0; j < acc.length; j++) {
-            if (acc[j] != this) {
-                var parent = acc[j].nextElementSibling;
-                if (parent.style.display == "block") {
-                    parent.style.display = "none";
-                    acc[j].classList.toggle("active");
+    function showDiv(goToRegister) {
+        if (goToRegister) {
+            $("#loginInfo").hide();
+            $("#registerInfo").show();
+            $("#loginSectionID").css("height", "500px");
+
+        }
+        else {
+            $("#loginInfo").show();
+            $("#registerInfo").hide();
+            $("#loginSectionID").css("height", "400px");
+
+        }
+    }
+    function setupAccordion() {
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var parent = this.nextElementSibling;
+            if (parent.style.display === "block") {
+              parent.style.display = "none";
+            } else {
+              parent.style.display = "block";
+            }
+            var j;
+            var acc = document.getElementsByClassName("accordion");
+
+              for (j = 0; j < acc.length; j++) {
+                if (acc[j] != this) {
+                    var parent = acc[j].nextElementSibling;
+                    if (parent.style.display == "block") {
+                        parent.style.display = "none";
+                        acc[j].classList.toggle("active");
+                    }
                 }
             }
+          });
         }
-      });
     }
-}
 
-function addOption(goalName, goalId){
-	var x = document.getElementById("addData");
-	var option = document.createElement("option");
-	option.text = goalName;
-	option.value = goalId;
-	x.add(option);
-}
-
-function addAction(){
-    console.log(coolAuth);
-    var id = $("#addData").val(); 
-    $.ajax({
-        url: "data",
-        dataType: "json",
-        data: {"type": "compGoal", "goalId": id},
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", coolAuth);
-        },
-        type: 'POST',
-        success: function(res) {
-            loadTracks();
-        }
+    function addOption(goalName, goalId){
+        var x = document.getElementById("addData");
+        var option = document.createElement("option");
+        option.text = goalName;
+        option.value = goalId;
+        x.add(option);
+    }
+    
+    $("#addActionButton").click(function(){
+        console.log(coolAuth);
+        var id = $("#addData").val(); 
+        $.ajax({
+            url: "data",
+            dataType: "json",
+            data: {"type": "compGoal", "goalId": id},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", coolAuth);
+            },
+            type: 'POST',
+            success: function(res) {
+                loadTracks();
+            }
+        });
     });
-}
+});
+
