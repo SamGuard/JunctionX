@@ -15,8 +15,6 @@ $(document).ready(function() {
 	$("#leftMenuIcon2").hide();
     $("#leftMenuID2").hide();
     $("#registerInfo").hide();
-    $("#aboutInfo").hide();
-
     $("#loginSectionID").css("height", "400px");
 
     $('#password').keyup(function(e){
@@ -71,17 +69,6 @@ $(document).ready(function() {
 
     });
 
-    $("#rightMenuIcon").click(function(){
-        $("#loginInfo").hide();
-        $("#registerInfo").hide();
-        $("#aboutInfo").show();
-    }
-    $("#infoReturn").click(function(){
-        $("#loginInfo").show();
-        $("#registerInfo").show();
-        $("#aboutInfo").hide();
-    }
-                              
     $("#registerSubmit").click(function(){
 
         var username = $("#registerUsername").val();
