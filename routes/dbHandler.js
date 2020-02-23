@@ -704,7 +704,7 @@ function avgTrackScore(username, trackID) {
 	var numWeeks;
 
 	db.run(sql, [username], (res) => {
-		if(res.error) {
+		if(run.error) {
 			throw run.error;
 		}
 		weeks = res;
