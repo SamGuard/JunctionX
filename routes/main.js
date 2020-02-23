@@ -147,16 +147,13 @@ $(document).ready(function() {
         if (mainScreenOn2) {
             $("#leftMenuID2").removeClass("leftMenu2");
             $("#leftMenuID2").addClass("leftMenuHidden2");
-            $(".accordion").hide();
         }
         else {
             $("#leftMenuID2").removeClass("leftMenuHidden2");
             $("#leftMenuID2").addClass("leftMenu2");
-            $(".accordion").show();
 
             if (firstTime2) {
                 $("#leftMenuID2").show();
-                setupAccordion();
                 firstTime2 = false;
             }
         }
