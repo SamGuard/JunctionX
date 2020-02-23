@@ -343,3 +343,15 @@ background-color: #5c9b90;
 	margin-left: 5%;
 	float:left;
 }
+
+#addActionButton{
+	margin-top: 10px;
+	border-radius: 15px;
+}
+
+select {
+	width: 100%;
+	border-radius: 15px;
+	overflow-x: hidden;
+	overflow-y: scrowl;
+}

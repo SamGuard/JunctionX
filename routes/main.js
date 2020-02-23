@@ -336,6 +336,7 @@ function addTrack(track) {
 }
 
 function addGoal(goal) {
+	addOption(goal.name);
     var output = "<div class='panel' id='panelDiv" + goal.goal_id + "'><h3>" + goal.name + "</h3><br><p>" + goal.desc + "</p><br><p>You have completed this goal " +goal.goal_score + " out of a possible " + goal.max_num_per_week + " time(s) this week.</p><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", false)' >View Historical Data</button></div>";
     
         output += "<div class='panel' style='display: none' id='goalDiv" + goal.goal_id + "'><h3>x dddddd</h3><br><button onClick = 'runGoalCallback("+ goal.goal_id  + ", true)'>Return</button></div>";
@@ -397,4 +398,16 @@ function setupAccordion() {
         }
       });
     }
+}
+
+function addOption(goal){
+	var x = document.getElementById("addData");
+	var option = document.createElement("option");
+	option.text = goal;
+	option.value = goal;
+	x.add(option);
+}
+
+function addAction(){
+	alert($("#addData").val());
 }
