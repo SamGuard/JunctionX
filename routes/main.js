@@ -422,5 +422,22 @@ function addOption(goalName, goalId){
 }
 
 function addAction(){
-	alert($("#addData").val());
+    $.ajax({
+        url: "data",
+        method: "POST",
+        dataType: "json",
+        data: {"type": "compGoal", "goalId": $("#addData").val()},
+        crossDomain: true,
+        contentType: "application/json; charset=utf-8",
+        cache: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", coolAuth));
+            xhr.setRequestHeader("X-Mobile", "false");
+        },
+        success: function (data) {
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+    });
 }
