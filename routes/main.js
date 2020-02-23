@@ -409,5 +409,5 @@ function addOption(goalName, goalId){
 }
 
 function addAction(){
-    alert($("#addData").val());
+	alert($("#addData").val());
 }
