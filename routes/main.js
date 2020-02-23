@@ -327,7 +327,8 @@ $(document).ready(function() {
                 loadGoalSelect();
                 for (var i = 0; i < res.tracks.length; i++) {
                     addTrack(res.tracks[i]);
-                    change(5, res.tracks[i].threshold, res.tracks[i].track_id);
+
+                    change(100*(res.tracks[i].trackScore/res.tracks[i].threshold), 100*(res.tracks[i].avgTrackScore/res.tracks[i].threshold), res.tracks[i].track_id);
                 }
             }
         });

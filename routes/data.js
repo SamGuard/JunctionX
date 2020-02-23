@@ -34,7 +34,7 @@ router.post("/", function(req,res,next){
 				}
 			}
 			out.tracks[i].track_score = dbHandler.getTrackScore(username, Date.now(), out.tracks[i].track_id)[0].track_score;
-
+			out.tracks[i].avgTrackScore = dbHandler.avgTrackScore(username, out.tracks[i].track_id);
 		}
 
 		res.json(out);
