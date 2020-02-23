@@ -617,34 +617,49 @@ function updateUserScore(username, date) {
 	db.close();
 }
 
-function getTrackFromGoal(goalId){
-	let sql = `SELECT track_id FROM goals
-				WHERE goal_id = ?`;
+function getGoalHist(username, goalId) {
+	db.connect(dir);
 
-	var tID;
-	db.run(sql, [goalId], (res) => {
-		if(res.error) {
-			throw res.error;
-		}
-		tID = res[0].track_id;
-	});
+	let sql = `SELECT date_start FROM weeklyScore
+				WHERE username = ?
+				ORDER BY date_start`;
 
-	return tID;
-}
+	var dates;
 
-function getUserHistory(username){
-	let sql = `SELECT * FROM weeklyScore
-				WHERE username = ?`;
-
-	var ;
 	db.run(sql, [username], (res) => {
 		if(res.error) {
 			throw res.error;
 		}
-		tID = res[0].track_id;
+		dates = res;
 	});
 
-	return tID;
+	sql = `SELECT num_this_week FROM goalScores
+				WHERE goal_id = ?
+				AND track_score_id = (SELECT track_score_id FROM trackScores
+										WHERE track_id = (SELECT track_id FROM goals 
+															WHERE goal_id = ?)
+										AND week_id = (SELECT week_id FROM weeklyScore
+														WHERE username = ?
+														AND date = ?))`;
+
+	var output = [];
+
+	for (var i=0; i<dates.length; i++) {
+		var weekOut = [];
+
+		db.run(sql, [goalId, goalId, username, dates[i]], (res) => {
+			if(res.error) {
+				throw res.error;
+			}
+			weekOut.push(dates[i]);
+			weekOut.push(res[0].num_this_week);
+		});
+
+		output.push(weekOut);
+	}
+
+	db.close();
+	return output;
 }
 
 module.exports.addUser = addUser;
@@ -661,4 +676,4 @@ module.exports.setWeeklyScore = setWeeklyScore;
 module.exports.updateGoalScore = updateGoalScore;
 module.exports.getUser = getUser;
 module.exports.getTrackFromGoal = getTrackFromGoal;
-module.exports.getUserHistory = getUserHistory;
+module.exports.getGoalHist = getGoalHist;
