@@ -54,6 +54,8 @@ $(document).ready(function() {
                 if (data.status == true) {
                     $("#leftMenuIcon").show();
 					$("#leftMenuIcon2").show();
+                                                $("#rightMenuIcon").hide();
+
                     $("#loginSectionID").removeClass("loginSection");
                     $("#loginSectionID").addClass("loginSectionHidden");
                     console.log(coolAuth);
@@ -75,12 +77,11 @@ $(document).ready(function() {
         $("#loginInfo").hide();
         $("#registerInfo").hide();
         $("#aboutInfo").show();
-    }
+    });
     $("#infoReturn").click(function(){
         $("#loginInfo").show();
-        $("#registerInfo").show();
         $("#aboutInfo").hide();
-    }
+    });
                               
     $("#registerSubmit").click(function(){
 
@@ -112,6 +113,9 @@ $(document).ready(function() {
                     success: function (data) {
                         if (data.status == true) {
                             $("#leftMenuIcon").show();
+                            $("#rightMenuIcon").hide();
+                            $("leftMenuIcon2").hide();
+
                             $("#loginSectionID").removeClass("loginSection");
                             $("#loginSectionID").addClass("loginSectionHidden");
                             loadTracks();
