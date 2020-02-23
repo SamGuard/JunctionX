@@ -461,4 +461,4 @@ function runGoalCallback(goalID, toggle) {
 
         chart.draw(data, options);
     }
-}
+
