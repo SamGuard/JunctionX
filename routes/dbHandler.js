@@ -92,6 +92,24 @@ function getUserScore(username) {
 	return output;
 }
 
+function getUser(username){
+	db.connect(dir);
+
+	let sql = 'SELECT * FROM users WHERE username=?';
+
+	var output;
+
+	db.run(sql, [username], (res) => {
+		if (res.error) {
+			throw res.error;
+		}
+		output = res;
+	});
+
+	db.close();
+	return output;
+}
+
 function getAllUsers(){
 	db.connect(dir);
 
@@ -611,3 +629,4 @@ module.exports.getTrackScore = getTrackScore;
 module.exports.getGoalScore = getGoalScore;
 module.exports.setWeeklyScore = setWeeklyScore;
 module.exports.updateGoalScore = updateGoalScore;
+module.exports.getUser = getUser;
