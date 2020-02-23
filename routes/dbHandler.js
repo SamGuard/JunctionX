@@ -440,7 +440,6 @@ function updateTrackScore(trackScoreID, increment) {
 		if(res.error) {
 			throw res.error;
 		}
-		console.log(res);
 		threshold = res[0].threshold;
 		weight = res[0].weight;
 		newScore = res[0].track_score + increment;
@@ -462,7 +461,7 @@ function updateTrackScore(trackScoreID, increment) {
 
 	db.close();
 
-	var scoreForward = ((newScore/threshold)*weight)/100;
+	var scoreForward = ((newScore/threshold)*weight);
 
 	updateWeeklyScore(weekID, scoreForward);
 }
@@ -480,7 +479,6 @@ function updateGoalScore(username, date, trackID, goalID) {
 														WHERE username = ?
 														AND date_start = ?))`;
 
-	console.log(date);
 	var goalScoreID;
 
 	db.run(sql, [goalID, trackID, username, date], (res) => {
@@ -489,6 +487,7 @@ function updateGoalScore(username, date, trackID, goalID) {
 		}
 		goalScoreID = res[0].goal_score_id;
 	});
+
 
 
 	sql = `SELECT goals.max_num_per_week, goalScores.num_this_week
@@ -505,13 +504,11 @@ function updateGoalScore(username, date, trackID, goalID) {
 			throw res.error;
 		}
 		
-		console.log(res);
-		currentNum = res[0].max_num_per_week;
+		currentNum = res[0].num_this_week;
 		if (res[0].num_this_week >= res[0].max_num_per_week) {
 			output = false;
 		}
 	});
-
 
 	if (output) {
 		sql = `SELECT weight FROM goals
@@ -538,16 +535,6 @@ function updateGoalScore(username, date, trackID, goalID) {
 			}
 			currentScore = res[0].goal_score;
 		});
-		console.log(1);
-		console.log(goalScoreID)
-		console.log(2);
-		console.log(weight);
-		console.log(3);
-		console.log(currentScore);
-		console.log(4);
-		console.log(currentNum);
-		console.log(5);
-		;
 
 		sql = `UPDATE goalScores
 					SET goal_score = ?,
@@ -574,7 +561,6 @@ function updateGoalScore(username, date, trackID, goalID) {
 		});
 
 		db.close();
-		console.log(-1);
 		updateTrackScore(trackScoreID, weight);
 	} else {
 		db.close();
@@ -612,12 +598,6 @@ function updateUserScore(username, date) {
 
 	db.close();
 }
-
-
-//setWeeklyScore("sam", Date.now());
-
-
-
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
