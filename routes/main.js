@@ -3,7 +3,7 @@ $(document).ready(function() {
     var coolAuth = "";
     var firstTime = true;
 	var firstTime2 = true;
-    
+    var dataStore;
     var mainScreenOn = false;
 	var mainScreenOn2 = false;
     $("#leftMenuIcon").hide();
@@ -211,6 +211,7 @@ $(document).ready(function() {
         document.getElementById('fish-container').appendChild(fishDivs[name]);
     }
 
+    /*
     var seaBedGritAssets = ['/Asset/Sea_bed_grit/Neutral_Sea-1.png', '/Asset/Sea_bed_grit/Neutral_Sea-2.png', '/Asset/Sea_bed_grit/Neutral_Sea-3.png'];
     var seaBedGritIndex = 0;
 
@@ -228,7 +229,7 @@ $(document).ready(function() {
 
     var kelp = document.getElementById("seaKelp");
     kelp.src = kelpAssets[kelpIndex];
-
+*/
     function nextImages() {
         for (var img in fishAssets) {
             fishCurrentIndex[img]++;
@@ -242,6 +243,7 @@ $(document).ready(function() {
             //console.log("Changed");
         };
 
+        /*
         seaBedGritIndex++;
         if(seaBedGritIndex >= seaBedGritAssets.length) {
             seaBedGritIndex = 0;
@@ -262,6 +264,7 @@ $(document).ready(function() {
         }
         console.log(kelpIndex);
         kelp.src = kelpAssets[kelpIndex];
+        */
     }
 
     function runAnimation() {
@@ -316,12 +319,22 @@ $(document).ready(function() {
             type: 'POST',
             success: function(res) {
                 console.log(res.tracks);
+                dataStore = res.tracks;
+                loadGoalSelect();
                 for (var i = 0; i < res.tracks.length; i++) {
                     addTrack(res.tracks[i]);
                     change(5, res.tracks[i].threshold, res.tracks[i].track_id);
                 }
             }
         });
+    }
+    
+    function loadGoalSelect() {
+        for (var i = 0; i < dataStore.length; i++) {
+            for (var j = 0; j < dataStore[i].goals.length; j++) {
+                $("#myTable tr:last").after("<tr><td>" + dataStore[i].goals[j].name + "</td></tr>");
+            }
+        }
     }
 });
 
@@ -409,5 +422,5 @@ function addOption(goalName, goalId){
 }
 
 function addAction(){
-    alert($("#addData").val());
+	alert($("#addData").val());
 }

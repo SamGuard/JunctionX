@@ -33,11 +33,9 @@ router.post("/", function(req,res,next){
 					out.tracks[i].goals[j].goal_score = goalInfo[0].goal_score;
 				}
 			}
-
 			out.tracks[i].track_score = dbHandler.getTrackScore(username, Date.now(), out.tracks[i].track_id)[0].track_score;
 
 		}
-
 
 		res.json(out);
 
