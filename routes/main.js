@@ -461,13 +461,22 @@ function runGoalCallback(goalID, toggle) {
 
     function drawChart(goalID, res) {
         console.log(res);
-        var data = google.visualization.arrayToDataTable([
-            ['Week', 'Days completed'],
-            ['2004',  1000],
-            ['2005',  1170],
-            ['2006',  660],
-            ['2007',  1030]
-        ]);
+        
+        var output = [];
+        
+          for (var i=0;i<=res.x.length;i++) {
+             output[i] = [];
+          }
+        output[0][0] = 'Week';
+        output[0][1] = 'Days completed';
+        
+        for (var i = 1; i <= res.x.length; i++) {
+            output[i][0] = res.x[i-1];
+            output[i][1] = res.y[i-1];
+        }
+        
+        console.log(output);
+        var data = google.visualization.arrayToDataTable(output);
 
         var options = {
             title: 'Historical Evidence',
