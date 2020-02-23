@@ -24,7 +24,7 @@ router.post("/", function(req,res,next){
 			out.tracks[i].goals = dbHandler.getGoalsForTrack(out.tracks[i].track_id);
 			for(var j = 0; j < out.tracks[i].goals.length; j++){
 				goalInfo = dbHandler.getGoalScore(body.username, Date.now(), body.trackID, body.goalID);
-
+				console.log(goalInfo);
 				out.track[i].goal.goal_score = goalInfo.goal_score;
 			}
 		}
