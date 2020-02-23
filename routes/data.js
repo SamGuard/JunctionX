@@ -31,7 +31,7 @@ router.post("/", function(req,res,next){
 			for(var j = 0; j < out.tracks[i].goals.length; j++){
 				goalInfo = dbHandler.getGoalScore(username, Date.now(), out.tracks[i].track_id, out.tracks[i].goals[j].goal_id);
 				if(goalInfo.length > 0){
-					out.tracks[i].goals[j].goal_score = goalInfo[0].goal_score;
+					out.tracks[i].goals[j].num_this_week = goalInfo[0].num_this_week;
 				}
 			}
 			out.tracks[i].track_score = dbHandler.getTrackScore(username, Date.now(), out.tracks[i].track_id)[0].track_score;
