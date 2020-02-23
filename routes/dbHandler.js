@@ -644,20 +644,21 @@ function getGoalHist(username, goalId) {
 														WHERE username = ?
 														AND date = ?))`;
 
-	var output = [];
+	var output;
+	output = JSON.parse('{}');
+	output.x = [];
+	output.y = [];
 
-	for (var i=0; i<dates.length; i++) {
-		var weekOut = [];
 
+	for (var i = 0; i < dates.length; i++) {
 		db.run(sql, [goalId, goalId, username, dates[i]], (res) => {
 			if(res.error) {
 				throw res.error;
 			}
-			weekOut.push(dates[i]);
-			weekOut.push(res[0].num_this_week);
+			output.x.push(dates[i].date_start);
+			output.y.push(res[0].num_this_week);
 		});
 
-		output.push(weekOut);
 	}
 
 	db.close();
@@ -686,6 +687,8 @@ function getTrackFromGoal(goalId) {
 function newGoal(goalId, trackId, name, weight, desc, maxNum){
 	console.log("lol nope");
 }
+
+
 
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
