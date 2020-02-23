@@ -129,6 +129,12 @@ $(document).ready(function() {
             $(".accordion").hide();
         }
         else {
+			if(mainScreenOn2){
+				$("#leftMenuID2").removeClass("leftMenu2");
+				$("#leftMenuID2").addClass("leftMenuHidden2");
+				mainScreenOn2 = !mainScreenOn2;
+			}
+			
             $("#leftMenuID").removeClass("leftMenuHidden");
             $("#leftMenuID").addClass("leftMenu");
             $(".accordion").show();
@@ -149,9 +155,16 @@ $(document).ready(function() {
             $("#leftMenuID2").addClass("leftMenuHidden2");
         }
         else {
+			if(mainScreenOn) {
+				$("#leftMenuID").removeClass("leftMenu");
+				$("#leftMenuID").addClass("leftMenuHidden");
+				$(".accordion").hide();
+				mainScreenOn = !mainScreenOn;
+			}
+			
             $("#leftMenuID2").removeClass("leftMenuHidden2");
             $("#leftMenuID2").addClass("leftMenu2");
-
+			
             if (firstTime2) {
                 $("#leftMenuID2").show();
                 firstTime2 = false;
