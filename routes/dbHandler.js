@@ -662,6 +662,26 @@ function getGoalHist(username, goalId) {
 	return output;
 }
 
+function getTrackFromGoal(goalId) {
+	db.connect(dir);
+
+	let sql = `SELECT track_id FROM goals
+				WHERE goal_id = ?`;
+
+	var output;
+
+	db.run(sql, [goalId], (res) => {
+		if(res.error) {
+			throw res.error;
+		}
+
+		output = res[0].track_id;
+	});
+
+	db.close();
+	return output;
+}
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getAllUsers = getAllUsers;
