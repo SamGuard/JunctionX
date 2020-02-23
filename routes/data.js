@@ -49,6 +49,9 @@ router.post("/", function(req,res,next){
 		res.json({"status": "success"});
 	}else if(body.type == "getGoalInfo"){
 		res.json(dbHandler.getGoalScore(body.username, Date.now(), body.trackID, body.goalID));
+
+	}else if(body.type == "getHistData"){
+		dbHandler.getGoalHist()
 	}else{
 		res.json({"status": "failuire"});
 	}

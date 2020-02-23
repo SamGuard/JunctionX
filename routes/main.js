@@ -435,6 +435,7 @@ function addAction(){
         },
         type: 'POST',
         success: function(res) {
+            loadTracks();
         }
     });
 }
