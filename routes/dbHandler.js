@@ -687,6 +687,8 @@ function newGoal(goalId, trackId, name, weight, desc, maxNum){
 	console.log("lol nope");
 }
 
+
+
 module.exports.addUser = addUser;
 module.exports.userInDB = userInDB;
 module.exports.getAllUsers = getAllUsers;
