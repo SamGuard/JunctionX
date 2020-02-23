@@ -23,7 +23,6 @@ router.post("/", function(req,res,next){
 
 		out.tracks = tracks;
 
-
 		var goalInfo;
 		out.curr_score = dbHandler.getUser(username)[0].avg_score;
 		for(var i = 0; i < out.tracks.length; i++){
