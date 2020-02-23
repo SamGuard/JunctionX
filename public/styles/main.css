@@ -187,6 +187,24 @@ body{
     color: #b2e6d2;
 }
 
+#rightMenuIcon{
+    padding: 3px;
+    border:3px solid #4b536b;
+    width: 62px;
+    height: 62px;
+    font-size:45px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    position: fixed;
+    right: 0px;
+    top: 0pz%;
+    border-radius: 5px;
+    z-index: 10;
+    background: rgba(75, 83, 107, 0.7);
+    color: #b2e6d2;
+}
+
 #leftMenuIcon2{
     padding: 3px;
     border:3px solid #4b536b;
@@ -343,16 +361,4 @@ background-color: #5c9b90;
 #keyText{
 	margin-left: 5%;
 	float:left;
-}
-
-#addActionButton{
-	margin-top: 10px;
-	border-radius: 15px;
-}
-
-select {
-	width: 100%;
-	border-radius: 15px;
-	overflow-x: hidden;
-	overflow-y: scrowl;
 }
