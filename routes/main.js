@@ -450,7 +450,7 @@ function runGoalCallback(goalID, toggle) {
         },
         type: 'POST',
         success: function(res) {
-            drawChart(goalID);
+            drawChart(goalID, res);
         }
     });
 
@@ -459,7 +459,8 @@ function runGoalCallback(goalID, toggle) {
     }
 }
 
-    function drawChart(goalID) {
+    function drawChart(goalID, res) {
+        console.log(res);
         var data = google.visualization.arrayToDataTable([
             ['Week', 'Days completed'],
             ['2004',  1000],
