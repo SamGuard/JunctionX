@@ -51,7 +51,7 @@ router.post("/", function(req,res,next){
 		res.json(dbHandler.getGoalScore(body.username, Date.now(), body.trackID, body.goalID));
 
 	}else if(body.type == "getHistData"){
-		dbHandler.getGoalHist()
+		res.json(dbHandler.getGoalHist(auth.getUsername(req.headers["authorization"]), body.goalId));
 	}else{
 		res.json({"status": "failuire"});
 	}
